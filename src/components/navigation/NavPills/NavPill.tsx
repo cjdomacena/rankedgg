@@ -4,7 +4,7 @@ import { Menu } from "@headlessui/react";
 import PillItem from "./PillItem";
 type Props = {
   text: string;
-  pills?: { text: string; icon: JSX.Element }[];
+  pills?: { text: string; icon: JSX.Element, path:string }[];
 };
 
 const NavPill: React.FC<Props> = ({ text, pills }) => {
@@ -27,7 +27,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
                     tabIndex={index}
                     className=" rounded hover:bg-neutral-500 cursor-pointer"
                     key={`${text}-${id}-${index}`}>
-                    <PillItem icon={pill.icon} text={pill.text} />
+                    <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
                   </Menu.Item>
                 ))
               : null}
