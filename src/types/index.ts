@@ -31,11 +31,41 @@ export type THero = {
 };
 
 export type THeroes = {
-	hero: THero[] | null
-}
+  hero: THero[] | null;
+};
 
 export type TFilteredHeroes = {
-   agility: THero[];
-   strength: THero[];
-   intelligence: THero[];
- };
+  agility: THero[];
+  strength: THero[];
+  intelligence: THero[];
+};
+
+export type THeroStats = {
+  id: number,
+  name: string,
+  localized_name: string,
+  img: string,
+  icon: string,
+  pro_win: number,
+  pro_pick: number,
+  hero_id: number,
+  pro_ban: number,
+  herald_pick: number,
+  herald_win: number,
+  guardian_pick: number,
+  guardian_win: number,
+  crusader_pick: number,
+  crusader_win: number,
+  archon_pick: number,
+  archon_win: number,
+  legend_pick: number,
+  legend_win: number,
+  ancient_pick: number,
+  ancient_win: number,
+  divine_pick: number,
+  divine_win: number,
+  immortal_pick: number,
+  immortal_win: number,
+  turbo_pick: number,
+  turbo_win: number,
+};

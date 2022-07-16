@@ -27,3 +27,11 @@ export const useHeroes = () => {
     },
   );
 };
+
+export const useHeroStats = () => {
+  return useQuery(['heroStats'], async () => {
+    const req = await fetch(`${BASE_URL}/heroStats`);
+    const res = await req.json();
+    return res;
+  },{...queryConfig})
+}

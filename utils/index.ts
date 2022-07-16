@@ -14,3 +14,7 @@ export const filterSearchHero = (q: string, heroList: string[]) => {
     return false
   }
 };
+
+export const sortHeroesBy = () => {
+
+}

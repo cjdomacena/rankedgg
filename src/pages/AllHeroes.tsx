@@ -31,7 +31,7 @@ const AllHeroes: React.FC = () => {
     );
   } else if (status === "success" && data) {
     return (
-      <section className="p-8 h-full w-full bg-gradient-to-b from-black via-black to-gray-900">
+      <section className="p-8 h-full w-full bg-gradient-to-b from-black/60 via-black to-gray-900">
         <div className="container mx-auto p-4 font-noto-sans text-2xl font-bold flex justify-between text-white">
           <h1 className="text-white">All Heroes</h1>
           <input
