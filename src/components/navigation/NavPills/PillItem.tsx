@@ -1,16 +1,19 @@
 import React from 'react'
-import { FiChevronDown, FiGrid, FiTrendingUp } from "react-icons/fi";
+import {Link,} from 'react-router-dom'
 type Props = {
 	text:string,
-	icon: JSX.Element | JSX.Element[]
+	icon: JSX.Element | JSX.Element[],
+  path: string
 }
 
-const PillItem:React.FC<Props> = ({text, icon}) => {
+const PillItem:React.FC<Props> = ({text, icon, path}) => {
   return (
-    <h1 className="p-2 flex items-center">
-      {icon}
-	  <span>{text}</span>
-    </h1>
+    <Link to={path}>
+      <h1 className="p-2 flex items-center">
+        {icon}
+        <span>{text}</span>
+      </h1>
+    </Link>
   );
 }
 

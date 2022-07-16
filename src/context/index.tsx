@@ -1,11 +1,21 @@
-import React from 'react'
+import React, {
+  createContext,
+  Dispatch, 
+  SetStateAction,
+  useState
+} from 'react'
+import { THeroes } from '../types'
 
-type Props = {}
 
-const index = (props: Props) => {
-  return (
-	<div>index</div>
-  )
+interface IHeroes {
+  heroes: THeroes | null,
+  setHeroes: Dispatch<SetStateAction<THeroes | null>>;
 }
 
-export default index
+export const HeroesContext = createContext({} as IHeroes);
+
+export const HeroesProvider = (children: JSX.Element[] | JSX.Element) => {
+  const [heroes, setHeroes] = useState<THeroes | null>(null);
+  
+  return <HeroesContext.Provider value={{heroes, setHeroes}}>{children}</HeroesContext.Provider>;
+}

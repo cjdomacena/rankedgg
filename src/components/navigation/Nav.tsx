@@ -10,10 +10,12 @@ const Nav = (props: Props) => {
     {
       text: "Public Matches",
       icon: <BiWorld className="mr-1" />,
+      path: "/public-matches",
     },
     {
       text: "Pro Matches",
       icon: <IoPeopleOutline className="mr-1" />,
+      path: "/pro-matches",
     },
   ];
 
@@ -21,10 +23,12 @@ const Nav = (props: Props) => {
     {
       text: "All Heroes",
       icon: <FiGrid className="mr-1" />,
+      path: "/all-heroes",
     },
     {
       text: "Trending Heroes",
       icon: <FiTrendingUp className="mr-1" />,
+      path: "/trending-heroes",
     },
   ];
 
@@ -32,7 +36,7 @@ const Nav = (props: Props) => {
     <header className="w-full bg-black h-auto  border-b border-b-white/10 font-noto-sans">
       <nav className="p-4 flex text-neutral-50 gap-12 items-center">
         <NavLogo />
-        <ul className="flex gap-4">
+        <ul className="hidden gap-4 xl:flex lg:flex md:hidden sm:hidden xs:hidden ">
           <NavPill text="Heroes" pills={heroesPills} />
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" />
