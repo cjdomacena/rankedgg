@@ -184,7 +184,7 @@ const AllHeroes: React.FC = () => {
     );
   } else if (status === "success" && data) {
     return (
-      <section className="p-8 h-full w-full bg-gradient-to-b from-black/60 via-black to-gray-900">
+      <section className="h-full w-full bg-gradient-to-b from-black/60 via-black to-gray-900 overflow-x-hidden">
         <div className="container mx-auto p-4 font-noto-sans text-2xl font-bold flex justify-between text-white">
           <h1 className="text-white">All Heroes</h1>
           <input
@@ -195,45 +195,47 @@ const AllHeroes: React.FC = () => {
             onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
-        <AllHeroLayout type="Strength">
-          {data.strength.map((hero) => (
-            <HeroIcon
-              src={hero.img}
-              key={`${id}-${hero.id}`}
-              className={
-                matches.includes(formatHeroName(hero.localized_name))
-                  ? formatHeroName(hero.localized_name)
-                  : "opacity-30"
-              }
-            />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Agility">
-          {data.agility.map((hero) => (
-            <HeroIcon
-              src={hero.img}
-              key={`${id}-${hero.id}`}
-              className={
-                matches.includes(formatHeroName(hero.localized_name))
-                  ? "opacity-100" //formatHeroName(hero.localized_name)
-                  : "opacity-30"
-              }
-            />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Intelligence">
-          {data.intelligence.map((hero) => (
-            <HeroIcon
-              src={hero.img}
-              key={`${id}-${hero.id}`}
-              className={
-                matches.includes(formatHeroName(hero.localized_name))
-                  ? "opacity-100" //formatHeroName(hero.localized_name)
-                  : "opacity-30"
-              }
-            />
-          ))}
-        </AllHeroLayout>
+        <div className="container mx-auto">
+          <AllHeroLayout type="Strength">
+            {data.strength.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Agility">
+            {data.agility.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? "opacity-100" //formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Intelligence">
+            {data.intelligence.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? "opacity-100" //formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+        </div>
       </section>
     );
   } else {

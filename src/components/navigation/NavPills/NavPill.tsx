@@ -11,21 +11,21 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
   const id = useId();
   if (pills) {
     return (
-      <li className="text-sm font-semibold text-neutral-300 relative">
+      <li className="text-sm font-semibold text-gray-300 relative">
         <Menu>
-          <Menu.Button className="flex items-center py-2 px-3 rounded bg-neutral-900 ring-1 ring-neutral-700 hover:bg-neutral-800">
+          <Menu.Button className="flex items-center py-2 px-3 rounded bg-gray-900 ring-1 ring-gray-700 hover:bg-gray-800">
             {text}
             <FiChevronDown className="ml-1" />
           </Menu.Button>
           <Menu.Items
-            className="absolute top-12 left-0 p-1 w-44 bg-neutral-800 rounded-sm ring-1 ring-neutral-700 text-sm space-y-1"
+            className="absolute top-12 left-0 p-1 w-44 bg-black rounded-sm ring-1 ring-gray-700 text-sm space-y-1"
             as="ul">
             {pills
               ? pills.map((pill, index) => (
                   <Menu.Item
                     as="li"
                     tabIndex={index}
-                    className=" rounded hover:bg-neutral-500 cursor-pointer"
+                    className=" rounded hover:bg-gray-500 cursor-pointer"
                     key={`${text}-${id}-${index}`}>
                     <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
                   </Menu.Item>
@@ -38,8 +38,8 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
   }
 
 return (
-  <li className="text-sm font-semibold text-neutral-300 flex items-center cursor-pointer hover:text-neutral-400 transition-colors">
-    <p className="flex items-center py-2 px-3 rounded bg-neutral-900 ring-1 ring-neutral-700 hover:bg-neutral-800">
+  <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:text-gray-400 transition-colors">
+    <p className="flex items-center py-2 px-3 rounded bg-gray-900 ring-1 ring-gray-700 hover:bg-gray-800">
       {text}
     </p>
   </li>
