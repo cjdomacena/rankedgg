@@ -4,17 +4,17 @@ export const filterHeroes = (type: string, heroes: THero[]) => {
   return filteredHeroes;
 };
 
-export const filterSearchHero = (q: string, heroList: string[]) => {
-  const index = heroList.findIndex(el => {
-    if(el.includes(q)) {
-      return true;
-    }
-  })
-  if(index === -1) {
-    return false
-  }
+export const filterSearchHero = (q: string, heroList: string[]):string[] => {
+    const filteredHeroes = heroList.filter((hero) => {
+      if (hero.includes(q.toLowerCase())) {
+        return hero;
+      }
+    });
+    return filteredHeroes;
 };
 
-export const sortHeroesBy = () => {
-
+export const formatHeroName = (name:string):string => {
+  return name.split('-').join(' ').toLowerCase();
 }
+
+export const sortHeroesBy = () => {};

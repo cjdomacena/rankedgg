@@ -15,7 +15,7 @@ const AllHeroLayout: React.FC<Props> = ({ children, type }) => {
         />
         <h1 className="font-bold tracking-wide text-neutral-400 uppercase">{type}</h1>
       </div>
-      <div className="grid grid-cols-[repeat(auto-fill,minmax(70px,1fr))] gap-4  ">{children}</div>
+      <div className="grid grid-cols-[repeat(auto-fill,minmax(90px,1fr))] gap-4  ">{children}</div>
     </section>
   );
 };

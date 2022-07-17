@@ -1,13 +1,166 @@
 import React, { useId, useState } from "react";
+import { filterSearchHero, formatHeroName } from "../../utils";
 import { useHeroes } from "../api";
 import HeroIcon from "../components/Heroes/HeroIcon";
 import AllHeroLayout from "../components/Layouts/AllHeroLayout";
 
 const AllHeroes: React.FC = () => {
+  const herolist = [
+    "nature's prophet",
+    "outworld devourer",
+    "windranger",
+    "zeus",
+    "shadow fiend",
+    "vengeful spirit",
+    "timbersaw",
+    "naix",
+    "anti mage",
+    "axe",
+    "bane",
+    "bloodseeker",
+    "centaur warrunner",
+    "crystal maiden",
+    "drow ranger",
+    "earthshaker",
+    "juggernaut",
+    "mirana",
+    "morphling",
+    "phantom lancer",
+    "puck",
+    "pudge",
+    "razor",
+    "sand king",
+    "storm spirit",
+    "sven",
+    "tiny",
+    "vengefulspirit",
+    "kunkka",
+    "lina",
+    "lion",
+    "shadow shaman",
+    "slardar",
+    "tidehunter",
+    "witch doctor",
+    "lich",
+    "riki",
+    "enigma",
+    "tinker",
+    "sniper",
+    "necrophos",
+    "warlock",
+    "beastmaster",
+    "queen of pain",
+    "venomancer",
+    "faceless void",
+    "skeleton king",
+    "death prophet",
+    "phantom assassin",
+    "pugna",
+    "templar assassin",
+    "viper",
+    "luna",
+    "dragon knight",
+    "dazzle",
+    "leshrac",
+    "life stealer",
+    "dark seer",
+    "clinkz",
+    "omniknight",
+    "enchantress",
+    "huskar",
+    "night stalker",
+    "broodmother",
+    "bounty hunter",
+    "weaver",
+    "jakiro",
+    "batrider",
+    "chen",
+    "spectre",
+    "ancient apparition",
+    "doom",
+    "ursa",
+    "spirit breaker",
+    "gyrocopter",
+    "alchemist",
+    "invoker",
+    "silencer",
+    "obsidian destroyer",
+    "lycan",
+    "brewmaster",
+    "shadow demon",
+    "lone druid",
+    "chaos knight",
+    "meepo",
+    "treant protector",
+    "ogre magi",
+    "undying",
+    "rubick",
+    "disruptor",
+    "nyx assassin",
+    "naga siren",
+    "keeper of the light",
+    "wisp",
+    "visage",
+    "slark",
+    "medusa",
+    "troll warlord",
+    "centaur",
+    "magnataur",
+    "shredder",
+    "bristleback",
+    "tusk",
+    "skywrath mage",
+    "abaddon",
+    "elder titan",
+    "legion commander",
+    "techies",
+    "ember spirit",
+    "earth spirit",
+    "abyssal underlord",
+    "terrorblade",
+    "phoenix",
+    "oracle",
+    "winter wyvern",
+    "arc warden",
+    "monkey king",
+    "dark willow",
+    "pangolier",
+    "grimstroke",
+    "hoodwink",
+    "void spirit",
+    "snapfire",
+    "mars",
+    "dawnbreaker",
+    "marci",
+    "primal beast",
+    "io",
+    "underlord",
+    "clockwerk",
+    "omnni",
+    "magnus",
+    "lifestealer",
+    "wraith king"
+  ];
+
   const { status, data } = useHeroes();
   const id = useId();
   const placeHolderItems = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12];
   const [searchInput, setSearch] = useState<string>("");
+  const [matches, setMatches] = useState<string[]>(herolist);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+   
+    const q = e.target.value;
+     if (q.length === 0) {
+       setMatches(herolist);
+     }
+    setSearch(q)
+    if (q.length > 0) {
+      setIsSearching(true);
+      const partialMatches = filterSearchHero(q, herolist);
+      setMatches(partialMatches);
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -38,7 +191,8 @@ const AllHeroes: React.FC = () => {
             className="text-sm font-normal px-2 py-1 bg-slate-800 rounded text-neutral-300 ring-slate-600 focus:outline-none focus:ring"
             placeholder="Search Hero"
             value={searchInput}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearchInput}
+            onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
         <AllHeroLayout type="Strength">
@@ -46,17 +200,38 @@ const AllHeroes: React.FC = () => {
             <HeroIcon
               src={hero.img}
               key={`${id}-${hero.id}`}
+              className={
+                matches.includes(formatHeroName(hero.localized_name))
+                  ? formatHeroName(hero.localized_name)
+                  : "opacity-30"
+              }
             />
           ))}
         </AllHeroLayout>
         <AllHeroLayout type="Agility">
           {data.agility.map((hero) => (
-            <HeroIcon src={hero.img} key={`${id}-${hero.id}`} />
+            <HeroIcon
+              src={hero.img}
+              key={`${id}-${hero.id}`}
+              className={
+                matches.includes(formatHeroName(hero.localized_name))
+                  ? "opacity-100" //formatHeroName(hero.localized_name)
+                  : "opacity-30"
+              }
+            />
           ))}
         </AllHeroLayout>
         <AllHeroLayout type="Intelligence">
           {data.intelligence.map((hero) => (
-            <HeroIcon src={hero.img} key={`${id}-${hero.id}`} />
+            <HeroIcon
+              src={hero.img}
+              key={`${id}-${hero.id}`}
+              className={
+                matches.includes(formatHeroName(hero.localized_name))
+                  ? "opacity-100" //formatHeroName(hero.localized_name)
+                  : "opacity-30"
+              }
+            />
           ))}
         </AllHeroLayout>
       </section>

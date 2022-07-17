@@ -1,12 +1,13 @@
 type Props = {
   src: string | null,
   isSearched?: boolean,
+  className?: string
 }
 
-const HeroIcon:React.FC<Props> = ({src, isSearched = false}) => {
+const HeroIcon:React.FC<Props> = ({src, isSearched = false, className}) => {
   const BASE_URL = "http://cdn.dota2.com";
   return (
-    <div className="w-full hover:-translate-x-1 hover:-translate-y-1 transition-transform  rounded ">
+    <div className={`w-full hover:-translate-x-1 hover:-translate-y-1 transition-transform  rounded ${className}`}>
       {src === null ? (
         <div className=" h-24 w-full bg-slate-900 animate-pulse"></div>
       ) : (
