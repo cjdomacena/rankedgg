@@ -4,9 +4,12 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        "noto-sans": ['"Noto Sans"', 'sans-serif'],
+        "noto-sans": ['"Noto Sans"', "sans-serif"],
       },
     },
   },
-  plugins: [],
+  daisyui: {
+    themes:['luxury', 'light', 'night']
+  },
+  plugins: [require("daisyui")],
 };
