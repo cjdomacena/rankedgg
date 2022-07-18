@@ -4,7 +4,7 @@ type Props = {}
 
 const NavLogo = (props: Props) => {
   return (
-    <div className="flex gap-2 items-center">
+    <div className="flex gap-2 items-center text-gray-300">
       <Link to="/">
         <DotaLogo className="w-10  h-10 fill-neutral-800 hover:fill-neutral-200 transition-all duration-500 hover:text-black" />
       </Link>
