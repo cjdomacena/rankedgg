@@ -1,5 +1,5 @@
 export type THero = {
-  id: number;
+  id?: number;
   name: string;
   localized_name: string;
   primary_attr: string;
@@ -40,32 +40,67 @@ export type TFilteredHeroes = {
   intelligence: THero[];
 };
 
-export type THeroStats = {
-  id: number,
-  name: string,
-  localized_name: string,
-  img: string,
-  icon: string,
-  pro_win: number,
-  pro_pick: number,
-  hero_id: number,
-  pro_ban: number,
-  herald_pick: number,
-  herald_win: number,
-  guardian_pick: number,
-  guardian_win: number,
-  crusader_pick: number,
-  crusader_win: number,
-  archon_pick: number,
-  archon_win: number,
-  legend_pick: number,
-  legend_win: number,
-  ancient_pick: number,
-  ancient_win: number,
-  divine_pick: number,
-  divine_win: number,
-  immortal_pick: number,
-  immortal_win: number,
-  turbo_pick: number,
-  turbo_win: number,
+export type THeroStats = THero & {
+  hero_id: number;
+  turbo_picks: number;
+  turbo_wins: number;
+  pro_ban: number;
+  pro_win: number;
+  pro_pick: number;
+  "1_pick": number;
+  "1_win": number;
+  "2_pick": number;
+  "2_win": number;
+  "3_pick": number;
+  "3_win": number;
+  "4_pick": number;
+  "4_win": number;
+  "5_pick": number;
+  "5_win": number;
+  "6_pick": number;
+  "6_win": number;
+  "7_pick": number;
+  "7_win": number;
+  "8_pick": number;
+  "8_win": number;
+  null_pick: number;
+  null_win: number;
+};
+
+export type THeroTrend = {
+  id: number;
+  name: string;
+  localized_name: string;
+  icon: string;
+  hero_id: number;
+  turbo_picks: number;
+  turbo_wins: number;
+  pro_ban: number;
+  pro_win: number;
+  pro_pick: number;
+  pro_wr:number,
+  "1_pick": number;
+  "1_win": number;
+  "1_wr": number;
+  "2_pick": number;
+  "2_win": number;
+  "2_wr": number;
+  "3_pick": number;
+  "3_win": number;
+  "3_wr": number;
+  "4_pick": number;
+  "4_win": number;
+  "4_wr": number;
+  "5_pick": number;
+  "5_win": number;
+  "5_wr": number;
+  "6_pick": number;
+  "6_win": number;
+  "6_wr": number;
+  "7_pick": number;
+  "7_win": number;
+  "7_wr": number;
+  "8_pick": number;
+  "8_win": number;
+  "8_wr": number;
 };
