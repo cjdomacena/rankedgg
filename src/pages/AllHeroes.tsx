@@ -1,13 +1,28 @@
 import React, { useId, useState } from "react";
+import { filterSearchHero, formatHeroName } from "../../utils";
 import { useHeroes } from "../api";
 import HeroIcon from "../components/Heroes/HeroIcon";
 import AllHeroLayout from "../components/Layouts/AllHeroLayout";
-
+import { HERO_LIST } from "../../utils/constants";
 const AllHeroes: React.FC = () => {
   const { status, data } = useHeroes();
   const id = useId();
   const placeHolderItems = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12];
   const [searchInput, setSearch] = useState<string>("");
+  const [matches, setMatches] = useState<string[]>(HERO_LIST);
+  const [isSearching, setIsSearching] = useState<boolean>(false);
+  const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const q = e.target.value;
+    if (q.length === 0) {
+      setMatches(HERO_LIST);
+    }
+    setSearch(q);
+    if (q.length > 0) {
+      setIsSearching(true);
+      const partialMatches = filterSearchHero(q, HERO_LIST);
+      setMatches(partialMatches);
+    }
+  };
 
   if (status === "loading") {
     return (
@@ -31,34 +46,58 @@ const AllHeroes: React.FC = () => {
     );
   } else if (status === "success" && data) {
     return (
-      <section className="p-8 h-full w-full bg-gradient-to-b from-black via-black to-gray-900">
+      <section className="h-full w-full bg-gradient-to-b from-black/60 via-black to-gray-900 overflow-x-hidden">
         <div className="container mx-auto p-4 font-noto-sans text-2xl font-bold flex justify-between text-white">
           <h1 className="text-white">All Heroes</h1>
           <input
             className="text-sm font-normal px-2 py-1 bg-slate-800 rounded text-neutral-300 ring-slate-600 focus:outline-none focus:ring"
             placeholder="Search Hero"
             value={searchInput}
-            onChange={(e) => setSearch(e.target.value)}
+            onChange={handleSearchInput}
+            onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
-        <AllHeroLayout type="Strength">
-          {data.strength.map((hero) => (
-            <HeroIcon
-              src={hero.img}
-              key={`${id}-${hero.id}`}
-            />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Agility">
-          {data.agility.map((hero) => (
-            <HeroIcon src={hero.img} key={`${id}-${hero.id}`} />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Intelligence">
-          {data.intelligence.map((hero) => (
-            <HeroIcon src={hero.img} key={`${id}-${hero.id}`} />
-          ))}
-        </AllHeroLayout>
+        <div className="container mx-auto">
+          <AllHeroLayout type="Strength">
+            {data.strength.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Agility">
+            {data.agility.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? "opacity-100" //formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Intelligence">
+            {data.intelligence.map((hero) => (
+              <HeroIcon
+                src={hero.img}
+                key={`${id}-${hero.id}`}
+                className={
+                  matches.includes(formatHeroName(hero.localized_name))
+                    ? "opacity-100" //formatHeroName(hero.localized_name)
+                    : "opacity-30"
+                }
+              />
+            ))}
+          </AllHeroLayout>
+        </div>
       </section>
     );
   } else {
