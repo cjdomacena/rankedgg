@@ -7,7 +7,7 @@ import Footer from "./components/Footer";
 
 function App() {
   return (
-    <main className="App  h-full w-full flex flex-col flex-1">
+    <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
       <Nav />
       <section className="h-auto flex-grow">
         <Routes>

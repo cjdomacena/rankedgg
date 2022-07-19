@@ -1,4 +1,5 @@
-import { filterHeroes } from "./../../utils/index";
+import { DEFAULT_HERO_TREND } from './../../utils/constants';
+import { filterHeroes, cleanHeroStats } from "./../../utils/index";
 import { THero, TFilteredHeroes } from "./../types/index";
 import { useQuery } from "react-query";
 import { Dispatch, SetStateAction } from "react";
@@ -33,5 +34,5 @@ export const useHeroStats = () => {
     const req = await fetch(`${BASE_URL}/heroStats`);
     const res = await req.json();
     return res;
-  },{...queryConfig})
+  },{...queryConfig, placeholderData: DEFAULT_HERO_TREND})
 }

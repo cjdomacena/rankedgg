@@ -26,7 +26,7 @@ export type THero = {
   attack_rate: number;
   move_speed: number;
   turn_rate: null | number;
-  cm_enabled: true;
+  cm_enabled: boolean;
   legs: number;
 };
 
@@ -67,18 +67,54 @@ export type THeroStats = THero & {
   null_win: number;
 };
 
+// export type THeroTrend = {
+//   id: number;
+//   name: string;
+//   localized_name: string;
+//   icon: string;
+//   hero_id: number;
+//   turbo_picks: number;
+//   turbo_wins: number;
+//   pro_ban: number;
+//   pro_win: number;
+//   pro_pick: number;
+//   pro_wr:number,
+//   "1_pick": number;
+//   "1_win": number;
+//   "1_wr": number;
+//   "2_pick": number;
+//   "2_win": number;
+//   "2_wr": number;
+//   "3_pick": number;
+//   "3_win": number;
+//   "3_wr": number;
+//   "4_pick": number;
+//   "4_win": number;
+//   "4_wr": number;
+//   "5_pick": number;
+//   "5_win": number;
+//   "5_wr": number;
+//   "6_pick": number;
+//   "6_win": number;
+//   "6_wr": number;
+//   "7_pick": number;
+//   "7_win": number;
+//   "7_wr": number;
+//   "8_pick": number;
+//   "8_win": number;
+//   "8_wr": number;
+// };
+
 export type THeroTrend = {
   id: number;
   name: string;
   localized_name: string;
   icon: string;
   hero_id: number;
-  turbo_picks: number;
-  turbo_wins: number;
   pro_ban: number;
-  pro_win: number;
   pro_pick: number;
-  pro_wr:number,
+  pro_win: number;
+  pro_wr: number;
   "1_pick": number;
   "1_win": number;
   "1_wr": number;
@@ -103,4 +139,6 @@ export type THeroTrend = {
   "8_pick": number;
   "8_win": number;
   "8_wr": number;
+  turbo_picks: number;
+  turbo_wins: number;
 };

@@ -1,10 +1,9 @@
 import { HeaderGroup } from "@tanstack/react-table";
-import React from "react";
 import { THeroTrend } from "../../types";
 import TableHeaderItem from "./TableHeaderItem";
 
 type Props = {
-  headerGroup: HeaderGroup<THeroTrend>[];
+  headerGroup: HeaderGroup<any>[];
 };
 
 const TableHeaderRow = ({ headerGroup }:Props): JSX.Element => {

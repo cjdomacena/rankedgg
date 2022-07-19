@@ -2,16 +2,28 @@ import {
   ColumnDef,
   flexRender,
   getCoreRowModel,
+  getFilteredRowModel,
   getPaginationRowModel,
+  getSortedRowModel,
+  SortingState,
   useReactTable,
 } from "@tanstack/react-table";
 import React, { useEffect, useState } from "react";
-import { cleanHeroStats } from "../../../utils";
 import { THeroTrend } from "../../types";
 import TableHeaderRow from "./TableHeaderRow";
+import rank_1 from "../../assets/rank_icon_1.png";
+import rank_2 from "../../assets/rank_icon_2.png";
+import rank_3 from "../../assets/rank_icon_3.png";
+import rank_4 from "../../assets/rank_icon_4.png";
+import rank_5 from "../../assets/rank_icon_5.png";
+import rank_6 from "../../assets/rank_icon_6.png";
+import rank_7 from "../../assets/rank_icon_7.png";
+import rank_8 from "../../assets/rank_icon_8.png";
+import PlayerRankIcon from "./PlayerRankIcon";
+import { COLUMN_HEADERS, DEFAULT_HERO_TREND } from "../../../utils/constants";
 
 type Props = {
-  heroStats: any | null;
+  heroStats: THeroTrend[] | null;
   isLoading: boolean;
 };
 
@@ -55,45 +67,8 @@ const defaultVal: THeroTrend[] = [
   },
 ];
 
-const columnHeaderVal = [
-  "id",
-  "name",
-  "Name",
-  "icon",
-  "hero_id",
-  "pro ban",
-  "pro_pick",
-  "pro win",
-  "pro_wr (%)",
-  "1_pick",
-  "1_win",
-  "1_wr (%)",
-  "2_pick",
-  "2_win",
-  "2_wr (%)",
-  "3_pick",
-  "3_win",
-  "3_wr (%)",
-  "4_pick",
-  "4_win",
-  "4_wr (%)",
-  "5_pick",
-  "5_win",
-  "5_wr (%)",
-  "6_pick",
-  "6_win",
-  "6_wr (%)",
-  "7_pick",
-  "7_win",
-  "7_wr (%)",
-  "8_pick",
-  "8_win (%)",
-  "8_wr",
-  "turbo_picks",
-  "turbo_wins",
-];
-
 const hiddenColumns = {
+  icon: false,
   "1_pick": false,
   "1_win": false,
   "2_pick": false,
@@ -113,23 +88,128 @@ const hiddenColumns = {
   id: false,
   name: false,
   hero_id: false,
+  turbo_picks: false,
+  turbo_wins: false,
+};
+
+const getRankIcon = (rank: string) => {
+  const tempRank = rank.split("_");
+  switch (tempRank[0]) {
+    case "1" || 1: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Herald Win Rate"} imgSrc={rank_1} />;
+      }
+      return <PlayerRankIcon rank={"pr"} title={"Herald Pick Rate"} imgSrc={rank_1} />;
+    }
+    case "2" || 2: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Guardian Win Rate"} imgSrc={rank_2} />;
+      }
+      return <PlayerRankIcon rank={"pr"} title={"Guardian Pick Rate"} imgSrc={rank_2} />;
+    }
+    case "3" || 3: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Crusader Win Rate"} imgSrc={rank_3} />;
+      }
+      return <PlayerRankIcon rank={"pr"} title={"Crusader Pick Rate"} imgSrc={rank_3} />;
+    }
+    case "4" || 4: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Archon Win Rate"} imgSrc={rank_4} />;
+      }
+      return <PlayerRankIcon rank={"PR"} title={"Archon Pick Rate"} imgSrc={rank_4} />;
+    }
+    case "5" || 5: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Legend Win Rate"} imgSrc={rank_5} />;
+      }
+      return <PlayerRankIcon rank={"PR"} title={"Legend Pick Rate"} imgSrc={rank_5} />;
+    }
+    case "6" || 6: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Ancient Win Rate"} imgSrc={rank_6} />;
+      }
+      return <PlayerRankIcon rank={"PR"} title={"Ancient Pick Rate"} imgSrc={rank_6} />;
+    }
+    case "7" || 7: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Divine Win Rate"} imgSrc={rank_7} />;
+      }
+      return <PlayerRankIcon rank={"PR"} title={"Divine Pick Rate"} imgSrc={rank_7} />;
+    }
+    case "8" || 8: {
+      if (tempRank[1] === "wr") {
+        return <PlayerRankIcon rank={"WR %"} title={"Immortal Win Rate"} imgSrc={rank_8} />;
+      }
+      return <PlayerRankIcon rank={"PR"} title={"Immortal Pick Rate"} imgSrc={rank_8} />;
+    }
+    default:
+      return <p>{rank}</p>;
+  }
 };
 
 const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
-  const [data, setData] = useState(defaultVal);
+  const progressBarKeys = [
+    "pro_wr",
+    "1_wr",
+    "2_wr",
+    "3_wr",
+    "4_wr",
+    "5_wr",
+    "6_wr",
+    "7_wr",
+    "8_wr",
+  ];
+  const [data, setData] = useState<THeroTrend[]>(DEFAULT_HERO_TREND);
+  const [sorting, setSorting] = useState<SortingState>([]);
 
-  const columnData = Object.keys(defaultVal[0]).map((key,index) => {
-    return {
-      accessorKey: key,
-      cell: (item: any) => item.getValue(),
-      header: columnHeaderVal[index],
-    };
+  const columnData: any = Object.keys(defaultVal[0]).map((key, index) => {
+    if (progressBarKeys.indexOf(key) === -1) {
+      return {
+        accessorKey: key,
+        cell: (item: any) => item.getValue(),
+        header: (
+          <p className="tooltip tooltip-bottom" data-tip={COLUMN_HEADERS[index]}>
+            {COLUMN_HEADERS[index]}
+          </p>
+        ),
+      };
+    } else {
+      return {
+        accessorKey: key,
+        cell: (item: any) =>
+          !isNaN(item.getValue()) ? (
+            <div
+              data-tip={`${item.getValue()}%`}
+              className="tooltip tooltip-bottom w-16 h-auto z-50 flex flex-col items-start gap-1">
+              <p className="text-xs text-gray-400">{item.getValue()} %</p>
+              <progress
+                className="progress progress-info border border-gray-800"
+                value={item.getValue()}
+                max={100}
+              />
+            </div>
+          ) : (
+            <div
+              data-tip={`0%`}
+              className="tooltip tooltip-bottom w-16 h-auto z-50 flex flex-col items-start gap-1">
+              <p className="text-xs text-gray-400">{0} %</p>
+              <progress
+                className="progress progress-info border border-gray-800"
+                value={0}
+                max={100}
+              />
+            </div>
+          ),
+        header: getRankIcon(key),
+      };
+    }
   });
   const columns: ColumnDef<THeroTrend>[] = columnData;
 
   useEffect(() => {
     if (heroStats) {
-      setData(cleanHeroStats(heroStats));
+      setData(heroStats);
     }
   }, [heroStats]);
 
@@ -137,24 +217,42 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
     data,
     columns,
     getCoreRowModel: getCoreRowModel(),
+    getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: { columnVisibility: hiddenColumns },
+    state: { columnVisibility: hiddenColumns, sorting },
+    onSortingChange: setSorting,
+    getSortedRowModel: getSortedRowModel(),
+  
   });
 
   return (
-    <table className="table table-zebra w-full">
-      <TableHeaderRow headerGroup={table.getHeaderGroups()} />
-      <tbody className="text-xs">
-        {table.getRowModel().rows.map((row, index) => (
-          <tr key={row.id}>
-            {row.getVisibleCells().map((cell) => (
-              <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
+    <>
+
+      <div className="text-neutral-300  w-auto overflow-x-auto h-full p-8 mb-12">
+        <table className="table table-zebra w-full h-full p-4">
+          <TableHeaderRow headerGroup={table.getHeaderGroups()} />
+          <tbody className="text-xs">
+            {table.getRowModel().rows.map((row, index) => (
+              <tr key={row.id}>
+                {row
+                  .getVisibleCells()
+                  .map((cell, index) =>
+                    index > 0 ? (
+                      <td key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </td>
+                    ) : (
+                      <th key={cell.id}>
+                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                      </th>
+                    ),
+                  )}
+              </tr>
             ))}
-          </tr>
-          
-        ))}
-      </tbody>
-    </table>
+          </tbody>
+        </table>
+      </div>
+    </>
   );
 };
 

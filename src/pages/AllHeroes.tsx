@@ -3,161 +3,23 @@ import { filterSearchHero, formatHeroName } from "../../utils";
 import { useHeroes } from "../api";
 import HeroIcon from "../components/Heroes/HeroIcon";
 import AllHeroLayout from "../components/Layouts/AllHeroLayout";
-
+import { HERO_LIST } from "../../utils/constants";
 const AllHeroes: React.FC = () => {
-  const herolist = [
-    "nature's prophet",
-    "outworld devourer",
-    "windranger",
-    "zeus",
-    "shadow fiend",
-    "vengeful spirit",
-    "timbersaw",
-    "naix",
-    "anti mage",
-    "axe",
-    "bane",
-    "bloodseeker",
-    "centaur warrunner",
-    "crystal maiden",
-    "drow ranger",
-    "earthshaker",
-    "juggernaut",
-    "mirana",
-    "morphling",
-    "phantom lancer",
-    "puck",
-    "pudge",
-    "razor",
-    "sand king",
-    "storm spirit",
-    "sven",
-    "tiny",
-    "vengefulspirit",
-    "kunkka",
-    "lina",
-    "lion",
-    "shadow shaman",
-    "slardar",
-    "tidehunter",
-    "witch doctor",
-    "lich",
-    "riki",
-    "enigma",
-    "tinker",
-    "sniper",
-    "necrophos",
-    "warlock",
-    "beastmaster",
-    "queen of pain",
-    "venomancer",
-    "faceless void",
-    "skeleton king",
-    "death prophet",
-    "phantom assassin",
-    "pugna",
-    "templar assassin",
-    "viper",
-    "luna",
-    "dragon knight",
-    "dazzle",
-    "leshrac",
-    "life stealer",
-    "dark seer",
-    "clinkz",
-    "omniknight",
-    "enchantress",
-    "huskar",
-    "night stalker",
-    "broodmother",
-    "bounty hunter",
-    "weaver",
-    "jakiro",
-    "batrider",
-    "chen",
-    "spectre",
-    "ancient apparition",
-    "doom",
-    "ursa",
-    "spirit breaker",
-    "gyrocopter",
-    "alchemist",
-    "invoker",
-    "silencer",
-    "obsidian destroyer",
-    "lycan",
-    "brewmaster",
-    "shadow demon",
-    "lone druid",
-    "chaos knight",
-    "meepo",
-    "treant protector",
-    "ogre magi",
-    "undying",
-    "rubick",
-    "disruptor",
-    "nyx assassin",
-    "naga siren",
-    "keeper of the light",
-    "wisp",
-    "visage",
-    "slark",
-    "medusa",
-    "troll warlord",
-    "centaur",
-    "magnataur",
-    "shredder",
-    "bristleback",
-    "tusk",
-    "skywrath mage",
-    "abaddon",
-    "elder titan",
-    "legion commander",
-    "techies",
-    "ember spirit",
-    "earth spirit",
-    "abyssal underlord",
-    "terrorblade",
-    "phoenix",
-    "oracle",
-    "winter wyvern",
-    "arc warden",
-    "monkey king",
-    "dark willow",
-    "pangolier",
-    "grimstroke",
-    "hoodwink",
-    "void spirit",
-    "snapfire",
-    "mars",
-    "dawnbreaker",
-    "marci",
-    "primal beast",
-    "io",
-    "underlord",
-    "clockwerk",
-    "omnni",
-    "magnus",
-    "lifestealer",
-    "wraith king"
-  ];
-
   const { status, data } = useHeroes();
   const id = useId();
   const placeHolderItems = [0, 1, 2, 3, 4, 5, 7, 8, 9, 10, 11, 12];
   const [searchInput, setSearch] = useState<string>("");
-  const [matches, setMatches] = useState<string[]>(herolist);
+  const [matches, setMatches] = useState<string[]>(HERO_LIST);
   const [isSearching, setIsSearching] = useState<boolean>(false);
   const handleSearchInput = (e: React.ChangeEvent<HTMLInputElement>) => {
-   
     const q = e.target.value;
-     if (q.length === 0) {
-       setMatches(herolist);
-     }
-    setSearch(q)
+    if (q.length === 0) {
+      setMatches(HERO_LIST);
+    }
+    setSearch(q);
     if (q.length > 0) {
       setIsSearching(true);
-      const partialMatches = filterSearchHero(q, herolist);
+      const partialMatches = filterSearchHero(q, HERO_LIST);
       setMatches(partialMatches);
     }
   };
