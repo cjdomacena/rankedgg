@@ -184,7 +184,9 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
               className="tooltip tooltip-bottom w-16 h-auto z-50 flex flex-col items-start gap-1">
               <p className="text-xs text-gray-400">{item.getValue()} %</p>
               <progress
-                className="progress progress-info border border-gray-800"
+                className={`progress  border border-gray-800 ${
+                  item.getValue() < 50 ? "progress-accent" : "progress-info"
+                }`}
                 value={item.getValue()}
                 max={100}
               />
@@ -228,8 +230,8 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
   return (
     <>
 
-      <div className="text-neutral-300  w-auto overflow-x-auto h-full p-8 mb-12">
-        <table className="table table-zebra w-full h-full p-4">
+      <div className="text-neutral-300  w-full overflow-x-auto h-full p-8  ">
+        <table className="table table-zebra w-full h-full drop-shadow-xl  ">
           <TableHeaderRow headerGroup={table.getHeaderGroups()} />
           <tbody className="text-xs">
             {table.getRowModel().rows.map((row, index) => (

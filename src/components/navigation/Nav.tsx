@@ -33,7 +33,7 @@ const Nav = (props: Props) => {
   ];
 
   return (
-    <header className="w-full bg-black h-auto  border-b border-b-white/10 font-noto-sans">
+    <header className="w-full h-auto  border-b border-b-white/10 font-noto-sans">
       <nav className="p-4 flex text-neutral-50 gap-12 items-center">
         <NavLogo />
         <ul className="hidden gap-4 xl:flex lg:flex md:hidden sm:hidden xs:hidden ">

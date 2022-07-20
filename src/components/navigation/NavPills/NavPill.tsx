@@ -13,12 +13,12 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
     return (
       <li className="text-sm font-semibold text-gray-300 relative">
         <Menu>
-          <Menu.Button className="flex items-center py-2 px-3 rounded bg-gray-900 ring-1 ring-gray-700 hover:bg-gray-800">
+          <Menu.Button className="flex items-center py-2 px-3 rounded  ring-1 ring-gray-700 hover:bg-gray-800">
             {text}
             <FiChevronDown className="ml-1" />
           </Menu.Button>
           <Menu.Items
-            className="absolute top-12 left-0 p-1 w-44 bg-black rounded-sm ring-1 ring-gray-700 text-sm space-y-1"
+            className="absolute top-12 left-0 p-1 w-44 rounded-sm bg-slate-900  ring-gray-700 text-sm space-y-1 ring-2"
             as="ul">
             {pills
               ? pills.map((pill, index) => (

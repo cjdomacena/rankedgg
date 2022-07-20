@@ -4,6 +4,7 @@ import { useHeroes } from "../api";
 import HeroIcon from "../components/Heroes/HeroIcon";
 import AllHeroLayout from "../components/Layouts/AllHeroLayout";
 import { HERO_LIST } from "../../utils/constants";
+import { FiGrid } from "react-icons/fi";
 const AllHeroes: React.FC = () => {
   const { status, data } = useHeroes();
   const id = useId();
@@ -46,11 +47,15 @@ const AllHeroes: React.FC = () => {
     );
   } else if (status === "success" && data) {
     return (
-      <section className="h-full w-full bg-gradient-to-b from-black/60 via-black to-gray-900 overflow-x-hidden">
-        <div className="container mx-auto p-4 font-noto-sans text-2xl font-bold flex justify-between text-white">
-          <h1 className="text-white">All Heroes</h1>
+      <section className="h-full w-full ">
+        <div className="container mx-auto font-noto-sans text-2xl font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
+          <div className="flex items-center">
+            <FiGrid className="w-6 h-6 mr-2" />
+            <h1 className="text-neutral-300">All Heroes</h1>
+          </div>
+
           <input
-            className="text-sm font-normal px-2 py-1 bg-slate-800 rounded text-neutral-300 ring-slate-600 focus:outline-none focus:ring"
+            className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
             placeholder="Search Hero"
             value={searchInput}
             onChange={handleSearchInput}

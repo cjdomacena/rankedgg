@@ -5,7 +5,6 @@
 
 html {
 	height: 100vh;
-	@apply bg-black;
 }
 
 #root {
