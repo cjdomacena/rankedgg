@@ -224,37 +224,33 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
     state: { columnVisibility: hiddenColumns, sorting },
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
-  
   });
 
   return (
-    <>
-
-      <div className="text-neutral-300  w-full overflow-x-auto h-full p-8  ">
-        <table className="table table-zebra w-full h-full drop-shadow-xl  ">
-          <TableHeaderRow headerGroup={table.getHeaderGroups()} />
-          <tbody className="text-xs">
-            {table.getRowModel().rows.map((row, index) => (
-              <tr key={row.id}>
-                {row
-                  .getVisibleCells()
-                  .map((cell, index) =>
-                    index > 0 ? (
-                      <td key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </td>
-                    ) : (
-                      <th key={cell.id}>
-                        {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                      </th>
-                    ),
-                  )}
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </>
+    <div className="text-neutral-300  overflow-x-auto h-full py-8">
+      <table className="table table-zebra w-full h-full drop-shadow-xl ">
+        <TableHeaderRow headerGroup={table.getHeaderGroups()} />
+        <tbody className="text-xs">
+          {table.getRowModel().rows.map((row, index) => (
+            <tr key={row.id}>
+              {row
+                .getVisibleCells()
+                .map((cell, index) =>
+                  index > 0 ? (
+                    <td key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </td>
+                  ) : (
+                    <th key={cell.id}>
+                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    </th>
+                  ),
+                )}
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 };
 

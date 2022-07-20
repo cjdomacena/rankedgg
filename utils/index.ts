@@ -1,3 +1,4 @@
+import { HERO_LIST, HERO_ICONS } from "./constants";
 import { THero, THeroTrend } from "./../src/types/index";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
@@ -54,29 +55,34 @@ export const cleanHeroStats = (heroStats: any) => {
     "8_pick",
     "8_win",
   ];
-  heroStats.map((stat:THeroTrend) => {
+  heroStats.map((stat: THeroTrend) => {
     let tempObj: any = {};
     Object.entries(stat).forEach(([key, value]) => {
       if (selectedKeys.indexOf(key.toString()) >= 0) {
         tempObj[key] = value;
-        
+
         const tempKey = key.split("_");
-        if(tempKey.length > 1 && isNaN(Number(tempKey[0]) ) === false) {
+        if (tempKey.length > 1 && isNaN(Number(tempKey[0])) === false) {
           tempObj[`${tempKey[0]}_wr`] = getPercentWinRate(
             stat[`${tempKey[0]}_win`],
             stat[`${tempKey[0]}_pick`],
           );
-        };
-        if(tempKey[0] === 'pro') {
+        }
+        if (tempKey[0] === "pro") {
           tempObj[`${tempKey[0]}_wr`] = getPercentWinRate(
             stat[`${tempKey[0]}_win`],
             stat[`${tempKey[0]}_pick`],
           );
         }
       }
-     
     });
     cleanedHeroStats.push(tempObj);
   });
   return cleanedHeroStats;
+};
+
+export const getImageUrl = (heroIndex: number | null, src: string = "") => {
+  return heroIndex
+    ? import.meta.env.VITE_IMAGE_CDN + HERO_ICONS[heroIndex]
+    : import.meta.env.VITE_IMAGE_CDN + src;
 };

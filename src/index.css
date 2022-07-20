@@ -9,4 +9,5 @@ html {
 
 #root {
 	height: 100vh;
+	@apply font-noto-sans;
 }

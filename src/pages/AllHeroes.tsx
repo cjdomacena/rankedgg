@@ -1,10 +1,12 @@
 import React, { useId, useState } from "react";
 import { filterSearchHero, formatHeroName } from "../../utils";
 import { useHeroes } from "../api";
-import HeroIcon from "../components/Heroes/HeroIcon";
+import HeroImage from "../components/Heroes/HeroImage";
 import AllHeroLayout from "../components/Layouts/AllHeroLayout";
 import { HERO_LIST } from "../../utils/constants";
 import { FiGrid } from "react-icons/fi";
+import PrimaryLayout from "../components/Layouts/PrimaryLayout";
+import PageHeader from "../components/Header/PageHeader";
 const AllHeroes: React.FC = () => {
   const { status, data } = useHeroes();
   const id = useId();
@@ -27,33 +29,39 @@ const AllHeroes: React.FC = () => {
 
   if (status === "loading") {
     return (
-      <section className="py-12 h-full w-full bg-gradient-to-b from-black via-black to-gray-900">
+      <PrimaryLayout>
+        <div className="container mx-auto font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
+          <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
+          <input
+            className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
+            placeholder="Search Hero"
+            value={searchInput}
+            onChange={handleSearchInput}
+            onFocus={() => setIsSearching((prev) => !prev)}
+          />
+        </div>
         <AllHeroLayout type="Strength">
           {placeHolderItems.map((item) => (
-            <HeroIcon key={`${id}-${item}-strength`} src={null} />
+            <HeroImage key={`${id}-${item}-strength`} src={null} />
           ))}
         </AllHeroLayout>
         <AllHeroLayout type="Agility">
           {placeHolderItems.map((item) => (
-            <HeroIcon key={`${id}-${item}-agility`} src={null} />
+            <HeroImage key={`${id}-${item}-agility`} src={null} />
           ))}
         </AllHeroLayout>
         <AllHeroLayout type="Intelligence">
           {placeHolderItems.map((item) => (
-            <HeroIcon key={`${id}-${item}-intelligence`} src={null} />
+            <HeroImage key={`${id}-${item}-intelligence`} src={null} />
           ))}
         </AllHeroLayout>
-      </section>
+      </PrimaryLayout>
     );
   } else if (status === "success" && data) {
     return (
-      <section className="h-full w-full ">
-        <div className="container mx-auto font-noto-sans text-2xl font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
-          <div className="flex items-center">
-            <FiGrid className="w-6 h-6 mr-2" />
-            <h1 className="text-neutral-300">All Heroes</h1>
-          </div>
-
+      <PrimaryLayout>
+        <div className="container mx-auto font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
+          <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
           <input
             className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
             placeholder="Search Hero"
@@ -65,7 +73,7 @@ const AllHeroes: React.FC = () => {
         <div className="container mx-auto">
           <AllHeroLayout type="Strength">
             {data.strength.map((hero) => (
-              <HeroIcon
+              <HeroImage
                 src={hero.img}
                 key={`${id}-${hero.id}`}
                 className={
@@ -78,7 +86,7 @@ const AllHeroes: React.FC = () => {
           </AllHeroLayout>
           <AllHeroLayout type="Agility">
             {data.agility.map((hero) => (
-              <HeroIcon
+              <HeroImage
                 src={hero.img}
                 key={`${id}-${hero.id}`}
                 className={
@@ -91,7 +99,7 @@ const AllHeroes: React.FC = () => {
           </AllHeroLayout>
           <AllHeroLayout type="Intelligence">
             {data.intelligence.map((hero) => (
-              <HeroIcon
+              <HeroImage
                 src={hero.img}
                 key={`${id}-${hero.id}`}
                 className={
@@ -103,7 +111,7 @@ const AllHeroes: React.FC = () => {
             ))}
           </AllHeroLayout>
         </div>
-      </section>
+      </PrimaryLayout>
     );
   } else {
     return <div>Oops something went wrong...</div>;
