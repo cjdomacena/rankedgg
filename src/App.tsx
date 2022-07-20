@@ -11,8 +11,8 @@ function App() {
       <Nav />
       <section className="h-auto flex-grow">
         <Routes>
-          <Route path="all-heroes" element={<AllHeroes />} />
-          <Route path="trending-heroes" element={<TrendingHeroes />}/>
+          <Route path="/all-heroes" element={<AllHeroes />} />
+          <Route path="/trending-heroes" element={<TrendingHeroes />}/>
         </Routes>
       </section>
       <Footer />
