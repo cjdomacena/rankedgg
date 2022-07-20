@@ -9,7 +9,7 @@ function App() {
   return (
     <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
       <Nav />
-      <section className="h-auto flex-grow">
+      <section className="h-auto flex-grow my-12">
         <Routes>
           <Route path="/all-heroes" element={<AllHeroes />} />
           <Route path="/trending-heroes" element={<TrendingHeroes />}/>
