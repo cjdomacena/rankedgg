@@ -9,7 +9,7 @@ type Props = {
 
 const PublicMatchesHeader = ({ startTime, duration }: Props) => {
   return (
-    <div className="flex items-center p-1 justify-between">
+    <div className="flex items-center justify-between">
       <p className="text-xs">{formatStartTime(startTime)}</p>
       <div className="w-fit flex items-center gap-1">
         <AiOutlineClockCircle className="w-4 h-4" />

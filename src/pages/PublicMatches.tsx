@@ -12,6 +12,7 @@ import { HiOutlineIdentification } from "react-icons/hi";
 import PublicMatchesFooter from "../components/Cards/PublicMatchesFooter";
 import { TPublicMatches } from "../types";
 import PublicMatchesHeroIcons from "../components/Layouts/PublicMatchesHeroIcons";
+import HeroIcon from "../components/Heroes/HeroIcon";
 
 type Props = {};
 
@@ -51,15 +52,17 @@ const PublicMatches = (props: Props) => {
   //   },
   // ];
   const { data: matches, isError, isLoading, isFetched } = useGetPublicMatches();
-  // const {data:clusters, isError, isLoading} = useGetClusters();
-  if (matches) {
+ 
+  if (matches && isFetched) {
     return (
-      <PrimaryLayout>
-        <div className="container mx-auto p-4">
+      <PrimaryLayout className="mb-12">
+        <div className="container mx-auto p-4 flex items-center space-x-2">
           <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+  
+          <p className="badge badge-success mt-1 badge-md badge-outline">Top</p>
         </div>
         <PublicMatchesLayout>
-          {matches.slice(0,25).map((match: TPublicMatches, index: number) => (
+          {matches.slice(0, 25).map((match: TPublicMatches, index: number) => (
             <div className="rounded  w-auto ring ring-gray-700" key={`${match.match_id}-${index}`}>
               <div className="bg-gray-800 space-y-2 p-4 rounded border-gray-600">
                 <PublicMatchesHeader startTime={match.start_time} duration={match.duration} />
@@ -78,6 +81,28 @@ const PublicMatches = (props: Props) => {
         </PublicMatchesLayout>
       </PrimaryLayout>
     );
+  } 
+  if(isLoading) {
+   return (
+     <PrimaryLayout>
+       <div className="container mx-auto p-4">
+         <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+       </div>
+       <PublicMatchesLayout>
+         {[0, 1, 2, 3, 4, 5].map((item, index) => (
+           <div className="rounded  w-auto ring ring-gray-700 flex gap-1" key={index}>
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+             <HeroIcon isLoading={true} heroIndex={1} />
+           </div>
+         ))}
+       </PublicMatchesLayout>
+     </PrimaryLayout>
+   );
   }
 
 };
