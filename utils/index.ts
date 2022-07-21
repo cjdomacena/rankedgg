@@ -1,5 +1,6 @@
 import { HERO_LIST, HERO_ICONS } from "./constants";
 import { THero, THeroTrend } from "./../src/types/index";
+import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
   return filteredHeroes;
@@ -81,8 +82,32 @@ export const cleanHeroStats = (heroStats: any) => {
   return cleanedHeroStats;
 };
 
-export const getImageUrl = (heroIndex: number | null, src: string = "") => {
+export const getImageUrl = (heroIndex: number | null | string, src: string = "") => {
   return heroIndex
-    ? import.meta.env.VITE_IMAGE_CDN + HERO_ICONS[heroIndex]
+    ? import.meta.env.VITE_IMAGE_CDN + HEROES[heroIndex].icon
     : import.meta.env.VITE_IMAGE_CDN + src;
 };
+
+export const formatDuration = (duration:number) => {
+  if(!Number.isNaN(duration) && Number.isFinite(duration)) {
+    const minutes = Math.floor(duration / 60);
+    const seconds = Math.floor(duration % 60);
+    if (String(seconds).length < 2) {
+      return `${minutes}:0${seconds}`;
+    } 
+    return `${minutes}:${seconds}`
+  }
+  return null;
+}
+
+export const formatStartTime = (startTime:number) => {
+  const date = new Date(startTime * 1000);
+  const today = new Date();
+  if(date.getHours() < 23) {
+    return `${date.getHours()} hours ago`
+  } else {
+   const diff =  Math.abs(today.getDay() - date.getDay());
+
+   return diff === 1 ? `${diff} day ago.` : `${diff} days ago.`
+  }
+}

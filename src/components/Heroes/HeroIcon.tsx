@@ -1,15 +1,13 @@
 import React from "react";
 import { getImageUrl } from "../../../utils";
-
+import {HEROES} from '../../../utils/heroes'
 type Props = {
-  heroIndex: number;
-  hero_name: string;
+  heroIndex: number | string;
 };
-const BASE_URL = "https://cdn.cloudflare.steamstatic.com/";
-const HeroIcon = ({ heroIndex, hero_name }: Props) => {
+const HeroIcon = ({ heroIndex }: Props) => {
   return (
-    <div className="w-auto h-auto  tooltip tooltip-top" data-tip={hero_name}>
-      <img src={getImageUrl(heroIndex)} loading="eager" />
+    <div className="w-auto h-auto  tooltip tooltip-top tooltip-info" data-tip={HEROES[heroIndex].localized_name}>
+      <img src={getImageUrl(heroIndex, '')} loading="eager" />
     </div>
   );
 };

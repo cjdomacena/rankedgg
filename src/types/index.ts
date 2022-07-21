@@ -112,8 +112,8 @@ export type TPublicMatches = {
   radiant_win: boolean;
   start_time: number;
   duration: number;
-  avg_mmr: number;
-  num_mmr: number;
+  avg_mmr: number | null;
+  num_mmr: number | null;
   lobby_type: number;
   game_mode: number;
   avg_rank_tier: number;
