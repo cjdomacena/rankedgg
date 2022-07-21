@@ -21,6 +21,7 @@ import rank_7 from "../../assets/rank_icon_7.png";
 import rank_8 from "../../assets/rank_icon_8.png";
 import PlayerRankIcon from "./PlayerRankIcon";
 import { COLUMN_HEADERS, DEFAULT_HERO_TREND } from "../../../utils/constants";
+import TableBodyRow from "./TableBodyRow";
 
 type Props = {
   heroStats: THeroTrend[] | null;
@@ -231,23 +232,7 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
       <table className="table table-zebra w-full h-full drop-shadow-xl z-10">
         <TableHeaderRow headerGroup={table.getHeaderGroups()} />
         <tbody className="text-xs">
-          {table.getRowModel().rows.map((row, index) => (
-            <tr key={row.id}>
-              {row
-                .getVisibleCells()
-                .map((cell, index) =>
-                  index > 0 ? (
-                    <td key={cell.id}>
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ) : (
-                    <td key={cell.id} className="bg-gray-900 z-10">
-                      {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </td>
-                  ),
-                )}
-            </tr>
-          ))}
+          <TableBodyRow tableRowModel={table.getRowModel()}/>
         </tbody>
       </table>
     </div>
