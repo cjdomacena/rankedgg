@@ -52,6 +52,28 @@ const PublicMatches = (props: Props) => {
   //   },
   // ];
   const { data: matches, isError, isLoading, isFetched } = useGetPublicMatches();
+  if (isLoading && !isError) {
+    return (
+      <PrimaryLayout>
+        <div className="container mx-auto p-4">
+          <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+        </div>
+        <PublicMatchesLayout>
+          {[0, 1, 2, 3, 4, 5].map((item, index) => (
+            <div className="rounded  w-auto ring ring-gray-700 flex gap-1" key={index}>
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+              <HeroIcon isLoading={true} heroIndex={1} />
+            </div>
+          ))}
+        </PublicMatchesLayout>
+      </PrimaryLayout>
+    );
+  } 
  
   if (matches && isFetched) {
     return (
@@ -82,28 +104,8 @@ const PublicMatches = (props: Props) => {
       </PrimaryLayout>
     );
   } 
-  if(isLoading) {
-   return (
-     <PrimaryLayout>
-       <div className="container mx-auto p-4">
-         <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-       </div>
-       <PublicMatchesLayout>
-         {[0, 1, 2, 3, 4, 5].map((item, index) => (
-           <div className="rounded  w-auto ring ring-gray-700 flex gap-1" key={index}>
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-             <HeroIcon isLoading={true} heroIndex={1} />
-           </div>
-         ))}
-       </PublicMatchesLayout>
-     </PrimaryLayout>
-   );
-  }
+  
+  return <div>Hello</div>
 
 };
 
