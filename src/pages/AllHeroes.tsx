@@ -40,27 +40,29 @@ const AllHeroes: React.FC = () => {
             onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
-        <AllHeroLayout type="Strength">
-          {placeHolderItems.map((item) => (
-            <HeroImage key={`${id}-${item}-strength`} src={null} />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Agility">
-          {placeHolderItems.map((item) => (
-            <HeroImage key={`${id}-${item}-agility`} src={null} />
-          ))}
-        </AllHeroLayout>
-        <AllHeroLayout type="Intelligence">
-          {placeHolderItems.map((item) => (
-            <HeroImage key={`${id}-${item}-intelligence`} src={null} />
-          ))}
-        </AllHeroLayout>
+        <div className="container mx-auto">
+          <AllHeroLayout type="Strength">
+            {placeHolderItems.map((item) => (
+              <HeroImage key={`${id}-${item}-strength`} src={null} className="bg-gray-600" />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Agility">
+            {placeHolderItems.map((item) => (
+              <HeroImage key={`${id}-${item}-agility`} src={null} className="bg-gray-600" />
+            ))}
+          </AllHeroLayout>
+          <AllHeroLayout type="Intelligence">
+            {placeHolderItems.map((item) => (
+              <HeroImage key={`${id}-${item}-intelligence`} src={null} className="bg-gray-600" />
+            ))}
+          </AllHeroLayout>
+        </div>
       </PrimaryLayout>
     );
   } else if (status === "success" && data) {
     return (
       <PrimaryLayout>
-        <div className="container mx-auto font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
+        <div className="container mx-auto flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
           <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
           <input
             className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"

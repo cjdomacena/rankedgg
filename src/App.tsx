@@ -5,6 +5,7 @@ import AllHeroes from "./pages/AllHeroes";
 import TrendingHeroes from "./pages/TrendingHeroes";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
+import PublicMatches from "./pages/PublicMatches";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <section className="h-auto flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/public-matches" element={<PublicMatches />} />
           <Route path="/all-heroes" element={<AllHeroes />} />
           <Route path="/trending-heroes" element={<TrendingHeroes />}/>
         </Routes>

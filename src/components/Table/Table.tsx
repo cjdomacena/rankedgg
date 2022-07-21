@@ -228,7 +228,7 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
 
   return (
     <div className="text-neutral-300  overflow-x-auto h-full py-8">
-      <table className="table table-zebra w-full h-full drop-shadow-xl ">
+      <table className="table table-zebra w-full h-full drop-shadow-xl z-10">
         <TableHeaderRow headerGroup={table.getHeaderGroups()} />
         <tbody className="text-xs">
           {table.getRowModel().rows.map((row, index) => (
@@ -241,9 +241,9 @@ const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
                     </td>
                   ) : (
-                    <th key={cell.id}>
+                    <td key={cell.id} className="bg-gray-900 z-10">
                       {flexRender(cell.column.columnDef.cell, cell.getContext())}
-                    </th>
+                    </td>
                   ),
                 )}
             </tr>
