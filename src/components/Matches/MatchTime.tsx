@@ -4,7 +4,7 @@ import { formatStartTime } from '../../../utils';
 type Props = {
 	startTime: number,
 	avgMMR: number | null
-	className?:string
+	className?:string,
 }
 
 const MatchTime = ({startTime, avgMMR, className}: Props) => {

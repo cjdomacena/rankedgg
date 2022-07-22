@@ -100,14 +100,28 @@ export const formatDuration = (duration:number) => {
   return null;
 }
 
-export const formatStartTime = (startTime:number) => {
-  const date = new Date(startTime * 1000);
+export const formatStartTime = (startTime:number, duration:number) => {
+  const startDate = new Date((startTime + duration) * 1000);
   const today = new Date();
-  if(date.getHours() < 23) {
-    return `${date.getHours()} hours ago`
-  } else {
-   const diff =  Math.abs(today.getDay() - date.getDay());
 
-   return diff === 1 ? `${diff} day ago.` : `${diff} days ago.`
+  if (today.getMonth() + 1 === startDate.getMonth() + 1) {
+    if (today.getDate() === startDate.getDate()) {
+      const hourDiff = today.getHours() - startDate.getHours();
+      if (hourDiff > 1) {
+        return hourDiff + " hours ago";
+      } else if (hourDiff < 2) {
+        const mins = startDate.getMinutes();
+        return mins === 1 ? `${mins} minute ago` : `${mins} minutes ago`;
+      } else if (hourDiff === 1) {
+        return "an hour ago";
+      }
+    } else {
+      const dayDiff = today.getDate() - startDate.getDate();
+      return dayDiff > 1 ? `${dayDiff} days ago` : "a day ago";
+    }
+  } else {
+    const monthDiff = (today.getMonth() + 1) - (startDate.getMonth() + 1);
+    return monthDiff > 1 ? `${monthDiff} months ago` : "a month ago";
   }
-}
+  return "";
+};

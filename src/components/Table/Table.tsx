@@ -25,7 +25,6 @@ import TableBodyRow from "./TableBodyRow";
 
 type Props = {
   heroStats: THeroTrend[] | null;
-  isLoading: boolean;
 };
 
 const defaultVal: THeroTrend[] = [
@@ -149,7 +148,7 @@ const getRankIcon = (rank: string) => {
   }
 };
 
-const Table: React.FC<Props> = ({ heroStats, isLoading }) => {
+const Table: React.FC<Props> = ({ heroStats }) => {
   const progressBarKeys = [
     "pro_wr",
     "1_wr",

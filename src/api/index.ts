@@ -68,8 +68,20 @@ export const useGetSingleMatch = (teamA: string, teamB: string) => {
 
 export const useGetPublicMatches = () => {
   return useQuery(['public_matches'], async () => {
-    const req = await fetch(`${BASE_URL}/publicMatches?mmr_descending=0`);
+    const req = await fetch(`${BASE_URL}/publicMatches`);
     const res = await req.json();
     return res;
   }, {...queryConfig})
 }
+
+export const useGetProMatches = () => {
+  return useQuery(
+    ["proMatches"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/proMatches`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
+};

@@ -14,11 +14,11 @@ const MatchesCardHeader = ({ isRadiant, isRadiantWin, heroes }: Props) => {
       <p className="text-white">{isRadiant ? "Radiant" : "Dire"}</p>
       <p className="text-xs font-semibold xl:text-left lg:text-left md:text-left text-center">
         {isRadiantWin && isRadiant ? (
-          <span className="text-green-500">Win</span>
+          <span className="text-green-500">Victory</span>
         ) : !isRadiantWin && !isRadiant ? (
-          <span className="text-green-500">Win</span>
+          <span className="text-green-500">Victory</span>
         ) : (
-          <span className="text-red-500">Lose</span>
+          <span className="text-red-500">Defeat</span>
         )}
       </p>
     </div>
