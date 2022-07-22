@@ -1,20 +1,16 @@
-import { BiWorld, BiMap } from "react-icons/bi";
-import { CLUSTERS, GAME_MODES, REGIONS } from "../../utils/constants";
+import { BiWorld } from "react-icons/bi";
 import { useGetPublicMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
-import { AiOutlineClockCircle } from "react-icons/ai";
 import { TPublicMatches } from "../types";
 import HeroIconsLayout from "../components/Layouts/HeroIconsLayout";
-import HeroIcon from "../components/Heroes/HeroIcon";
-import { formatDuration, formatStartTime } from "../../utils";
 import MatchesCardHeader from "../components/Header/MatchesCardHeader";
 import MatchesLayout from "../components/Layouts/MatchesLayout";
 import MatchDetails from "../components/Matches/MatchDetails";
 import MatchLayout from "../components/Layouts/MatchLayout";
-import MatchMoreInfo from "../components/Matches/MatchMoreInfo";
-import MatchTime from "../components/Matches/MatchTime";
 import { useState } from "react";
+import { CLUSTERS, REGIONS } from "../../utils/constants";
+import { formatDuration } from "../../utils";
 
 type Props = {};
 
@@ -55,6 +51,10 @@ const PublicMatches = (props: Props) => {
   // ];
   const { data: matches, status } = useGetPublicMatches();
   const [show, setShow] = useState<number>(15);
+  const handleChange = (e: any) => {
+    setShow(e.currentTarget.value);
+  };
+
   switch (status) {
     case "loading": {
       return (
@@ -96,51 +96,54 @@ const PublicMatches = (props: Props) => {
                 <select
                   className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
                   value={show}
-                  onChange={(e: any) => setShow(e.currentTarget.value)}>
+                  onChange={handleChange}>
                   <option value={15}>15</option>
                   <option value={25}>25</option>
                   <option value={50}>50</option>
                   <option value={matches.length}>{matches.length}</option>
                 </select>
-                of <span className="text-white font-bold">{matches.length} {" "}</span>
+                of <span className="text-white font-bold">{matches.length} </span>
                 results
               </p>
             </div>
           </div>
-          <div className="container mx-auto p-4 flex flex-wrap gap-4">
-            {matches.slice(0, show).map((match: TPublicMatches, index: number) => (
-              <MatchesLayout
-                isRadiantWin={match.radiant_win}
-                key={`card-${match.match_id}-${index}`}>
-                <MatchTime
-                  startTime={match.start_time}
-                  avgMMR={match.avg_mmr}
-                  className="xl:block lg:block md:block hidden p-4"
-                />
-                <MatchLayout>
-                  <MatchesCardHeader isRadiant={true} isRadiantWin={match.radiant_win} />
-                  <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
-                </MatchLayout>
-                <MatchDetails duration={match.duration} gameMode={match.game_mode} />
-                <MatchLayout>
-                  <MatchesCardHeader isRadiant={false} isRadiantWin={match.radiant_win} />
-                  <HeroIconsLayout ids={matches[0].dire_team.split(",")} type="dire" />
-                </MatchLayout>
-                <MatchMoreInfo
-                  matchId={match.match_id}
-                  server={match.cluster}
-                  startTime={match.start_time}
-                  avgMMR={match.avg_mmr}
-                />
-              </MatchesLayout>
-            ))}
+          <div className="container h-auto mx-auto p-4 flex flex-wrap gap-4">
+            <div className="w-full mx-auto  grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-12">
+              {matches.slice(0, show).map((match: TPublicMatches, index: number) => (
+                <div key={`${match.match_seq_num}-${index}`}>
+                  <MatchDetails
+                    duration={match.duration}
+                    gameMode={match.game_mode}
+                    startTime={match.start_time}
+                    matchId={match.match_id}
+                  />
+
+                  <MatchesLayout
+                    isRadiantWin={match.radiant_win}
+                    key={`card-${match.match_id}-${index}`}>
+                    <MatchLayout>
+                      <MatchesCardHeader isRadiant={true} isRadiantWin={match.radiant_win} />
+                      <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
+                    </MatchLayout>
+                    <div className=" w-24 text-center p-4 2xl:mx-0 xl:mx-0 lg:mx-0 mx-auto">
+                      <h4 className="text-white font-black">{formatDuration(match.duration)}</h4>
+                      <p className="text-xs">Duration</p>
+                    </div>
+                    <MatchLayout isReverse={true}>
+                      <HeroIconsLayout ids={match.dire_team.split(",")} type="dire" />
+                      <MatchesCardHeader isRadiant={false} isRadiantWin={match.radiant_win} />
+                    </MatchLayout>
+                  </MatchesLayout>
+                </div>
+              ))}
+            </div>
           </div>
         </PrimaryLayout>
       );
     }
     default: {
       return (
-        <PrimaryLayout>
+        <PrimaryLayout className=" scroll-smooth">
           <div className="container mx-auto p-4 grid place-items-center h-[calc(80vh)]">
             <div>
               <h1 className="text-white text-4xl"> Something went wrong...</h1>

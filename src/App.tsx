@@ -6,6 +6,7 @@ import TrendingHeroes from "./pages/TrendingHeroes";
 import Footer from "./components/Footer";
 import Home from "./pages/Home";
 import PublicMatches from "./pages/PublicMatches";
+import ProMatches from "./pages/ProMatches";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
           <Route path="/public-matches" element={<PublicMatches />} />
           <Route path="/all-heroes" element={<AllHeroes />} />
           <Route path="/trending-heroes" element={<TrendingHeroes />}/>
+          <Route path="/pro-matches" element={<ProMatches />} />
         </Routes>
       </section>
       <Footer />
