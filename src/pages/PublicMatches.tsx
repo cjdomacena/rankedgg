@@ -9,7 +9,6 @@ import MatchesLayout from "../components/Layouts/MatchesLayout";
 import MatchDetails from "../components/Matches/MatchDetails";
 import MatchLayout from "../components/Layouts/MatchLayout";
 import { useState } from "react";
-import { CLUSTERS, REGIONS } from "../../utils/constants";
 import { formatDuration } from "../../utils";
 
 type Props = {};

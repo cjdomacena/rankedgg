@@ -1,10 +1,9 @@
 import { IoPeopleOutline } from "react-icons/io5";
-import { useGetProMatches } from "../api";
+// import { useGetProMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { useState } from "react";
 import ErrorComponent from "../components/Error";
-import { formatStartTime } from "../../utils";
 
 type Props = {};
 
