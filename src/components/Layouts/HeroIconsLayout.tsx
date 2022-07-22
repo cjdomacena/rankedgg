@@ -6,9 +6,9 @@ type Props = {
 	type:string
 }
 
-const PublicMatchesHeroIcons = ({ids, type}: Props) => {
+const HeroIconsLayout = ({ ids, type }: Props) => {
   return (
-    <ul className='flex gap-4'>
+    <ul className="flex gap-1 items-center ">
       {ids.map((id, index) => (
         <li key={`${type}-${id}-${index}`}>
           <HeroIcon heroIndex={id} />
@@ -16,6 +16,6 @@ const PublicMatchesHeroIcons = ({ids, type}: Props) => {
       ))}
     </ul>
   );
-}
+};
 
-export default PublicMatchesHeroIcons
+export default HeroIconsLayout;

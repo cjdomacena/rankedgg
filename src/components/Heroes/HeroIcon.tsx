@@ -10,8 +10,10 @@ const HeroIcon = ({ heroIndex, isLoading }: Props) => {
     return <div className=" w-8 h-8 bg-gray-700 animate-pulse"></div>
   }
   return (
-    <div className="w-auto h-auto  tooltip tooltip-top tooltip-info" data-tip={HEROES[heroIndex].localized_name}>
-      <img src={getImageUrl(heroIndex, '')} loading="eager" />
+    <div
+      className="w-8 h-8  tooltip tooltip-top tooltip-info"
+      data-tip={HEROES[heroIndex].localized_name}>
+      <img src={getImageUrl(heroIndex, "")} loading="lazy" />
     </div>
   );
 };

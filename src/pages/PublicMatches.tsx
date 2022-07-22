@@ -1,18 +1,20 @@
 import { BiWorld, BiMap } from "react-icons/bi";
 import { CLUSTERS, GAME_MODES, REGIONS } from "../../utils/constants";
 import { useGetPublicMatches } from "../api";
-import PublicMatchesCard from "../components/Cards/PublicMatchesCard";
 import PageHeader from "../components/Header/PageHeader";
-import PublicMatchCardHeader from "../components/Header/PublicMatchCardHeader";
-import PublicMatchesHeader from "../components/Header/PublicMatchesHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
-import PublicMatchesLayout from "../components/Layouts/PublicMatchesLayout";
-import { CgGames } from "react-icons/cg";
-import { HiOutlineIdentification } from "react-icons/hi";
-import PublicMatchesFooter from "../components/Cards/PublicMatchesFooter";
+import { AiOutlineClockCircle } from "react-icons/ai";
 import { TPublicMatches } from "../types";
-import PublicMatchesHeroIcons from "../components/Layouts/PublicMatchesHeroIcons";
+import HeroIconsLayout from "../components/Layouts/HeroIconsLayout";
 import HeroIcon from "../components/Heroes/HeroIcon";
+import { formatDuration, formatStartTime } from "../../utils";
+import MatchesCardHeader from "../components/Header/MatchesCardHeader";
+import MatchesLayout from "../components/Layouts/MatchesLayout";
+import MatchDetails from "../components/Matches/MatchDetails";
+import MatchLayout from "../components/Layouts/MatchLayout";
+import MatchMoreInfo from "../components/Matches/MatchMoreInfo";
+import MatchTime from "../components/Matches/MatchTime";
+import { useState } from "react";
 
 type Props = {};
 
@@ -51,62 +53,104 @@ const PublicMatches = (props: Props) => {
   //     dire_team: "22,123,89,81,40",
   //   },
   // ];
-  const { data: matches, isError, isLoading, isFetched } = useGetPublicMatches();
-  if (isLoading && !isError) {
-    return (
-      <PrimaryLayout>
-        <div className="container mx-auto p-4">
-          <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-        </div>
-        <PublicMatchesLayout>
-          {[0, 1, 2, 3, 4, 5].map((item, index) => (
-            <div className="rounded  w-auto ring ring-gray-700 flex gap-1" key={index}>
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
-              <HeroIcon isLoading={true} heroIndex={1} />
+  const { data: matches, status } = useGetPublicMatches();
+  const [show, setShow] = useState<number>(15);
+  switch (status) {
+    case "loading": {
+      return (
+        <PrimaryLayout>
+          <div className="container mx-auto p-4">
+            <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+          </div>
+          <div className="container mx-auto p-4 flex flex-wrap gap-4">
+            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
+            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
+            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
+          </div>
+        </PrimaryLayout>
+      );
+    }
+    case "error": {
+      return (
+        <PrimaryLayout>
+          <div className="container mx-auto p-4 grid place-items-center h-[calc(80vh)]">
+            <div>
+              <h1 className="text-white text-4xl"> Something went wrong...</h1>
+              <p className="text-center">Please reload the page.</p>
             </div>
-          ))}
-        </PublicMatchesLayout>
-      </PrimaryLayout>
-    );
-  } 
- 
-  if (matches && isFetched) {
-    return (
-      <PrimaryLayout className="mb-12">
-        <div className="container mx-auto p-4 flex items-center space-x-2">
-          <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-  
-          <p className="badge badge-success mt-1 badge-md badge-outline">Top</p>
-        </div>
-        <PublicMatchesLayout>
-          {matches.slice(0, 25).map((match: TPublicMatches, index: number) => (
-            <div className="rounded  w-auto ring ring-gray-700" key={`${match.match_id}-${index}`}>
-              <div className="bg-gray-800 space-y-2 p-4 rounded border-gray-600">
-                <PublicMatchesHeader startTime={match.start_time} duration={match.duration} />
-                <div className="space-y-2">
-                  <PublicMatchCardHeader isRadiant={true} isRadiantWin={match.radiant_win} />
-                  <PublicMatchesHeroIcons ids={match.radiant_team.split(",")} type="radiant" />
-                </div>
-                <div className="space-y-2">
-                  <PublicMatchCardHeader isRadiant={false} isRadiantWin={match.radiant_win} />
-                  <PublicMatchesHeroIcons ids={match.dire_team.split(",")} type="dire" />
-                </div>
-              </div>
-              <PublicMatchesFooter match={match} />
+          </div>
+        </PrimaryLayout>
+      );
+    }
+    case "success": {
+      return (
+        <PrimaryLayout>
+          <div className="container mx-auto p-4 flex items-center gap-4 justify-between flex-wrap">
+            <div className="flex items-center gap-1">
+              <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+              <span className=" badge">Top</span>
             </div>
-          ))}
-        </PublicMatchesLayout>
-      </PrimaryLayout>
-    );
-  } 
-  
-  return <div>Hello</div>
-
+            <div>
+              <p>
+                Showing
+                <select
+                  className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
+                  value={show}
+                  onChange={(e: any) => setShow(e.currentTarget.value)}>
+                  <option value={15}>15</option>
+                  <option value={25}>25</option>
+                  <option value={50}>50</option>
+                  <option value={matches.length}>{matches.length}</option>
+                </select>
+                of <span className="text-white font-bold">{matches.length} {" "}</span>
+                results
+              </p>
+            </div>
+          </div>
+          <div className="container mx-auto p-4 flex flex-wrap gap-4">
+            {matches.slice(0, show).map((match: TPublicMatches, index: number) => (
+              <MatchesLayout
+                isRadiantWin={match.radiant_win}
+                key={`card-${match.match_id}-${index}`}>
+                <MatchTime
+                  startTime={match.start_time}
+                  avgMMR={match.avg_mmr}
+                  className="xl:block lg:block md:block hidden p-4"
+                />
+                <MatchLayout>
+                  <MatchesCardHeader isRadiant={true} isRadiantWin={match.radiant_win} />
+                  <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
+                </MatchLayout>
+                <MatchDetails duration={match.duration} gameMode={match.game_mode} />
+                <MatchLayout>
+                  <MatchesCardHeader isRadiant={false} isRadiantWin={match.radiant_win} />
+                  <HeroIconsLayout ids={matches[0].dire_team.split(",")} type="dire" />
+                </MatchLayout>
+                <MatchMoreInfo
+                  matchId={match.match_id}
+                  server={match.cluster}
+                  startTime={match.start_time}
+                  avgMMR={match.avg_mmr}
+                />
+              </MatchesLayout>
+            ))}
+          </div>
+        </PrimaryLayout>
+      );
+    }
+    default: {
+      return (
+        <PrimaryLayout>
+          <div className="container mx-auto p-4 grid place-items-center h-[calc(80vh)]">
+            <div>
+              <h1 className="text-white text-4xl"> Something went wrong...</h1>
+              <p className="text-center">Please reload the page.</p>
+            </div>
+          </div>
+        </PrimaryLayout>
+      );
+    }
+  }
 };
 
 export default PublicMatches;
