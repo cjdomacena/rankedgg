@@ -5,14 +5,13 @@ import { GAME_MODES } from "../../../utils/constants";
 
 type Props = {
   gameMode: number;
-  startTime: number;
-  duration:number;
-  avgMMR: number | null
+  duration: number;
+
 };
 
-const MatchDetails = ({ gameMode, startTime, duration, avgMMR }: Props) => {
+const MatchDetails = ({ gameMode, duration, }: Props) => {
   return (
-    <div className="flex flex-col justify-center items-center w-full whitespace-nowrap">
+    <div className="flex flex-col justify-center items-center w-full whitespace-nowrap space-y-0.5">
       <p
         className=" text-xs flex items-center gap-1 justify-center tooltip tooltip-top tooltip-info text-center"
         data-tip="Duration">
@@ -23,15 +22,7 @@ const MatchDetails = ({ gameMode, startTime, duration, avgMMR }: Props) => {
       <p className="text-xs capitalize text-center">
         {GAME_MODES[gameMode].name.split("_").join(" ")}
       </p>
-      <p className="text-xs text-center">{formatStartTime(startTime)}</p>
-      <p className="text-xs">
-        Avg MMR:{" "}
-        {avgMMR ? (
-          <span className=" text-white font-semibold">{avgMMR}</span>
-        ) : (
-          <span className="text-white semibold">NA</span>
-        )}
-      </p>
+      
     </div>
   );
 };

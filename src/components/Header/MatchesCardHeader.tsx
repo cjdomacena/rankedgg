@@ -6,12 +6,20 @@ type Props = {
   isRadiant: boolean;
 };
 
+
+
 const MatchesCardHeader = ({ isRadiant, isRadiantWin, heroes }: Props) => {
   return (
     <div>
       <p className="text-white">{isRadiant ? "Radiant" : "Dire"}</p>
       <p className="text-xs font-semibold xl:text-left lg:text-left md:text-left text-center">
-        {isRadiantWin ? "Win" : !isRadiantWin && !isRadiant ? "Win" : "Lose"}
+        {isRadiantWin && isRadiant ? (
+          <span className="text-green-500">Win</span>
+        ) : !isRadiantWin && !isRadiant ? (
+          <span className="text-green-500">Win</span>
+        ) : (
+          <span className="text-red-500">Lose</span>
+        )}
       </p>
     </div>
   );
