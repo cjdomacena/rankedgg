@@ -19,12 +19,6 @@ const MatchDetails = ({ gameMode, duration, startTime, matchId}: Props) => {
         <span>ID: </span>
         {matchId}
       </p>
-      {/* <p
-        className=" text-xs flex items-center gap-1 justify-center tooltip tooltip-top  bg-blue-800  p-2 rounded-tr"
-        data-tip="Duration">
-        <GiSandsOfTime className="w-4 h-4" />
-        {formatDuration(duration)}
-      </p> */}
       <p
         className="text-xs capitalize tooltip bg-blue-800 p-2 rounded-tr flex items-center gap-1"
         data-tip="Game Mode">
