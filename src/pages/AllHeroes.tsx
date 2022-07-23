@@ -7,6 +7,7 @@ import { HERO_LIST } from "../../utils/constants";
 import { FiGrid } from "react-icons/fi";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import PageHeader from "../components/Header/PageHeader";
+import PageHeaderBG from "../components/Header/PageHeaderBG";
 const AllHeroes: React.FC = () => {
   const { status, data } = useHeroes();
   const id = useId();
@@ -62,17 +63,19 @@ const AllHeroes: React.FC = () => {
   } else if (status === "success" && data) {
     return (
       <PrimaryLayout>
-        <div className="container mx-auto flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
-          <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
-          <input
-            className=" input input-md input-accent rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
-            placeholder="Search Hero"
-            value={searchInput}
-            onChange={handleSearchInput}
-            onFocus={() => setIsSearching((prev) => !prev)}
-          />
-        </div>
-        <div className="container mx-auto pb-4">
+        <PageHeaderBG>
+          <div className="container mx-auto flex justify-between text-neutral-300 items-center py-4 px-8 flex-wrap gap-2">
+            <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
+            <input
+              className=" input input-md input-accent rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
+              placeholder="Search Hero"
+              value={searchInput}
+              onChange={handleSearchInput}
+              onFocus={() => setIsSearching((prev) => !prev)}
+            />
+          </div>
+        </PageHeaderBG>
+        <div className="container mx-auto pt-8 pb-10 px-8">
           <AllHeroLayout type="Strength">
             {data.strength.map((hero) => (
               <HeroImage

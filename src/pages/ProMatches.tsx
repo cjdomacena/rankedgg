@@ -4,6 +4,7 @@ import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { useState } from "react";
 import ErrorComponent from "../components/Error";
+import PageHeaderBG from "../components/Header/PageHeaderBG";
 
 type Props = {};
 
@@ -58,28 +59,33 @@ const ProMatches = (props: Props) => {
     case "success": {
       return (
         <PrimaryLayout>
-          <div className="container mx-auto p-4 flex items-center gap-4 justify-between flex-wrap">
-            <div className="flex items-center gap-1">
-              <PageHeader icon={<IoPeopleOutline className="mr-1 w-6 h-6" />} title="Pro Matches" />
-              <span className=" badge">Top</span>
+          <PageHeaderBG>
+            <div className="container mx-auto py-4 px-8  flex items-center gap-4 justify-between flex-wrap">
+              <div className="flex items-center gap-1">
+                <PageHeader
+                  icon={<IoPeopleOutline className="mr-1 w-6 h-6" />}
+                  title="Pro Matches"
+                />
+                <span className=" badge">Top</span>
+              </div>
+              <div>
+                <p>
+                  Showing
+                  <select
+                    className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
+                    value={show}
+                    onChange={handleChange}>
+                    <option value={15}>15</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={matches.length}>{matches.length}</option>
+                  </select>
+                  of <span className="text-white font-bold">{matches.length} </span>
+                  results
+                </p>
+              </div>
             </div>
-            <div>
-              <p>
-                Showing
-                <select
-                  className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
-                  value={show}
-                  onChange={handleChange}>
-                  <option value={15}>15</option>
-                  <option value={25}>25</option>
-                  <option value={50}>50</option>
-                  <option value={matches.length}>{matches.length}</option>
-                </select>
-                of <span className="text-white font-bold">{matches.length} </span>
-                results
-              </p>
-            </div>
-          </div>
+          </PageHeaderBG>
           <div className="container mx-auto p-4">
             <div className=" bg-gray-700 w-fit rounded p-4 border-l-4 border-l-info  shadow-xl">
               <div className="flex gap-4 pb-2">
@@ -93,7 +99,6 @@ const ProMatches = (props: Props) => {
                 </div>
               </div>
               <p className="  text-blue-300 text-xs">{matches[0].league_name}</p>
-             
             </div>
           </div>
         </PrimaryLayout>

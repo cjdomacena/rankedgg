@@ -10,6 +10,7 @@ import MatchDetails from "../components/Matches/MatchDetails";
 import MatchLayout from "../components/Layouts/MatchLayout";
 import { useState } from "react";
 import { formatDuration } from "../../utils";
+import PageHeaderBG from "../components/Header/PageHeaderBG";
 
 type Props = {};
 
@@ -58,9 +59,11 @@ const PublicMatches = (props: Props) => {
     case "loading": {
       return (
         <PrimaryLayout>
-          <div className="container mx-auto p-4">
-            <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-          </div>
+          <PageHeaderBG>
+            <div className="container mx-auto p-4">
+              <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+            </div>
+          </PageHeaderBG>
           <div className="container mx-auto p-4 flex flex-wrap gap-4">
             <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
             <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
@@ -84,29 +87,31 @@ const PublicMatches = (props: Props) => {
     case "success": {
       return (
         <PrimaryLayout>
-          <div className="container mx-auto p-4 flex items-center gap-4 justify-between flex-wrap">
-            <div className="flex items-center gap-1">
-              <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-              <span className=" badge">Top</span>
+          <PageHeaderBG>
+            <div className="container mx-auto py-4 px-8 flex items-center gap-4 justify-between flex-wrap">
+              <div className="flex items-center gap-1">
+                <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+                <span className=" badge">Top</span>
+              </div>
+              <div>
+                <p>
+                  Showing
+                  <select
+                    className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
+                    value={show}
+                    onChange={handleChange}>
+                    <option value={15}>15</option>
+                    <option value={25}>25</option>
+                    <option value={50}>50</option>
+                    <option value={matches.length}>{matches.length}</option>
+                  </select>
+                  of <span className="text-white font-bold">{matches.length} </span>
+                  results
+                </p>
+              </div>
             </div>
-            <div>
-              <p>
-                Showing
-                <select
-                  className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
-                  value={show}
-                  onChange={handleChange}>
-                  <option value={15}>15</option>
-                  <option value={25}>25</option>
-                  <option value={50}>50</option>
-                  <option value={matches.length}>{matches.length}</option>
-                </select>
-                of <span className="text-white font-bold">{matches.length} </span>
-                results
-              </p>
-            </div>
-          </div>
-          <div className="container h-auto mx-auto p-4 flex flex-wrap gap-4">
+          </PageHeaderBG>
+          <div className="container h-auto mx-auto p-8 flex flex-wrap gap-4">
             <div className="w-full mx-auto  grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-12">
               {matches.slice(0, show).map((match: TPublicMatches, index: number) => (
                 <div key={`${match.match_seq_num}-${index}`}>

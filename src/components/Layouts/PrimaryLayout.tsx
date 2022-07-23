@@ -6,7 +6,7 @@ type Props = {
 };
 
 const PrimaryLayout = ({ className = "", children }: Props) => {
-  return <section className={`py-4 h-full w-full ${className}`}>{children}</section>;
+  return <section className={`h-full w-full ${className}`}>{children}</section>;
 };
 
 export default PrimaryLayout;

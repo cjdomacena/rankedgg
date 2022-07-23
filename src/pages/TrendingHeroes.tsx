@@ -3,6 +3,7 @@ import { cleanHeroStats } from "../../utils";
 import { useHeroStats } from "../api";
 import ErrorComponent from "../components/Error";
 import PageHeader from "../components/Header/PageHeader";
+import PageHeaderBG from "../components/Header/PageHeaderBG";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import Table from "../components/Table/Table";
 type Props = {};
@@ -14,14 +15,20 @@ const TrendingHeroes = (props: Props) => {
     case "success": {
       return (
         <PrimaryLayout>
-          <div className="mx-auto container h-full">
-            <div className="p-4">
-              <PageHeader
-                icon={<FiTrendingUp className="w-6 h-6 mr-2" />}
-                title="Trending Heroes"
-              />
+          <div className="mx-auto h-full ">
+            <PageHeaderBG>
+              <div className="container mx-auto py-4 px-8">
+                <div>
+                  <PageHeader
+                    icon={<FiTrendingUp className="w-6 h-6 mr-2" />}
+                    title="Trending Heroes"
+                  />
+                </div>
+              </div>
+            </PageHeaderBG>
+            <div className="container mx-auto p-4">
+              <Table heroStats={cleanHeroStats(heroes)} />
             </div>
-            <Table heroStats={cleanHeroStats(heroes)} />
           </div>
         </PrimaryLayout>
       );
@@ -44,10 +51,10 @@ const TrendingHeroes = (props: Props) => {
       );
     }
     case "error": {
-      return <ErrorComponent />
+      return <ErrorComponent />;
     }
     default: {
-      return <ErrorComponent />
+      return <ErrorComponent />;
     }
   }
 };
