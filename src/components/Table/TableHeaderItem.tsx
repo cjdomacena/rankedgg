@@ -24,7 +24,7 @@ const TableHeaderItem = ({ headerItem }: Props) => {
     <tr>
       {headerItem.headers.map((header, index) =>
         index !== 0 ? (
-          <td key={header.id} colSpan={header.colSpan} className="p-2">
+          <td key={header.id} colSpan={header.colSpan}>
             <div onClick={header.column.getToggleSortingHandler()}>
               {header.isPlaceholder ? null : (
                 <h4 className="flex items-center gap-1 cursor-pointer">
@@ -35,7 +35,7 @@ const TableHeaderItem = ({ headerItem }: Props) => {
             </div>
           </td>
         ) : (
-          <th className="bg-gray-800 w-12 z-50" key={header.id}>
+          <th className="bg-neutral w-12 z-50" key={header.id}>
             <div className="space-y-1 w-fit">
               <div
                 className="flex items-center cursor-pointer"

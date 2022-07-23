@@ -88,40 +88,72 @@ export const getImageUrl = (heroIndex: number | null | string, src: string = "")
     : import.meta.env.VITE_IMAGE_CDN + src;
 };
 
-export const formatDuration = (duration:number) => {
-  if(!Number.isNaN(duration) && Number.isFinite(duration)) {
+export const getAbilityImage = (type: string) => {
+  return (
+    import.meta.env.VITE_IMAGE_CDN +
+    `/apps/dota2/images/dota_react/icons/hero_${type.toLowerCase()}.png`
+  );
+};
+
+export const formatDuration = (duration: number) => {
+  if (!Number.isNaN(duration) && Number.isFinite(duration)) {
     const minutes = Math.floor(duration / 60);
     const seconds = Math.floor(duration % 60);
     if (String(seconds).length < 2) {
       return `${minutes}:0${seconds}`;
-    } 
-    return `${minutes}:${seconds}`
+    }
+    return `${minutes}:${seconds}`;
   }
   return null;
-}
+};
 
-export const formatStartTime = (startTime:number, duration:number) => {
+export const formatStartTime = (startTime: number, duration: number) => {
+
+  // THANK YOU!! https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
+  
   const startDate = new Date((startTime + duration) * 1000);
   const today = new Date();
+  let delta = Math.abs(today.valueOf() - startDate.valueOf()) / 1000;
+  const result = {};
+  // calculate (and subtract) whole days
+  const days = Math.floor(delta / 86400);
+  result["days"] = days;
+  delta -= days * 86400;
 
-  if (today.getMonth() + 1 === startDate.getMonth() + 1) {
-    if (today.getDate() === startDate.getDate()) {
-      const hourDiff = today.getHours() - startDate.getHours();
-      if (hourDiff > 1) {
-        return hourDiff + " hours ago";
-      } else if (hourDiff < 2) {
-        const mins = startDate.getMinutes();
-        return mins === 1 ? `${mins} minute ago` : `${mins} minutes ago`;
-      } else if (hourDiff === 1) {
-        return "an hour ago";
-      }
-    } else {
-      const dayDiff = today.getDate() - startDate.getDate();
-      return dayDiff > 1 ? `${dayDiff} days ago` : "a day ago";
-    }
+  // calculate (and subtract) whole hours
+  const hours = Math.floor(delta / 3600) % 24;
+  result["hours"] = hours;
+  delta -= hours * 3600;
+
+  // calculate (and subtract) whole minutes
+  const minutes = Math.floor(delta / 60) % 60;
+  result["minutes"] = minutes;
+  delta -= minutes * 60;
+
+  if (result["days"] > 0 && result["days"] < 27) {
+    return result["days"] > 1 ? `${result["days"]} days ago` : `${result["days"]} day ago`;
+  } else if (result["hours"] > 0) {
+    return result["hours"] > 1 ? `${result["hours"]} hours ago` : `${result["hours"]} hour ago`;
+  } else if (result["minutes"] > 0) {
+    return result["minutes"] > 1
+      ? `${result["minutes"]} minutes ago`
+      : `${result["minutes"]} minute ago`;
   } else {
-    const monthDiff = (today.getMonth() + 1) - (startDate.getMonth() + 1);
-    return monthDiff > 1 ? `${monthDiff} months ago` : "a month ago";
+    return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(startDate);
   }
-  return "";
+};
+
+export const calculateAttackSpeed = (attack_rate: number, base_agi: number) => {
+  const attackSpeed = attack_rate / (1 + base_agi / 100);
+  return Math.round((attackSpeed + Number.EPSILON) * 100) / 100;
+};
+
+export const calculateHealthTotal = (base_str: number, base_health: number) => {
+  const MULTIPLIER = 0.1;
+  return base_health + base_str * MULTIPLIER;
+};
+
+export const calculateRegen = (base_str: number) => {
+  const MULTIPLIER = 0.1;
+  return MULTIPLIER * base_str;
 };

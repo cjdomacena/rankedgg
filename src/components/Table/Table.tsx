@@ -144,7 +144,7 @@ const getRankIcon = (rank: string) => {
       return <PlayerRankIcon rank={"PR"} title={"Immortal Pick Rate"} imgSrc={rank_8} />;
     }
     default:
-      return <p>{rank}</p>;
+      return <p className="tooltip tooltip-bottom" data-tip="Pro Win Rate">{rank.split("_").join(" ")}</p>;
   }
 };
 
@@ -169,8 +169,8 @@ const Table: React.FC<Props> = ({ heroStats }) => {
         accessorKey: key,
         cell: (item: any) => item.getValue(),
         header: (
-          <p className="tooltip tooltip-bottom" data-tip={COLUMN_HEADERS[index]}>
-            {COLUMN_HEADERS[index]}
+          <p className="tooltip tooltip-bottom " data-tip={COLUMN_HEADERS[index]}>
+            {COLUMN_HEADERS[index].split('_').join(" ")}
           </p>
         ),
       };
@@ -185,7 +185,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
               <p className="text-xs text-gray-400">{item.getValue()} %</p>
               <progress
                 className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-secondary" : "progress-info"
+                  item.getValue() < 50 ? "progress-error" : "progress-success"
                 }`}
                 value={item.getValue()}
                 max={100}
@@ -227,8 +227,8 @@ const Table: React.FC<Props> = ({ heroStats }) => {
   });
 
   return (
-    <div className="text-neutral-300  overflow-x-auto h-full py-8 ">
-      <table className="table table-zebra w-full h-full drop-shadow-xl">
+    <div className="text-neutral-300  overflow-x-auto h-full p-8 ">
+      <table className="table  w-full h-full">
         <TableHeaderRow headerGroup={table.getHeaderGroups()} />
         <tbody className="text-xs">
           <TableBodyRow tableRowModel={table.getRowModel()}/>

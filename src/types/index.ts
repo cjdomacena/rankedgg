@@ -122,3 +122,8 @@ export type TPublicMatches = {
   radiant_team: string;
   dire_team: string;
 };
+export enum Attributes {
+  agi = "Agility",
+  str = "Strength",
+  int = "Intelligence",
+}

@@ -18,14 +18,14 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
             <FiChevronDown className="ml-1" />
           </Menu.Button>
           <Menu.Items
-            className="absolute top-12 left-0 p-1 w-44 rounded-sm bg-primary    text-sm space-y-1 border border-secondary/10"
+            className="absolute top-12 left-0 p-1 w-44 rounded-sm bg-neutral text-sm space-y-1 border border-secondary/10 z-50"
             as="ul">
             {pills
               ? pills.map((pill, index) => (
                   <Menu.Item
                     as="li"
                     tabIndex={index}
-                    className=" rounded hover:bg-secondary cursor-pointer"
+                    className=" rounded hover:bg-accent cursor-pointer"
                     key={`${text}-${id}-${index}`}>
                     <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
                   </Menu.Item>
