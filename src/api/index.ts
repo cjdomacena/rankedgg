@@ -7,7 +7,7 @@ import { Dispatch, SetStateAction } from "react";
 const BASE_URL = "https://api.opendota.com/api";
 
 const queryConfig = {
-  refetchOnWindowFocus: false,
+  refetchOnWindowFocus: true,
   staleTime: 15 * 60 * 1000, // 15 minutes
 };
 

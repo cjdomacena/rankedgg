@@ -4,9 +4,11 @@
 
 html {
   height: 100vh;
+  background-color: #000;
 }
 
 #root {
   height: 100vh;
   @apply font-noto-sans;
+
 }

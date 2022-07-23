@@ -35,7 +35,7 @@ const TableHeaderItem = ({ headerItem }: Props) => {
             </div>
           </td>
         ) : (
-          <th className="bg-gray-800 w-12 z-50" key={header.id}>
+          <th className="bg-neutral w-12 z-50" key={header.id}>
             <div className="space-y-1 w-fit">
               <div
                 className="flex items-center cursor-pointer"

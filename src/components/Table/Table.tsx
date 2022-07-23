@@ -185,7 +185,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
               <p className="text-xs text-gray-400">{item.getValue()} %</p>
               <progress
                 className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-secondary" : "progress-info"
+                  item.getValue() < 50 ? "progress-error" : "progress-success"
                 }`}
                 value={item.getValue()}
                 max={100}
@@ -228,7 +228,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
 
   return (
     <div className="text-neutral-300  overflow-x-auto h-full py-8 ">
-      <table className="table table-zebra w-full h-full drop-shadow-xl">
+      <table className="table  w-full h-full">
         <TableHeaderRow headerGroup={table.getHeaderGroups()} />
         <tbody className="text-xs">
           <TableBodyRow tableRowModel={table.getRowModel()}/>
