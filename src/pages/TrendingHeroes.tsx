@@ -14,8 +14,13 @@ const TrendingHeroes = (props: Props) => {
     case "success": {
       return (
         <PrimaryLayout>
-          <div className="mx-auto container h-full p-4">
-            <PageHeader icon={<FiTrendingUp className="w-6 h-6 mr-2" />} title="Trending Heroes" />
+          <div className="mx-auto container h-full">
+            <div className="p-4">
+              <PageHeader
+                icon={<FiTrendingUp className="w-6 h-6 mr-2" />}
+                title="Trending Heroes"
+              />
+            </div>
             <Table heroStats={cleanHeroStats(heroes)} />
           </div>
         </PrimaryLayout>

@@ -40,7 +40,7 @@ const AllHeroes: React.FC = () => {
             onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
-        <div className="container mx-auto">
+        <div className="container mx-auto ">
           <AllHeroLayout type="Strength">
             {placeHolderItems.map((item) => (
               <HeroImage key={`${id}-${item}-strength`} src={null} className="bg-gray-600" />
@@ -65,14 +65,14 @@ const AllHeroes: React.FC = () => {
         <div className="container mx-auto flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
           <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
           <input
-            className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
+            className=" input input-md input-accent rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
             placeholder="Search Hero"
             value={searchInput}
             onChange={handleSearchInput}
             onFocus={() => setIsSearching((prev) => !prev)}
           />
         </div>
-        <div className="container mx-auto">
+        <div className="container mx-auto pb-4">
           <AllHeroLayout type="Strength">
             {data.strength.map((hero) => (
               <HeroImage

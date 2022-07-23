@@ -14,9 +14,9 @@ const TableBodyRow = ({tableRowModel}:Props) => {
             index > 0 ? (
               <td key={cell.id}>{flexRender(cell.column.columnDef.cell, cell.getContext())}</td>
             ) : (
-              <td key={cell.id} className="bg-gray-900 z-10">
+              <th key={cell.id} className="bg-gray-900 z-50">
                 {flexRender(cell.column.columnDef.cell, cell.getContext())}
-              </td>
+              </th>
             ),
           )}
         </tr>

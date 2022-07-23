@@ -35,7 +35,7 @@ const TableHeaderItem = ({ headerItem }: Props) => {
             </div>
           </td>
         ) : (
-          <td className="bg-gray-800 w-12 z-50" key={header.id}>
+          <th className="bg-gray-800 w-12 z-50" key={header.id}>
             <div className="space-y-1 w-fit">
               <div
                 className="flex items-center cursor-pointer"
@@ -46,14 +46,14 @@ const TableHeaderItem = ({ headerItem }: Props) => {
               <div>
                 <input
                   type="text"
-                  className="input input-bordered input-xs rounded"
+                  className="input input-bordered input-xs rounded max-w-xs"
                   placeholder="Enter Hero Name"
                   value={(header.column.getFilterValue() ?? "") as string}
                   onChange={(e) => header.column.setFilterValue(e.target.value)}
                 />
               </div>
             </div>
-          </td>
+          </th>
         ),
       )}
     </tr>

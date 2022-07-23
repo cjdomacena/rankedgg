@@ -9,7 +9,18 @@ module.exports = {
     },
   },
   daisyui: {
-    themes:['night']
+    themes: [
+      {
+        mytheme: {
+          primary: "#0E0E10",
+          secondary: "#ec3d06",
+          accent: "#26272B",
+          neutral: "#60636A",
+          "base-100": "#07080C",
+          info: "#0f77ff",
+        },
+      },
+    ],
   },
   plugins: [require("daisyui")],
 };

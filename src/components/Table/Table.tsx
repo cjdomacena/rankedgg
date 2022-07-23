@@ -181,11 +181,11 @@ const Table: React.FC<Props> = ({ heroStats }) => {
           !isNaN(item.getValue()) ? (
             <div
               data-tip={`${item.getValue()}%`}
-              className="tooltip tooltip-bottom w-16 h-auto z-50 flex flex-col items-start gap-1">
+              className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
               <p className="text-xs text-gray-400">{item.getValue()} %</p>
               <progress
                 className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-accent" : "progress-info"
+                  item.getValue() < 50 ? "progress-secondary" : "progress-info"
                 }`}
                 value={item.getValue()}
                 max={100}
@@ -194,7 +194,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
           ) : (
             <div
               data-tip={`0%`}
-              className="tooltip tooltip-bottom w-16 h-auto z-50 flex flex-col items-start gap-1">
+              className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
               <p className="text-xs text-gray-400">{0} %</p>
               <progress
                 className="progress progress-info border border-gray-800"
@@ -227,8 +227,8 @@ const Table: React.FC<Props> = ({ heroStats }) => {
   });
 
   return (
-    <div className="text-neutral-300  overflow-x-auto h-full py-8">
-      <table className="table table-zebra w-full h-full drop-shadow-xl z-10">
+    <div className="text-neutral-300  overflow-x-auto h-full py-8 ">
+      <table className="table table-zebra w-full h-full drop-shadow-xl">
         <TableHeaderRow headerGroup={table.getHeaderGroups()} />
         <tbody className="text-xs">
           <TableBodyRow tableRowModel={table.getRowModel()}/>
