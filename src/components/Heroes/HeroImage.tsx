@@ -9,7 +9,7 @@ type Props = {
 
 const HeroImage: React.FC<Props> = ({ src, isSearched = false, className, heroName }) => {
   return (
-    <div className={`w-full hover:scale-150 transition-transform rounded ${className} tooltip tooltip-accent capitalize `} data-tip={heroName}>
+    <div className={`w-full hover:scale-125 border border-gray-800 transition-transform rounded ${className} tooltip tooltip-primary capitalize hover:z-20`} data-tip={heroName}>
       {src === null ? (
         <div className=" h-24 w-full bg-slate-900 animate-pulse"></div>
       ) : (
