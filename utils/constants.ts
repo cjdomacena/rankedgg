@@ -553,3 +553,20 @@ export const GAME_MODES = {
     name: "mutation",
   },
 };
+
+export const ATTRIBUTE_LEVELS = {
+    17: 2,
+    18:2,
+    19: 4,
+    20:4,
+    21: 6,
+    22: 8,
+    23: 10,
+    24: 12,
+    25:12,
+    26: 14,
+    27:14,
+    28:14,
+    29: 14,
+    30: 14
+  };
