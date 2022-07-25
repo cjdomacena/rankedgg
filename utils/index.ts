@@ -1,4 +1,4 @@
-import { HERO_LIST, HERO_ICONS } from "./constants";
+import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS } from "./constants";
 import { THero, THeroTrend } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
@@ -108,9 +108,8 @@ export const formatDuration = (duration: number) => {
 };
 
 export const formatStartTime = (startTime: number, duration: number) => {
-
   // THANK YOU!! https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
-  
+
   const startDate = new Date((startTime + duration) * 1000);
   const today = new Date();
   let delta = Math.abs(today.valueOf() - startDate.valueOf()) / 1000;
@@ -143,7 +142,7 @@ export const formatStartTime = (startTime: number, duration: number) => {
   }
 };
 
-export const calculateAttackSpeed = (attack_rate: number, base_agi: number) => {
+export const calculateAttackSpeedInSec = (attack_rate: number, base_agi: number) => {
   const attackSpeed = attack_rate / (1 + base_agi / 100);
   return Math.round((attackSpeed + Number.EPSILON) * 100) / 100;
 };
@@ -156,4 +155,61 @@ export const calculateHealthTotal = (base_str: number, base_health: number) => {
 export const calculateRegen = (base_str: number) => {
   const MULTIPLIER = 0.1;
   return MULTIPLIER * base_str;
+};
+
+export const calculateAttackSpeed = (attack_rate: number, base_agi: number) => {
+  return Math.round((1.62 / (attack_rate / (1 + (1.25 * base_agi) / 100))) * 100);
+};
+
+export const calculateMinMaxDamage = (
+  base_agi: number,
+  base_int: number,
+  base_str: number,
+  base_attack_min: number,
+  base_attack_max: number,
+  primary_attr: string,
+  rangeSlider: number,
+  gain: number = 1,
+) => {
+  let attribute = 0;
+  switch (primary_attr) {
+    case "agi":
+      attribute = base_agi;
+      break;
+    case "int":
+      attribute = base_int;
+      break;
+    case "str":
+      attribute = base_str;
+      break;
+    default:
+      attribute = 1;
+      break;
+  }
+
+  const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
+  return {
+    min: Math.floor(attribute + (base_attack_min + (rangeSlider - 1) * gain) + addedLevels),
+    max: Math.floor(attribute + base_attack_max + (rangeSlider - 1) * gain + addedLevels),
+  };
+};
+
+export const calculateArmor = (
+  base_armor: number,
+  base_agi: number,
+  agi_gain: number,
+  rangeSlider: number,
+) => {
+  const armorModifer = 0.16;
+  const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
+
+  const armor =
+    base_armor +
+    (base_agi +
+      ((rangeSlider - 1) * agi_gain +
+        (rangeSlider - 1) * (agi_gain * armorModifer) +
+        addedLevels * armorModifer)) /
+      6;
+
+  return armor.toFixed(2);
 };

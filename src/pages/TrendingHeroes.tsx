@@ -17,7 +17,7 @@ const TrendingHeroes = (props: Props) => {
         <PrimaryLayout>
           <div className="mx-auto h-full ">
             <PageHeaderBG>
-              <div className="container mx-auto py-4 px-8">
+              <div className="container mx-auto py-6 px-8">
                 <div>
                   <PageHeader
                     icon={<FiTrendingUp className="w-6 h-6 mr-2" />}

@@ -13,12 +13,12 @@ function App() {
   return (
     <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
       <Nav />
-      <section className="h-auto flex-grow">
+      <section className="h-full flex flex-grow ">
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Hero />} />
           <Route path="/public-matches" element={<PublicMatches />} />
           <Route path="/all-heroes" element={<AllHeroes />} />
-          <Route path="/trending-heroes" element={<TrendingHeroes />}/>
+          <Route path="/trending-heroes" element={<TrendingHeroes />} />
           <Route path="/pro-matches" element={<ProMatches />} />
           <Route path="/all-heroes/:id" element={<Hero />} />
         </Routes>

@@ -32,14 +32,16 @@ const AllHeroes: React.FC = () => {
     return (
       <PrimaryLayout>
         <div className="container mx-auto font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2">
-          <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
-          <input
-            className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
-            placeholder="Search Hero"
-            value={searchInput}
-            onChange={handleSearchInput}
-            onFocus={() => setIsSearching((prev) => !prev)}
-          />
+          <PageHeaderBG>
+            <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
+            <input
+              className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
+              placeholder="Search Hero"
+              value={searchInput}
+              onChange={handleSearchInput}
+              onFocus={() => setIsSearching((prev) => !prev)}
+            />
+          </PageHeaderBG>
         </div>
         <div className="container mx-auto ">
           <AllHeroLayout type="Strength">
@@ -64,7 +66,7 @@ const AllHeroes: React.FC = () => {
     return (
       <PrimaryLayout>
         <PageHeaderBG>
-          <div className="container mx-auto flex justify-between text-neutral-300 items-center py-4 px-8 flex-wrap gap-2">
+          <div className="container mx-auto flex justify-between text-neutral-300 items-center pt-12 px-12 flex-wrap gap-2">
             <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
             <input
               className=" input input-md input-accent rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
