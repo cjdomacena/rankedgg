@@ -1,5 +1,5 @@
 export type THero = {
-  id?: number;
+  id: number;
   name: string;
   localized_name: string;
   primary_attr: string;
@@ -127,3 +127,11 @@ export enum Attributes {
   str = "Strength",
   int = "Intelligence",
 }
+
+export type THeroStat = {
+  hasTooltip: boolean;
+  tooltipInfo: string;
+  title: string;
+  value: string | number | JSX.Element;
+  id: string
+};
