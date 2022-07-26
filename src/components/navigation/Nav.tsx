@@ -23,12 +23,12 @@ const Nav = (props: Props) => {
     {
       text: "All Heroes",
       icon: <FiGrid className="mr-1" />,
-      path: "/all-heroes",
+      path: "/heroes/all",
     },
     {
       text: "Trending Heroes",
       icon: <FiTrendingUp className="mr-1" />,
-      path: "/trending-heroes",
+      path: "/heroes/trending",
     },
   ];
 

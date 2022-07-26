@@ -89,6 +89,7 @@ const AllHeroes: React.FC = () => {
                     : "opacity-30"
                 }
                 heroName={formatHeroName(hero.localized_name)}
+                id={hero.id}
               />
             ))}
           </AllHeroLayout>
@@ -103,6 +104,7 @@ const AllHeroes: React.FC = () => {
                     : "opacity-30"
                 }
                 heroName={formatHeroName(hero.localized_name)}
+                id={hero.id}
               />
             ))}
           </AllHeroLayout>
@@ -117,6 +119,7 @@ const AllHeroes: React.FC = () => {
                     : "opacity-30"
                 }
                 heroName={formatHeroName(hero.localized_name)}
+                id={hero.id}
               />
             ))}
           </AllHeroLayout>
