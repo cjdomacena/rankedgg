@@ -1,16 +1,18 @@
 import React from "react";
-import { getAbilityImage } from "../../../../utils";
+import { calculateAttributeLevel, getAbilityImage } from "../../../../utils";
 import { Attributes } from "../../../types";
 
 type Props = {
   values: {
+    id: string;
     header: string | Attributes;
     value: number | string;
   }[];
   type: Attributes;
+  level: number;
+  gain: number
 };
-// const colors = [{agi:"#ec3d06"}, "#26e030", "#00d9ec"];
-const AttributeStats = ({ values, type }: Props) => {
+const AttributeStats = ({ values, type, level, gain }: Props) => {
   return (
     <>
       <ul className=" grid grid-cols-3 text-xs  bg-neutral border border-black/50 p-4 rounded  ">
@@ -20,7 +22,11 @@ const AttributeStats = ({ values, type }: Props) => {
         {values.map((value, index) => (
           <li key={`${type}-${index}`}>
             <p>{value.header}</p>
-            <p>{value.value}</p>
+            <p>
+              {value.id === "attribute"
+                ? calculateAttributeLevel(Number(value.value), level, Number(gain))
+                : value.value}
+            </p>
           </li>
         ))}
       </ul>
