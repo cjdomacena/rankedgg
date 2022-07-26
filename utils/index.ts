@@ -1,5 +1,5 @@
 import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS } from "./constants";
-import { THero, THeroTrend } from "./../src/types/index";
+import { Attributes, THero, THeroTrend } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
@@ -189,8 +189,8 @@ export const calculateMinMaxDamage = (
 
   const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
   return {
-    min: Math.floor(attribute + (base_attack_min + (rangeSlider - 1) * gain) + addedLevels),
-    max: Math.floor(attribute + base_attack_max + (rangeSlider - 1) * gain + addedLevels),
+    min: Math.floor(attribute + (base_attack_min + (rangeSlider) * gain) + addedLevels),
+    max: Math.floor(attribute + base_attack_max + (rangeSlider) * gain + addedLevels),
   };
 };
 
@@ -211,5 +211,28 @@ export const calculateArmor = (
         addedLevels * armorModifer)) /
       6;
 
-  return armor.toFixed(2);
+  return armor.toFixed(1);
+};
+
+export const calculateAttributeLevel = (base: number, level: number, gain: number) => {
+  const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
+  return Math.round(base + (level - 1) * gain + addedLevels);
+};
+
+export const getPrimaryGain = (
+  primary_attr: keyof typeof Attributes | string,
+  agi_gain: number,
+  str_gain: number,
+  int_gain: number,
+) => {
+  switch (primary_attr) {
+    case "agi":
+      return agi_gain;
+    case "str":
+      return str_gain;
+    case "int":
+      return int_gain;
+    default:
+      return 0;
+  }
 };
