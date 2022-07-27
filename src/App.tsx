@@ -8,12 +8,15 @@ import PublicMatches from "./pages/PublicMatches";
 import ProMatches from "./pages/ProMatches";
 import Hero from "./pages/Hero";
 import { useHeroAbilities } from "./api";
+import PageHeaderBG from "./components/Header/PageHeaderBG";
 
 function App() {
   const {} = useHeroAbilities();
   return (
     <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
-      <Nav />
+      <PageHeaderBG>
+        <Nav />
+      </PageHeaderBG>
       <section className="h-full flex flex-grow my-8">
         <Routes>
           <Route path="/" element={<Home />} />

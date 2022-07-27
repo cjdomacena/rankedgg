@@ -13,7 +13,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
     return (
       <li className="text-sm font-semibold text-gray-300 relative">
         <Menu>
-          <Menu.Button className="flex items-center py-2 px-3 rounded   hover:bg-accent">
+          <Menu.Button className="flex items-center py-2 px-3 rounded   hover:bg-secondary">
             {text}
             <FiChevronDown className="ml-1" />
           </Menu.Button>
@@ -25,7 +25,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
                   <Menu.Item
                     as="li"
                     tabIndex={index}
-                    className=" rounded hover:bg-accent cursor-pointer"
+                    className=" rounded hover:bg-secondary cursor-pointer"
                     key={`${text}-${id}-${index}`}>
                     <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
                   </Menu.Item>
@@ -38,7 +38,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
   }
 
 return (
-  <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:bg-accent transition-colors rounded">
+  <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:bg-secondary transition-colors rounded">
     <p className="flex items-center py-2 px-3  ">{text}</p>
   </li>
 );
