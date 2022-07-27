@@ -14,7 +14,7 @@ function App() {
   return (
     <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
       <Nav />
-      <section className="h-full flex flex-grow ">
+      <section className="h-full flex flex-grow my-8">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/public-matches" element={<PublicMatches />} />
