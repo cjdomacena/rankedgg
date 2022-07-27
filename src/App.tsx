@@ -1,4 +1,3 @@
-
 import Nav from "./components/navigation/Nav";
 import { Routes, Route } from "react-router-dom";
 import AllHeroes from "./pages/AllHeroes";
@@ -8,10 +7,11 @@ import Home from "./pages/Home";
 import PublicMatches from "./pages/PublicMatches";
 import ProMatches from "./pages/ProMatches";
 import Hero from "./pages/Hero";
+import { useHeroAbilities } from "./api";
 
 function App() {
+  const {} = useHeroAbilities();
   return (
-    
     <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
       <Nav />
       <section className="h-full flex flex-grow ">
