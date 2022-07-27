@@ -8,8 +8,9 @@ html {
 }
 
 #root {
-  height: 100vh;
+  height: auto;
+  min-height: 100vh;
   @apply font-noto-sans;
-
+  @apply bg-black/50
 }
 

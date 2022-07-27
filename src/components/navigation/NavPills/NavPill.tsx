@@ -13,19 +13,19 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
     return (
       <li className="text-sm font-semibold text-gray-300 relative">
         <Menu>
-          <Menu.Button className="flex items-center py-2 px-3 rounded   hover:bg-secondary">
+          <Menu.Button className="flex items-center py-2 px-3 rounded   hover:bg-neutral">
             {text}
             <FiChevronDown className="ml-1" />
           </Menu.Button>
           <Menu.Items
-            className="absolute top-12 left-0 p-1 w-44 rounded-sm bg-neutral text-sm space-y-1 border border-secondary/10 z-50"
+            className="absolute top-12 left-0 p-1 w-44 rounded-sm bg-black text-sm space-y-1 border border-secondary/10 z-50"
             as="ul">
             {pills
               ? pills.map((pill, index) => (
                   <Menu.Item
                     as="li"
                     tabIndex={index}
-                    className=" rounded hover:bg-secondary cursor-pointer"
+                    className=" rounded hover:bg-neutral cursor-pointer"
                     key={`${text}-${id}-${index}`}>
                     <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
                   </Menu.Item>
@@ -38,7 +38,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
   }
 
 return (
-  <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:bg-secondary transition-colors rounded">
+  <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:bg-neutral transition-colors rounded">
     <p className="flex items-center py-2 px-3  ">{text}</p>
   </li>
 );
