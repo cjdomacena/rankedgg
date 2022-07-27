@@ -5,20 +5,23 @@ import {
   calculateAttackSpeedInSec,
   calculateMinMaxDamage,
   calculateRegen,
+  getAbilityInfo,
   getImageUrl,
   getPrimaryGain,
 } from "../../utils";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { TbSwords } from "react-icons/tb";
 import AttributeStats from "../components/Heroes/Attributes";
-import { Attributes, THero, THeroStat } from "../types";
+import { Attributes, TAllAbilities, THero, THeroStat } from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
 import { useParams } from "react-router-dom";
-import { useInitialHeroes } from "../api";
+import { useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
 import ErrorComponent from "../components/Error";
 import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
 import HeroHeader from "../components/Heroes/HeroHeader";
+import Abilities from "../components/Heroes/Abilities";
+import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
 
 type Props = {};
 
@@ -45,14 +48,20 @@ const Hero = (props: Props) => {
     int: "text-[#00d9ec]",
   };
   const { id } = useParams();
+
+  // Api Calls
   const { data: heroes, status } = useInitialHeroes();
+  const { data: abilities } = useHeroAbilities();
+  const { data: allAbilities } = useAllAbilities();
+
+  // States
   const [hero, setHero] = useState<THero | null>(null);
   const [attributes, setAttributes] = useState<null | TAttribute[]>(null);
   const [rangeSlider, setRangeSlider] = useState<number>(1);
   const [attack, setAttackStats] = useState<TSingleStat | null>(null);
   const [defense, setDefenseStats] = useState<TSingleStat | null>(null);
   const [mobility, setMobilityStats] = useState<TSingleStat | null>(null);
-
+  const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(null);
   useEffect(() => {
     if (heroes && id) {
       const tempHero: THero = heroes[id];
@@ -221,6 +230,13 @@ const Hero = (props: Props) => {
     }
   }, [heroes, id]);
 
+  useEffect(() => {
+    if (hero && abilities && allAbilities) {
+      const temp = getAbilityInfo(abilities[hero.name].abilities, allAbilities);
+      setHeroAbilities(temp);
+    }
+  }, [abilities, allAbilities, id, hero]);
+
   switch (status) {
     case "error": {
       return <ErrorComponent />;
@@ -232,14 +248,14 @@ const Hero = (props: Props) => {
       if (hero) {
         return (
           <PrimaryLayout className="self-center p-4 my-4">
-            <div className="container mx-auto h-full grid grid-cols-7  overflow-x-hidden gap-8 grid-flow-row-dense">
+            <div className="container mx-auto h-full grid grid-cols-7">
               <img
                 src={getImageUrl(null, hero?.img)}
                 className="w-screen h-2/4 absolute top-0 -z-10 blur-[160px] opacity-1 left-0 select-none"
                 alt={`${hero?.localized_name}'s portrait`}
               />
 
-              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-23  col-span-7 ">
+              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 ">
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
@@ -300,18 +316,32 @@ const Hero = (props: Props) => {
                   </div>
                 </div>
               </section>
-              <section className="w-full 2xl:col-span-5 xl:col-span-5 lg:col-span-5  col-span-7 h-fit 2xl:order-last lg:order-last order-first ">
-                <div className="2xl:w-5/6 xl:w-3/4 lg:w-3/4 w-full mx-auto">
+              <section className="w-full 2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 h-fit order-first">
+                <div className="2xl:w-5/6 xl:w-3/4 lg:w-3/4 w-full mx-auto space-y-12">
                   <HeroHeader
                     imgSrc={getImageUrl(null, hero.img)}
                     name={hero.localized_name}
                     roles={hero.roles}
                   />
+
                   <HeroLevelSlider
                     imgSrc={getImageUrl(hero.id, "")}
                     level={rangeSlider}
                     setLevel={setRangeSlider}
                   />
+                  <HealthAndMana
+                    level={rangeSlider}
+                    baseHealth={hero.base_health}
+                    baseMana={hero.base_mana}
+                    baseStr={hero.base_str}
+                    strGain={hero.str_gain}
+                    type={hero.primary_attr}
+                    baseInt={hero.base_int}
+                    intGain={hero.int_gain}
+                  />
+                  {heroAbilities ? (
+                    <Abilities abilities={heroAbilities} talents={abilities[hero.name].talents} allAbilities={allAbilities}/>
+                  ) : null}
                 </div>
               </section>
             </div>
@@ -320,7 +350,7 @@ const Hero = (props: Props) => {
       }
     }
     default: {
-      return <h1>Nice</h1>
+      return <h1>Nice</h1>;
     }
   }
 };

@@ -8,8 +8,8 @@ type Props = {
 
 const HeroLevelSlider = ({imgSrc, level, setLevel}: Props) => {
   return (
-    <div className="w-full h-auto bg-neutral flex items-center p-4 rounded">
-      <div className="p-1 rounded-full">
+    <div className="w-full h-auto bg-neutral/80 flex items-center p-4 rounded">
+      <div className="rounded-full">
         <img src={imgSrc} className="w-auto h-auto object-fill" />
       </div>
       <input

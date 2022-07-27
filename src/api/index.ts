@@ -115,3 +115,15 @@ export const useHeroAbilities = () => {
     { ...queryConfig },
   );
 };
+
+export const useAllAbilities = () => {
+   return useQuery(
+     ["all-abilities"],
+     async () => {
+       const req = await fetch(`${BASE_URL}/constants/abilities`);
+       const res = await req.json();
+       return res;
+     },
+     { ...queryConfig },
+   );
+}
