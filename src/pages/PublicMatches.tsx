@@ -1,17 +1,14 @@
-import { BiWorld } from "react-icons/bi";
+import { BiWorld, BiXCircle, BiCheckCircle } from "react-icons/bi";
 import { useGetPublicMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { TPublicMatches } from "../types";
 import HeroIconsLayout from "../components/Layouts/HeroIconsLayout";
-import MatchesCardHeader from "../components/Header/MatchesCardHeader";
-import MatchesLayout from "../components/Layouts/MatchesLayout";
-import MatchDetails from "../components/Matches/MatchDetails";
-import MatchLayout from "../components/Layouts/MatchLayout";
 import { useState } from "react";
-import { formatDuration } from "../../utils";
+import { formatStartTime } from "../../utils";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
-
+import { CLUSTERS, GAME_MODES, REGIONS } from "../../utils/constants";
+import { TbMathAvg } from "react-icons/tb";
 type Props = {};
 
 const PublicMatches = (props: Props) => {
@@ -47,10 +44,10 @@ const PublicMatches = (props: Props) => {
   //     cluster: 182,
   //     radiant_team: "86,84,28,103,44",
   //     dire_team: "22,123,89,81,40",
-  //   },
-  // ];
+  //   }]
+  // ;
   const { data: matches, status } = useGetPublicMatches();
-  const [show, setShow] = useState<number>(15);
+  const [show, setShow] = useState<number>(20);
   const handleChange = (e: any) => {
     setShow(e.currentTarget.value);
   };
@@ -64,10 +61,14 @@ const PublicMatches = (props: Props) => {
               <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
             </div>
           </PageHeaderBG>
-          <div className="container mx-auto p-4 flex flex-wrap gap-4">
-            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
-            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
-            <div className="p-4 bg-gray-600 animate-pulse w-full rounded"></div>
+          <div className="container mx-auto p-4">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-10">
+              {[0, 1, 2, 3, 4, 5, 6, 7, 8, 10, 11, 12, 13, 14, 15].map((loading) => (
+                <div
+                  className="w-full h-36 bg-black/80 animate-pulse rounded"
+                  key={`placeholder-${loading}`}></div>
+              ))}
+            </div>
           </div>
         </PrimaryLayout>
       );
@@ -111,33 +112,46 @@ const PublicMatches = (props: Props) => {
               </div>
             </div>
           </PageHeaderBG>
-          <div className="container h-auto mx-auto p-8 flex flex-wrap gap-4">
-            <div className="w-full mx-auto  grid xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-1 gap-12">
-              {matches.slice(0, show).map((match: TPublicMatches, index: number) => (
-                <div key={`${match.match_seq_num}-${index}`}>
-                  <MatchDetails
-                    duration={match.duration}
-                    gameMode={match.game_mode}
-                    startTime={match.start_time}
-                    matchId={match.match_id}
-                  />
-
-                  <MatchesLayout
-                    isRadiantWin={match.radiant_win}
-                    key={`card-${match.match_id}-${index}`}>
-                    <MatchLayout>
-                      <MatchesCardHeader isRadiant={true} isRadiantWin={match.radiant_win} />
-                      <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
-                    </MatchLayout>
-                    <div className=" w-24 text-center p-4 2xl:mx-0 xl:mx-0 lg:mx-0 mx-auto">
-                      <h4 className="text-white font-black">{formatDuration(match.duration)}</h4>
-                      <p className="text-xs">Duration</p>
+          <div className="container h-auto mx-auto p-8">
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-10">
+              {matches.slice(0, show).map((match: TPublicMatches) => (
+                <div className="2xl:w-fit xl:w-fit lg:w-fit md:w-fit w-full" key={match.match_id}>
+                  <div className="h-auto flex items-end gap-2 justify-between">
+                    <div>
+                      <p className="text-xs font-semibold hover:underline cursor-pointer">
+                        {match.match_id}
+                      </p>
+                      <p
+                        className="tooltip tooltip-bottom z-10 mb-0 text-2xs flex"
+                        data-tip={"Average MMR"}>
+                        <TbMathAvg className="w-4 h-4 mr-1" /> {match.num_rank_tier ?? "NA"}
+                      </p>
                     </div>
-                    <MatchLayout isReverse={true}>
+                    <div>
+                      <p className="text-xs text-right capitalize">
+                        {GAME_MODES[match.game_mode].name.split("_").join(" ")}
+                      </p>
+                      <p className="text-xs">{formatStartTime(match.start_time, match.duration)}</p>
+                    </div>
+                  </div>
+                  <div className="flex gap-4 p-3 mt-1 items-center rounded flex-col w-full shadow-2xl border border-black/20 bg-white/10">
+                    <div className="flex items-center gap-2">
+                      {match.radiant_win ? (
+                        <BiCheckCircle className="w-5 h-5 text-emerald-500" />
+                      ) : (
+                        <BiXCircle className="w-5 h-5 text-red-500" />
+                      )}
+                      <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
+                    </div>
+                    <div className="flex items-center gap-2">
+                      {!match.radiant_win ? (
+                        <BiCheckCircle className="w-5 h-5  text-emerald-500" />
+                      ) : (
+                        <BiXCircle className="w-5 h-5 text-red-500" />
+                      )}
                       <HeroIconsLayout ids={match.dire_team.split(",")} type="dire" />
-                      <MatchesCardHeader isRadiant={false} isRadiantWin={match.radiant_win} />
-                    </MatchLayout>
-                  </MatchesLayout>
+                    </div>
+                  </div>
                 </div>
               ))}
             </div>
