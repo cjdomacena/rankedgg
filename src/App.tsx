@@ -17,11 +17,11 @@ function App() {
       <section className="h-full flex flex-grow my-8">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/public-matches" element={<PublicMatches />} />
+          <Route path="/matches/public" element={<PublicMatches />} />
+          <Route path="/matches/professional" element={<ProMatches />} />
           <Route path="/heroes/all" element={<AllHeroes />} />
           <Route path="/heroes/trending" element={<TrendingHeroes />} />
           <Route path="/heroes/:id" element={<Hero />} />
-          <Route path="/pro-matches" element={<ProMatches />} />
         </Routes>
       </section>
       <Footer />

@@ -9,10 +9,10 @@ type Props = {
 
 const HeroIconsLayout = ({ ids, type, reverse = false }: Props) => {
   return (
-    <ul className={`flex gap-1 items-center`}>
+    <ul className={`flex gap-2 items-center`}>
       {ids.map((id, index) => (
-        <li key={`${type}-${id}-${index}`}>
-          <HeroIcon heroIndex={id} />
+        <li key={`${type}-${id}-${index}`} className=" h-8">
+          <HeroIcon heroIndex={id} isRadiant={type === 'radiant' ? true : false} />
         </li>
       ))}
     </ul>

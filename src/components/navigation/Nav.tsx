@@ -1,6 +1,6 @@
 import NavLogo from "./NavLogo";
 import NavPill from "./NavPills/NavPill";
-import { BiWorld } from "react-icons/bi";
+import { BiWorld, BiWifi } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { FiGrid, FiTrendingUp } from "react-icons/fi";
 type Props = {};
@@ -10,12 +10,17 @@ const Nav = (props: Props) => {
     {
       text: "Public Matches",
       icon: <BiWorld className="mr-1" />,
-      path: "/public-matches",
+      path: "/matches/public",
     },
     {
       text: "Pro Matches",
       icon: <IoPeopleOutline className="mr-1" />,
-      path: "/pro-matches",
+      path: "/matches/professional",
+    },
+    {
+      text: "Live",
+      icon: <BiWifi className="mr-1" />,
+      path: "/matches/live",
     },
   ];
 
@@ -25,11 +30,11 @@ const Nav = (props: Props) => {
       icon: <FiGrid className="mr-1" />,
       path: "/heroes/all",
     },
-    {
-      text: "Trending Heroes",
-      icon: <FiTrendingUp className="mr-1" />,
-      path: "/heroes/trending",
-    },
+    // {
+    //   text: "Trending Heroes",
+    //   icon: <FiTrendingUp className="mr-1" />,
+    //   path: "/heroes/trending",
+    // },
   ];
 
   return (

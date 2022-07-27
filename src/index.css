@@ -14,3 +14,12 @@ html {
   @apply bg-black/50
 }
 
+/* https://stratz.com/matches/live?sortBy=MOST_POPULAR style */
+
+.custom-shadow {
+  filter: drop-shadow(rgb(190, 82, 43) 1px 0px 1px) drop-shadow(rgb(190, 82, 43) -1px 0px 1px) drop-shadow(rgb(190, 82, 43) 0px 1px 1px) drop-shadow(rgb(190, 82, 43) 0px -1px 1px);
+}
+
+.custom-shadow-radiant {
+  filter:drop-shadow(rgb(58, 182, 107) 1px 0px 1px) drop-shadow(rgb(58, 182, 107) -1px 0px 1px) drop-shadow(rgb(58, 182, 107) 0px 1px 1px) drop-shadow(rgb(58, 182, 107) 0px -1px 1px);
+}
