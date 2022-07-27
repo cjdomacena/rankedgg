@@ -12,7 +12,7 @@ const MatchesLayout = ({ isRadiantWin, children }: Props) => {
   return (
     <div
       className={`
-      w-full bg-gray-800  flex flex-wrap  items-center rounded 
+      w-full bg-neutral/80  flex flex-wrap  items-center rounded 
       xl:border-l-4 
       xl:border-t-0 
       lg:border-t-0 

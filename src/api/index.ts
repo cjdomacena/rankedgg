@@ -1,7 +1,7 @@
 import { DEFAULT_HERO_TREND } from "./../../utils/constants";
 import { filterHeroes, cleanHeroStats } from "./../../utils/index";
 import { THero, TFilteredHeroes } from "./../types/index";
-import { useQuery } from "react-query";
+import { useQuery } from "@tanstack/react-query";
 import { Dispatch, SetStateAction } from "react";
 
 const BASE_URL = "https://api.opendota.com/api";
@@ -9,6 +9,20 @@ const BASE_URL = "https://api.opendota.com/api";
 const queryConfig = {
   refetchOnWindowFocus: true,
   staleTime: 15 * 60 * 1000, // 15 minutes
+};
+
+export const useInitialHeroes = () => {
+  return useQuery(
+    ["initialHeroes"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/constants/heroes`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    },
+  );
 };
 
 export const useHeroes = () => {
@@ -67,12 +81,16 @@ export const useGetSingleMatch = (teamA: string, teamB: string) => {
 };
 
 export const useGetPublicMatches = () => {
-  return useQuery(['public_matches'], async () => {
-    const req = await fetch(`${BASE_URL}/publicMatches`);
-    const res = await req.json();
-    return res;
-  }, {...queryConfig})
-}
+  return useQuery(
+    ["public_matches"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/publicMatches`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
+};
 
 export const useGetProMatches = () => {
   return useQuery(
@@ -85,3 +103,27 @@ export const useGetProMatches = () => {
     { ...queryConfig },
   );
 };
+
+export const useHeroAbilities = () => {
+  return useQuery(
+    ["abilities"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/constants/hero_abilities`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
+};
+
+export const useAllAbilities = () => {
+   return useQuery(
+     ["all-abilities"],
+     async () => {
+       const req = await fetch(`${BASE_URL}/constants/abilities`);
+       const res = await req.json();
+       return res;
+     },
+     { ...queryConfig },
+   );
+}

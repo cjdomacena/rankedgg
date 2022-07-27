@@ -1,5 +1,5 @@
 export type THero = {
-  id?: number;
+  id: number;
   name: string;
   localized_name: string;
   primary_attr: string;
@@ -127,3 +127,36 @@ export enum Attributes {
   str = "Strength",
   int = "Intelligence",
 }
+
+export type THeroStat = {
+  hasTooltip: boolean;
+  tooltipInfo: string;
+  title: string;
+  value: string | number | JSX.Element;
+  id: string
+};
+
+export type THeroAbilities = {
+  "abilities": string[],
+  "talents": {
+    "name": string,
+    "level":number
+  }
+}
+
+
+export type TAllAbilities = {
+  dname: string;
+  behavior: string | string[];
+  dmg_type: string;
+  bkbpierce: string;
+  desc: string;
+  attrib: {
+    key: string;
+    header: string;
+    value: string[] | string | null;
+  }[] | [];
+  mc: string[] | string | null;
+  cd: string | number;
+  img: string;
+};

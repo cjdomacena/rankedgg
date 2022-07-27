@@ -1,5 +1,5 @@
 import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS } from "./constants";
-import { THero, THeroTrend } from "./../src/types/index";
+import { Attributes, TAllAbilities, THero, THeroTrend } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
@@ -91,8 +91,12 @@ export const getImageUrl = (heroIndex: number | null | string, src: string = "")
 export const getAbilityImage = (type: string) => {
   return (
     import.meta.env.VITE_IMAGE_CDN +
-    `/apps/dota2/images/dota_react/icons/hero_${type.toLowerCase()}.png`
+    `apps/dota2/images/dota_react/icons/hero_${type.toLowerCase()}.png`
   );
+};
+
+export const getHeroAbilityImage = (src: string) => {
+  return import.meta.env.VITE_IMAGE_CDN + src;
 };
 
 export const formatDuration = (duration: number) => {
@@ -147,11 +151,6 @@ export const calculateAttackSpeedInSec = (attack_rate: number, base_agi: number)
   return Math.round((attackSpeed + Number.EPSILON) * 100) / 100;
 };
 
-export const calculateHealthTotal = (base_str: number, base_health: number) => {
-  const MULTIPLIER = 0.1;
-  return base_health + base_str * MULTIPLIER;
-};
-
 export const calculateRegen = (base_str: number) => {
   const MULTIPLIER = 0.1;
   return MULTIPLIER * base_str;
@@ -189,8 +188,8 @@ export const calculateMinMaxDamage = (
 
   const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
   return {
-    min: Math.floor(attribute + (base_attack_min + (rangeSlider - 1) * gain) + addedLevels),
-    max: Math.floor(attribute + base_attack_max + (rangeSlider - 1) * gain + addedLevels),
+    min: Math.floor(attribute + (base_attack_min + rangeSlider * gain) + addedLevels),
+    max: Math.floor(attribute + base_attack_max + rangeSlider * gain + addedLevels),
   };
 };
 
@@ -211,5 +210,66 @@ export const calculateArmor = (
         addedLevels * armorModifer)) /
       6;
 
-  return armor.toFixed(2);
+  return armor.toFixed(1);
+};
+
+export const calculateAttributeLevel = (base: number, level: number, gain: number) => {
+  const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
+  return Math.round(base + (level - 1) * gain + addedLevels);
+};
+
+export const calculateHealth = (
+  base_health: number,
+  base_str: number,
+  str_gain: number,
+  level: number,
+  type: string,
+) => {
+  let multiplier = 18;
+  if (type === "str") {
+    multiplier = 22.5;
+  }
+  const hpFromStrength = Math.round((str_gain * (level - 1) + base_str) * multiplier);
+  const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
+  return hpFromStrength + addedLevels + 200;
+};
+
+export const calculateMana = (
+  base_health: number,
+  base_int: number,
+  int_gain: number,
+  level: number,
+  type: string,
+) => {
+  let multiplier = 12;
+  if (type === "int") {
+    multiplier = 75;
+  }
+  const hpFromInt = Math.round((int_gain * (level - 1) + base_int) * multiplier);
+  const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
+  return hpFromInt + addedLevels + 75;
+};
+
+export const getPrimaryGain = (
+  primary_attr: keyof typeof Attributes | string,
+  agi_gain: number,
+  str_gain: number,
+  int_gain: number,
+) => {
+  switch (primary_attr) {
+    case "agi":
+      return agi_gain;
+    case "str":
+      return str_gain;
+    case "int":
+      return int_gain;
+    default:
+      return 0;
+  }
+};
+
+export const getAbilityInfo = (abilityList: string[], allAbilities: TAllAbilities[]) => {
+  const abilities: TAllAbilities[] = [];
+  abilityList.map((ability: string) => abilities.push(allAbilities[ability]));
+  return abilities;
 };
