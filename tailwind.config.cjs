@@ -8,8 +8,5 @@ module.exports = {
       },
     },
   },
-  daisyui: {
-    themes: ['forest'],
-  },
   plugins: [require("daisyui")],
 };
