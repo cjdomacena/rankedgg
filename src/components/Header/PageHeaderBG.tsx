@@ -7,8 +7,14 @@ type Props = {
 
 const PageHeaderBG = ({ children }: Props) => {
   return (
-    <div className="w-full h-auto  text-white relative">
-      <img src={getImageUrl(null, "/apps/dota2/images/dota_react/heroes/kunkka.png?")} className="absolute w-full h-64 -z-10 blur-[160px] select-none"/>
+    <div className="w-full   text-white relative">
+      <img
+        src={
+          "https://images.unsplash.com/photo-1650954933593-6c9342ba0331?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1943&q=80"
+        }
+        className="absolute top-1/2 bottom-1/2 w-full h-screen -z-10 blur-[120px] select-none"
+        
+      />
       <div className="">{children}</div>
     </div>
   );

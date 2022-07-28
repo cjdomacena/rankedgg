@@ -36,7 +36,7 @@ const HealthAndMana = ({
   };
 
   return (
-    <div className="bg-neutral/80 p-4 rounded space-y-4">
+    <div className="bg-black/30 p-6 rounded space-y-4">
       <div>
         <div className="text-xs leading-relaxed mb-1 flex  justify-between">
           <h3>Health</h3>

@@ -9,7 +9,7 @@ type Props = {
 };
 const HeroIcon = ({ heroIndex, isLoading, className, isRadiant}: Props) => {
   if(isLoading) {
-    return <div className=" w-8 h-8 bg-gray-700 animate-pulse"></div>
+    return <div className=" w-8 h-8 bg-black/30 animate-pulse"></div>;
   }
   return (
     <div

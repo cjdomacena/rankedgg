@@ -40,6 +40,7 @@ const AllHeroes: React.FC = () => {
               value={searchInput}
               onChange={handleSearchInput}
               onFocus={() => setIsSearching((prev) => !prev)}
+              disabled={true}
             />
           </PageHeaderBG>
         </div>
@@ -69,7 +70,7 @@ const AllHeroes: React.FC = () => {
           <div className="container mx-auto flex justify-between text-neutral-300 items-center pt-4 px-12 flex-wrap gap-2">
             <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
             <input
-              className=" input input-md input-accent rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
+              className=" input input-sm ring ring-neutral rounded xl:w-auto lg:w-auto md:w-auto w-full"
               placeholder="Search Hero"
               value={searchInput}
               onChange={handleSearchInput}

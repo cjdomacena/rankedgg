@@ -15,7 +15,7 @@ type Props = {
 const AttributeStats = ({ values, type, level, gain }: Props) => {
   return (
     <>
-      <ul className=" grid grid-cols-3 text-xs  bg-neutral border border-black/50 p-4 rounded  ">
+      <ul className=" grid grid-cols-3 text-xs  bg-black/30 shadow-2xl  p-4 rounded  ">
         <li>
           <img src={getAbilityImage(type as string)} className="w-8 h-8" />
         </li>
