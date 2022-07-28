@@ -18,7 +18,7 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
             <FiChevronDown className="ml-1" />
           </Menu.Button>
           <Menu.Items
-            className="absolute top-12 left-0 p-1 w-44 rounded-sm  text-sm space-y-1 border border-secondary/10 z-50 bg-[#060911]"
+            className="absolute top-12 right-0 p-1 w-44 rounded-sm  text-sm space-y-1 border border-secondary/10 z-50 bg-[#060911]"
             as="ul">
             {pills
               ? pills.map((pill, index) => (

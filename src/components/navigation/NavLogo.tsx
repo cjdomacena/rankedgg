@@ -1,19 +1,15 @@
 import DotaLogo from "../Logo/DotaLogo";
 import {Link} from 'react-router-dom'
+import logo from '../../assets/LOGO.png'
 type Props = {}
 
 const NavLogo = (props: Props) => {
   return (
-    <div className="flex gap-2 items-center text-gray-300">
+    <div className="px-3 py-3 rounded hover:bg-neutral/50 transition-opacity cursor-pointer">
       <Link to="/">
-        <DotaLogo className="w-10  h-10 fill-neutral-800 hover:fill-neutral-200 transition-all duration-500 hover:text-black" />
+        <img src={logo} />
       </Link>
-      <Link to="/">
-        <div>
-          <h1 className="text-neutral-200 font-noto-sans font-black leading-none">Dota Buffer</h1>
-          <p className="text-xs text-neutral-400">Buffer than Fly`</p>
-        </div>
-      </Link>
+     
     </div>
   );
 }
