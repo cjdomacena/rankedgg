@@ -1,4 +1,3 @@
-import React from 'react'
 import { formatStartTime } from '../../../utils';
 import { CLUSTERS, GAME_MODES, REGIONS } from '../../../utils/constants';
 import rank0 from "../../assets/rank_icon_0.png";

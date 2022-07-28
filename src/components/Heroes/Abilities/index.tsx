@@ -34,10 +34,10 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
   };
   return (
     <div className=" space-y-4">
-      <div className="bg-neutral/80 p-4 rounded flex justify-between items-center">
+      <div className="bg-black/30  p-4 rounded flex justify-between items-center">
         <h1>Abilities</h1>
         <button
-          className="rounded-full p-1 bg-white/5 text-white hover:bg-white/20 transition-all"
+          className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
           onClick={() => setIsOpen((prev) => !prev)}>
           {isOpen ? <AiFillCaretUp className="w-4 h-4" /> : <AiFillCaretDown className="w-4 h-4" />}
         </button>
@@ -47,7 +47,7 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
           {abilities.map((ability: TAllAbilities, index: number) => {
             return !ability.img.includes("generic_hidden") ? (
               <div
-                className="flex gap-4 bg-neutral/80 p-4 items-center rounded"
+                className="flex gap-4 bg-black/30 p-4 items-center rounded"
                 key={`ability-${index}-${ability.dname}`}>
                 <div
                   className="flex flex-col gap-1 tooltip  z-10"
@@ -76,10 +76,10 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
         </div>
       ) : null}
       <div className="space-y-4 auto">
-        <div className="bg-neutral/80 p-4 rounded flex justify-between items-center w-full">
+        <div className="bg-black/30  p-4 rounded flex justify-between items-center w-full">
           <h1>Talents</h1>
           <button
-            className="rounded-full p-1 bg-white/5 text-white hover:bg-white/20 transition-all"
+            className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
             onClick={() => setTalentOpen((prev) => !prev)}>
             {talentOpen ? (
               <AiFillCaretUp className="w-4 h-4" />
@@ -89,7 +89,7 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
           </button>
         </div>
         {talentOpen ? (
-          <div className="flex flex-col w-full justify-center items-center gap-2">
+          <div className="flex flex-col w-full justify-center items-center gap-4">
             <Talents
               valueLeft={allAbilities[talents[0].name].dname ?? "NA"}
               valueRight={allAbilities[talents[1].name].dname ?? "NA"}

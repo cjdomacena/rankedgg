@@ -8,7 +8,7 @@ type Props = {
 
 const HeroLevelSlider = ({imgSrc, level, setLevel}: Props) => {
   return (
-    <div className="w-full h-auto bg-neutral/80 flex items-center p-4 rounded">
+    <div className="w-full h-auto bg-black/30 flex items-center p-4 rounded">
       <div className="rounded-full">
         <img src={imgSrc} className="w-auto h-auto object-fill" />
       </div>

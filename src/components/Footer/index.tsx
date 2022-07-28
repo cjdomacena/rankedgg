@@ -4,9 +4,9 @@ type Props = {}
 
 const Footer = (props: Props) => {
   return (
-    <footer className="w-full h-auto p-4 bg-neutral/80 text-gray-300">
+    <footer className="w-full h-auto p-4 bg-black/20 text-gray-300 ">
       <div className="text-neutral-400 text-center text-xs">
-        <div className="space-y-1">
+        <div className="space-y-1 text-2xs">
           <p>
             Dota 2, and the Dota 2 logo are registered trademarks of{" "}
             <a

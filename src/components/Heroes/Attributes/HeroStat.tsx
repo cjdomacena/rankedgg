@@ -49,7 +49,7 @@ const HeroStat = ({ icon, title, stats, level, hero }: Props) => {
         {icon}
         <p className=" p-2 w-fit text-gray-100 font-semibold tracking-wide">{title}</p>
       </div>
-      <ul className="text-xs bg-neutral p-4 rounded grid  gap-x-2 gap-y-2 drop-shadow-2xl w-full 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-2 ">
+      <ul className="text-xs bg-black/30 p-4 rounded grid  gap-x-2 gap-y-2 drop-shadow-2xl w-full 2xl:grid-cols-2 xl:grid-cols-2 lg:grid-cols-2 md:grid-cols-2 grid-cols-2 ">
         {stats.map((stat, index) =>
           stat.hasTooltip ? (
             <li className="flex " key={`${title}-${index}`}>

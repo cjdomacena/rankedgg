@@ -15,7 +15,7 @@ import AttributeStats from "../components/Heroes/Attributes";
 import { Attributes, TAllAbilities, THero, THeroStat } from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
-import { useParams } from "react-router-dom";
+import { Link, useParams } from "react-router-dom";
 import { useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
 import ErrorComponent from "../components/Error";
 import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
@@ -270,7 +270,7 @@ const Hero = (props: Props) => {
             <div className="container mx-auto h-full grid grid-cols-7">
               <img
                 src={getImageUrl(null, hero?.img)}
-                className="w-screen h-2/4 absolute top-0 -z-10 blur-[160px] opacity-1 left-0 select-none"
+                className="w-screen h-full absolute top-0 -z-10 blur-[160px] opacity-1 left-0 select-none"
                 alt={`${hero?.localized_name}'s portrait`}
               />
 
@@ -337,6 +337,16 @@ const Hero = (props: Props) => {
               </section>
               <section className="w-full 2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 h-fit order-first">
                 <div className="2xl:w-5/6 xl:w-3/4 lg:w-3/4 w-full mx-auto space-y-12">
+                  <div className="text-sm breadcrumbs">
+                    <ul>
+                      <li className="text-gray-400">
+                        <Link to="/heroes/all">Heroes</Link>
+                      </li>
+                      <li>
+                        <p className="font-medium">{hero.localized_name}</p>
+                      </li>
+                    </ul>
+                  </div>
                   <HeroHeader
                     imgSrc={getImageUrl(null, hero.img)}
                     name={hero.localized_name}
@@ -359,7 +369,11 @@ const Hero = (props: Props) => {
                     intGain={hero.int_gain}
                   />
                   {heroAbilities ? (
-                    <Abilities abilities={heroAbilities} talents={abilities[hero.name].talents} allAbilities={allAbilities}/>
+                    <Abilities
+                      abilities={heroAbilities}
+                      talents={abilities[hero.name].talents}
+                      allAbilities={allAbilities}
+                    />
                   ) : null}
                 </div>
               </section>
