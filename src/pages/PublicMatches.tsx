@@ -1,15 +1,28 @@
-import { BiWorld, BiXCircle, BiCheckCircle } from "react-icons/bi";
+import { BiWorld } from "react-icons/bi";
 import { useGetPublicMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { TPublicMatches } from "../types";
-import HeroIconsLayout from "../components/Layouts/HeroIconsLayout";
 import { useState } from "react";
-import { formatStartTime } from "../../utils";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
-import { CLUSTERS, GAME_MODES, REGIONS } from "../../utils/constants";
-import { TbMathAvg } from "react-icons/tb";
+import { motion } from "framer-motion";
+import PublicHeroes from "../components/Matches/PublicHeroes";
+import PublicMatchInfo from "../components/Matches/PublicMatchInfo";
+
 type Props = {};
+
+const container = {
+  show: {
+    transition: {
+      staggerChildren: 0.1,
+    },
+  },
+};
+
+const child = {
+  hidden: { opacity: 0 },
+  show: { opacity: 1 },
+};
 
 const PublicMatches = (props: Props) => {
   // const matches = [
@@ -47,7 +60,7 @@ const PublicMatches = (props: Props) => {
   //   }]
   // ;
   const { data: matches, status } = useGetPublicMatches();
-  const [show, setShow] = useState<number>(20);
+  const [show, setShow] = useState<number>(50);
   const handleChange = (e: any) => {
     setShow(e.currentTarget.value);
   };
@@ -87,76 +100,62 @@ const PublicMatches = (props: Props) => {
     }
     case "success": {
       return (
-        <PrimaryLayout>
-          <PageHeaderBG>
-            <div className="container mx-auto py-4 px-8 flex items-center gap-4 justify-between flex-wrap">
-              <div className="flex items-center gap-1">
-                <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
-                <span className=" badge">Top</span>
-              </div>
-              <div>
-                <p>
-                  Showing
-                  <select
-                    className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
-                    value={show}
-                    onChange={handleChange}>
-                    <option value={15}>15</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={matches.length}>{matches.length}</option>
-                  </select>
-                  of <span className="text-white font-bold">{matches.length} </span>
-                  results
-                </p>
-              </div>
-            </div>
-          </PageHeaderBG>
-          <div className="container h-auto mx-auto p-8">
-            <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-10">
-              {matches.slice(0, show).map((match: TPublicMatches) => (
-                <div className="2xl:w-fit xl:w-fit lg:w-fit md:w-fit w-full" key={match.match_id}>
-                  <div className="h-auto flex items-end gap-2 justify-between">
-                    <div>
-                      <p className="text-xs font-semibold hover:underline cursor-pointer">
-                        {match.match_id}
-                      </p>
-                      <p
-                        className="tooltip tooltip-bottom z-10 mb-0 text-2xs flex"
-                        data-tip={"Average MMR"}>
-                        <TbMathAvg className="w-4 h-4 mr-1" /> {match.num_rank_tier ?? "NA"}
-                      </p>
-                    </div>
-                    <div>
-                      <p className="text-xs text-right capitalize">
-                        {GAME_MODES[match.game_mode].name.split("_").join(" ")}
-                      </p>
-                      <p className="text-xs">{formatStartTime(match.start_time, match.duration)}</p>
-                    </div>
-                  </div>
-                  <div className="flex gap-4 p-3 mt-1 items-center rounded flex-col w-full shadow-2xl border border-black/20 bg-white/10">
-                    <div className="flex items-center gap-2">
-                      {match.radiant_win ? (
-                        <BiCheckCircle className="w-5 h-5 text-emerald-500" />
-                      ) : (
-                        <BiXCircle className="w-5 h-5 text-red-500" />
-                      )}
-                      <HeroIconsLayout ids={match.radiant_team.split(",")} type="radiant" />
-                    </div>
-                    <div className="flex items-center gap-2">
-                      {!match.radiant_win ? (
-                        <BiCheckCircle className="w-5 h-5  text-emerald-500" />
-                      ) : (
-                        <BiXCircle className="w-5 h-5 text-red-500" />
-                      )}
-                      <HeroIconsLayout ids={match.dire_team.split(",")} type="dire" />
-                    </div>
-                  </div>
+        <div className="w-full">
+          <PrimaryLayout>
+            <PageHeaderBG>
+              <div className="container mx-auto py-4 px-8 flex items-center gap-4 justify-between flex-wrap">
+                <div className="flex items-center gap-1">
+                  <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
+                  <span className=" badge">Top</span>
                 </div>
-              ))}
+                <div>
+                  <p>
+                    Showing
+                    <select
+                      className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
+                      value={show}
+                      onChange={handleChange}>
+                      <option value={15}>15</option>
+                      <option value={25}>25</option>
+                      <option value={50}>50</option>
+                      <option value={matches.length}>{matches.length}</option>
+                    </select>
+                    of <span className="text-white font-bold">{matches.length} </span>
+                    results
+                  </p>
+                </div>
+              </div>
+            </PageHeaderBG>
+            <div className="container h-auto mx-auto p-8">
+              <motion.div
+                className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-10 items-end"
+                variants={container}
+                initial="hidden"
+                animate="show">
+                {matches.slice(0, show).map((match: TPublicMatches) => (
+                  <motion.div
+                    className="2xl:w-fit xl:w-fit lg:w-fit md:w-fit w-full"
+                    key={match.match_id}
+                    variants={child}>
+                    <PublicMatchInfo
+                      cluster={match.cluster}
+                      gameMode={match.game_mode}
+                      matchId={match.match_id}
+                      avgMMR={match.avg_mmr}
+                      startTime={match.start_time}
+                      duration={match.duration}
+                    />
+                    <PublicHeroes
+                      isRadiantWin={match.radiant_win}
+                      direTeam={match.dire_team}
+                      radiantTeam={match.radiant_team}
+                    />
+                  </motion.div>
+                ))}
+              </motion.div>
             </div>
-          </div>
-        </PrimaryLayout>
+          </PrimaryLayout>
+        </div>
       );
     }
     default: {

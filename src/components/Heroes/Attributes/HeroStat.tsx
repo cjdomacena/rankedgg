@@ -1,7 +1,5 @@
-import React from "react";
 import { AiFillInfoCircle } from "react-icons/ai";
 import {
-  calculateAttackSpeed,
   calculateMinMaxDamage,
   getPrimaryGain,
   calculateArmor,
