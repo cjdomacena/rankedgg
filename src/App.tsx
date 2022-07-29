@@ -12,9 +12,9 @@ import { useHeroAbilities } from "./api";
 function App() {
   const {} = useHeroAbilities();
   return (
-    <main className="App  h-auto w-full flex flex-col flex-1 min-h-full">
+    <main className="App  h-auto w-full flex flex-col flex-1 min-h-screen relative">
       <Nav />
-      <section className="h-full flex flex-grow my-8">
+      <section className="h-full flex flex-grow">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/matches/public" element={<PublicMatches />} />

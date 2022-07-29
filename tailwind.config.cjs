@@ -5,6 +5,7 @@ module.exports = {
     extend: {
       fontFamily: {
         "noto-sans": ['"Noto Sans"', "sans-serif"],
+        "bangers": ['"Bangers", cursive']
       },
     },
   },

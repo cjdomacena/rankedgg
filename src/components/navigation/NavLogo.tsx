@@ -5,9 +5,9 @@ type Props = {}
 
 const NavLogo = (props: Props) => {
   return (
-    <div className="px-3 py-3 rounded hover:bg-neutral/50 transition-opacity cursor-pointer">
+    <div className="p-3 rounded hover:bg-neutral/50 transition-opacity cursor-pointer">
       <Link to="/">
-        <img src={logo} />
+        <img src={logo}/>
       </Link>
      
     </div>
