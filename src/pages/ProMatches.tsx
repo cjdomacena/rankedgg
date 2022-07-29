@@ -260,7 +260,7 @@ const ProMatches = (props: Props) => {
           </PageHeaderBG>
           <div
             className="container mx-auto p-8 grid 
-            grid-cols-3
+            2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1
             gap-x-4 gap-y-12
              items-end
             ">
