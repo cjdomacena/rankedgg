@@ -1,5 +1,5 @@
 import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS } from "./constants";
-import { Attributes, TAllAbilities, THero, THeroTrend } from "./../src/types/index";
+import { Attributes, TAghsShard, TAllAbilities, THero, THeroTrend } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
@@ -272,4 +272,9 @@ export const getAbilityInfo = (abilityList: string[], allAbilities: TAllAbilitie
   const abilities: TAllAbilities[] = [];
   abilityList.map((ability: string) => abilities.push(allAbilities[ability]));
   return abilities;
+};
+
+export const getAghsShardDesc = (heroId: number, aghsShardList: TAghsShard[]) => {
+  const result = aghsShardList.find((desc) => desc.hero_id === heroId);
+  return result ?? null;
 };

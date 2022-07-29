@@ -67,7 +67,6 @@ export type THeroStats = THero & {
   null_win: number;
 };
 
-
 export type THeroTrend = {
   id: number;
   name: string;
@@ -133,17 +132,16 @@ export type THeroStat = {
   tooltipInfo: string;
   title: string;
   value: string | number | JSX.Element;
-  id: string
+  id: string;
 };
 
 export type THeroAbilities = {
-  "abilities": string[],
-  "talents": {
-    "name": string,
-    "level":number
-  }
-}
-
+  abilities: string[];
+  talents: {
+    name: string;
+    level: number;
+  };
+};
 
 export type TAllAbilities = {
   dname: string;
@@ -151,11 +149,13 @@ export type TAllAbilities = {
   dmg_type: string;
   bkbpierce: string;
   desc: string;
-  attrib: {
-    key: string;
-    header: string;
-    value: string[] | string | null;
-  }[] | [];
+  attrib:
+    | {
+        key: string;
+        header: string;
+        value: string[] | string | null;
+      }[]
+    | [];
   mc: string[] | string | null;
   cd: string | number;
   img: string;
@@ -176,4 +176,17 @@ export type TProMatch = {
   radiant_score: number;
   dire_score: number;
   radiant_win: boolean;
+};
+
+export type TAghsShard = {
+  hero_name: string;
+  hero_id: number;
+  has_scepter: boolean;
+  scepter_desc: string;
+  scepter_skill_name: string;
+  scepter_new_skill: boolean;
+  has_shard: boolean;
+  shard_desc: string;
+  shard_skill_name: string;
+  shard_new_skill: boolean;
 };

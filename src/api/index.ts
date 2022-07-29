@@ -127,3 +127,16 @@ export const useAllAbilities = () => {
      { ...queryConfig },
    );
 }
+
+
+export const useAghsShardDesc = () => {
+  return useQuery(
+    ["aghs"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/constants/aghs_desc`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
+};

@@ -9,22 +9,13 @@ type Props = {
   matchId: number;
 };
 
-const ProMatchDetails = ({
-  leagueName,
-  seriesType,
-  startTime,
-  duration,
-  matchId,
-}: Props) => {
+const ProMatchDetails = ({ leagueName, seriesType, startTime, duration, matchId }: Props) => {
   return (
-    <div className="flex items-start w-full p-1 text-gray-400 justify-between font-medium">
+    <div className="flex items-end w-full p-1 text-gray-400 justify-between font-medium">
       <ul>
         <li>
-          <div className="tooltip z-20" data-tip={leagueName}>
-            <p className="text-xs truncate  w-36 text-left">{leagueName}</p>
-          </div>
+          <p className="text-xs w-40 text-left">{leagueName}</p>
         </li>
-        <li className="text-xs">Best of {seriesType}</li>
       </ul>
       <ul className="text-right">
         <li className="text-xs mt-0.5">{formatStartTime(startTime, duration)}</li>

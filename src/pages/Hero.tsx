@@ -6,6 +6,7 @@ import {
   calculateMinMaxDamage,
   calculateRegen,
   getAbilityInfo,
+  getAghsShardDesc,
   getImageUrl,
   getPrimaryGain,
 } from "../../utils";
@@ -16,12 +17,13 @@ import { Attributes, TAllAbilities, THero, THeroStat } from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
 import { Link, useParams } from "react-router-dom";
-import { useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
+import { useAghsShardDesc, useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
 import ErrorComponent from "../components/Error";
 import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
 import HeroHeader from "../components/Heroes/HeroHeader";
 import Abilities from "../components/Heroes/Abilities";
 import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
+import { AiFillCaretDown } from "react-icons/ai";
 
 type Props = {};
 
@@ -53,6 +55,7 @@ const Hero = (props: Props) => {
   const { data: heroes, status } = useInitialHeroes();
   const { data: abilities } = useHeroAbilities();
   const { data: allAbilities } = useAllAbilities();
+  const { data: aghs } = useAghsShardDesc();
 
   // States
   const [hero, setHero] = useState<THero | null>(null);
@@ -62,6 +65,7 @@ const Hero = (props: Props) => {
   const [defense, setDefenseStats] = useState<TSingleStat | null>(null);
   const [mobility, setMobilityStats] = useState<TSingleStat | null>(null);
   const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(null);
+
   useEffect(() => {
     if (heroes && id) {
       const tempHero: THero = heroes[id];
@@ -274,7 +278,13 @@ const Hero = (props: Props) => {
                 alt={`${hero?.localized_name}'s portrait`}
               />
 
-              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-4">
+              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-20 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
+                <div className="w-full mb-4">
+                  <button className="flex bg-black/60 p-4 items-center w-full gap-2 justify-between rounded" disabled>
+                    Abilities
+                    <AiFillCaretDown />
+                  </button>
+                </div>
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
@@ -373,6 +383,7 @@ const Hero = (props: Props) => {
                       abilities={heroAbilities}
                       talents={abilities[hero.name].talents}
                       allAbilities={allAbilities}
+                      aghsShard={getAghsShardDesc(hero.id, aghs)}
                     />
                   ) : null}
                 </div>

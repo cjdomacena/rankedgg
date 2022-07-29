@@ -1,9 +1,10 @@
-import { getHeroAbilityImage } from "../../../../utils";
-import { TAllAbilities } from "../../../types";
+import { getAghsShardDesc, getHeroAbilityImage } from "../../../../utils";
+import { TAghsShard, TAllAbilities } from "../../../types";
 import { ImageExists } from "../../../../utils/hooks";
 import { useState } from "react";
-import { AiFillCaretUp, AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretUp, AiFillCaretDown, AiOutlineInfoCircle, AiFillInfoCircle } from "react-icons/ai";
 import Talents from "./Talents";
+import { GrUpgrade } from "react-icons/gr";
 type Props = {
   abilities: TAllAbilities[];
   talents: {
@@ -11,9 +12,10 @@ type Props = {
     level: number | string;
   }[];
   allAbilities: any;
+  aghsShard: TAghsShard | null;
 };
 
-const Abilities = ({ abilities, talents, allAbilities }: Props) => {
+const Abilities = ({ abilities, talents, allAbilities, aghsShard }: Props) => {
   const [isOpen, setIsOpen] = useState(true);
   const [talentOpen, setTalentOpen] = useState(true);
   const getAbilityManaCost = (abilities: any, key: string) => {
@@ -32,8 +34,10 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
       return <li key={"ability-not-available"}>N/A</li>;
     }
   };
+
   return (
     <div className=" space-y-4">
+     
       <div className="bg-black/30  p-4 rounded flex justify-between items-center">
         <h1>Abilities</h1>
         <button
@@ -47,28 +51,51 @@ const Abilities = ({ abilities, talents, allAbilities }: Props) => {
           {abilities.map((ability: TAllAbilities, index: number) => {
             return !ability.img.includes("generic_hidden") ? (
               <div
-                className="flex gap-4 bg-black/30 p-4 items-center rounded"
+                className=" bg-black/30 p-4 flex flex-col rounded relative justify-start"
                 key={`ability-${index}-${ability.dname}`}>
-                <div
-                  className="flex flex-col gap-1 tooltip  z-10"
-                  data-tip={ability.dname}
-                  key={ability.dname}>
-                  <ImageExists alt={ability.dname} src={getHeroAbilityImage(ability.img)} />
-                </div>
+                <div className="flex gap-4">
+                  <div
+                    className="flex flex-col gap-1 tooltip  z-10 w-20 h-20"
+                    data-tip={ability.dname}
+                    key={ability.dname}>
+                    <ImageExists alt={ability.dname} src={getHeroAbilityImage(ability.img)} />
+                  </div>
 
-                <div className="flex flex-col gap-2">
-                  <div className="text-xs">
-                    <h4>Mana Cost </h4>
-                    <ul className="flex text-xs gap-1">
-                      {getAbilityManaCost(ability.mc, "mana-cost")}
-                    </ul>
+                  <div className="flex flex-col gap-2">
+                    <div className="text-xs">
+                      <h4>Mana Cost </h4>
+                      <ul className="flex text-xs gap-1">
+                        {getAbilityManaCost(ability.mc, "mana-cost")}
+                      </ul>
+                    </div>
+                    <div className="text-xs">
+                      <h4>Cooldown </h4>
+                      <ul className="flex text-xs gap-1">
+                        {getAbilityManaCost(ability.cd, "ability-cooldown")}
+                      </ul>
+                    </div>
                   </div>
-                  <div className="text-xs">
-                    <h4>Cooldown </h4>
-                    <ul className="flex text-xs gap-1">
-                      {getAbilityManaCost(ability.cd, "ability-cooldown")}
-                    </ul>
-                  </div>
+                </div>
+                <div className="text-2xs pt-4">
+                 
+                  <p>{ability.desc}</p>
+                  {aghsShard?.scepter_skill_name === ability.dname ? (
+                    <div className="text-2xs mt-6 bg-black/30 rounded">
+                      <p className="text-xs p-2 font-semibold  flex items-center">
+                        <AiFillInfoCircle className="mr-1" />
+                        Scepter Ugprade
+                      </p>
+                      <p className="px-4 py-2">{aghsShard.scepter_desc}</p>
+                    </div>
+                  ) : aghsShard?.shard_skill_name === ability.dname ? (
+                    <div className="text-2xs mt-6 bg-black/30 rounded">
+                      <p className="text-xs p-2 font-semibold  flex items-center">
+                        <AiFillInfoCircle className="mr-1" />
+                        Scepter Ugprade
+                      </p>
+                      <p className="px-4 py-2">{aghsShard.shard_desc}</p>
+                    </div>
+                  ) : null}
                 </div>
               </div>
             ) : null;
