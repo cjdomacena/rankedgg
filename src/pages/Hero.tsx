@@ -274,7 +274,7 @@ const Hero = (props: Props) => {
                 alt={`${hero?.localized_name}'s portrait`}
               />
 
-              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 ">
+              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-4">
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
