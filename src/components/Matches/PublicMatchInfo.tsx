@@ -70,7 +70,6 @@ const PublicMatchInfo = ({cluster, gameMode, matchId, avgMMR, startTime, duratio
   return (
     <div className="h-auto flex items-end gap-2 justify-between">
       <div>
-        <p className="text-xs capitalize">{REGIONS[CLUSTERS[cluster]].toLowerCase()}</p>
         <p className="text-xs text-left capitalize">
           {GAME_MODES[gameMode].name.split("_").join(" ")}
         </p>

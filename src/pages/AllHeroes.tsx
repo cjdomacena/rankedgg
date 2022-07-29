@@ -65,65 +65,67 @@ const AllHeroes: React.FC = () => {
     );
   } else if (status === "success" && data) {
     return (
-      <PrimaryLayout>
-        <PageHeaderBG>
-          <div className="container mx-auto flex justify-between text-neutral-300 items-center pt-4 px-12 flex-wrap gap-2">
-            <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
-            <input
-              className=" input input-sm ring ring-neutral rounded xl:w-auto lg:w-auto md:w-auto w-full"
-              placeholder="Search Hero"
-              value={searchInput}
-              onChange={handleSearchInput}
-              onFocus={() => setIsSearching((prev) => !prev)}
-            />
+      <PrimaryLayout className="h-full flex items-center">
+        <div className="w-full h-full">
+          <PageHeaderBG>
+            <div className="container mx-auto flex justify-between text-neutral-300 items-center pt-4 px-12 flex-wrap gap-2">
+              <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
+              <input
+                className=" input input-sm ring ring-neutral rounded xl:w-auto lg:w-auto md:w-auto w-full"
+                placeholder="Search Hero"
+                value={searchInput}
+                onChange={handleSearchInput}
+                onFocus={() => setIsSearching((prev) => !prev)}
+              />
+            </div>
+          </PageHeaderBG>
+          <div className="container mx-auto pt-8 pb-10 px-8">
+            <AllHeroLayout type="Strength">
+              {data.strength.map((hero) => (
+                <HeroImage
+                  src={hero.img}
+                  key={`${id}-${hero.id}`}
+                  className={
+                    matches.includes(formatHeroName(hero.localized_name))
+                      ? formatHeroName(hero.localized_name)
+                      : "opacity-30"
+                  }
+                  heroName={formatHeroName(hero.localized_name)}
+                  id={hero.id}
+                />
+              ))}
+            </AllHeroLayout>
+            <AllHeroLayout type="Agility">
+              {data.agility.map((hero) => (
+                <HeroImage
+                  src={hero.img}
+                  key={`${id}-${hero.id}`}
+                  className={
+                    matches.includes(formatHeroName(hero.localized_name))
+                      ? "opacity-100" //formatHeroName(hero.localized_name)
+                      : "opacity-30"
+                  }
+                  heroName={formatHeroName(hero.localized_name)}
+                  id={hero.id}
+                />
+              ))}
+            </AllHeroLayout>
+            <AllHeroLayout type="Intelligence">
+              {data.intelligence.map((hero) => (
+                <HeroImage
+                  src={hero.img}
+                  key={`${id}-${hero.id}`}
+                  className={
+                    matches.includes(formatHeroName(hero.localized_name))
+                      ? "opacity-100" //formatHeroName(hero.localized_name)
+                      : "opacity-30"
+                  }
+                  heroName={formatHeroName(hero.localized_name)}
+                  id={hero.id}
+                />
+              ))}
+            </AllHeroLayout>
           </div>
-        </PageHeaderBG>
-        <div className="container mx-auto pt-8 pb-10 px-8">
-          <AllHeroLayout type="Strength">
-            {data.strength.map((hero) => (
-              <HeroImage
-                src={hero.img}
-                key={`${id}-${hero.id}`}
-                className={
-                  matches.includes(formatHeroName(hero.localized_name))
-                    ? formatHeroName(hero.localized_name)
-                    : "opacity-30"
-                }
-                heroName={formatHeroName(hero.localized_name)}
-                id={hero.id}
-              />
-            ))}
-          </AllHeroLayout>
-          <AllHeroLayout type="Agility">
-            {data.agility.map((hero) => (
-              <HeroImage
-                src={hero.img}
-                key={`${id}-${hero.id}`}
-                className={
-                  matches.includes(formatHeroName(hero.localized_name))
-                    ? "opacity-100" //formatHeroName(hero.localized_name)
-                    : "opacity-30"
-                }
-                heroName={formatHeroName(hero.localized_name)}
-                id={hero.id}
-              />
-            ))}
-          </AllHeroLayout>
-          <AllHeroLayout type="Intelligence">
-            {data.intelligence.map((hero) => (
-              <HeroImage
-                src={hero.img}
-                key={`${id}-${hero.id}`}
-                className={
-                  matches.includes(formatHeroName(hero.localized_name))
-                    ? "opacity-100" //formatHeroName(hero.localized_name)
-                    : "opacity-30"
-                }
-                heroName={formatHeroName(hero.localized_name)}
-                id={hero.id}
-              />
-            ))}
-          </AllHeroLayout>
         </div>
       </PrimaryLayout>
     );

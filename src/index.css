@@ -11,8 +11,10 @@ html {
   height: auto;
   min-height: 100vh;
   @apply font-noto-sans;
-  @apply bg-black/50
 }
+/*  
+
+*/
 
 /* https://stratz.com/matches/live?sortBy=MOST_POPULAR style */
 
