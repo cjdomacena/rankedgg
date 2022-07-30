@@ -1,10 +1,9 @@
 import React from "react";
 import { useState } from "react";
 
-
 // https://www.reddit.com/r/reactjs/comments/l2yz8h/how_to_check_if_image_exists/
 
-export const ImageExists = ({ src, alt }: {src:string, alt:string}) => {
+export const ImageExists = ({ src, alt }: { src: string; alt: string }) => {
   const [error, setError] = useState(false);
 
   const onError = () => {
@@ -18,5 +17,50 @@ export const ImageExists = ({ src, alt }: {src:string, alt:string}) => {
     />
   ) : (
     <img src={src} alt={alt} onError={onError} className="rounded" />
+  );
+};
+
+export const TeamImageExists = ({
+  src,
+  isRadiantWin,
+  isRadiant,
+}: {
+  src: string | null;
+  isRadiantWin: boolean;
+  isRadiant: boolean;
+}) => {
+  const [error, setError] = useState(false);
+
+  const onError = () => {
+    setError(true);
+  };
+
+  return error ? (
+    <div
+      className={`w-20 h-20 rounded-full grid place-items-center ring ${
+        isRadiantWin && isRadiant
+          ? " ring-emerald-500"
+          : !isRadiant && !isRadiantWin
+          ? " ring-emerald-500"
+          : "ring-red-500"
+      }`}>
+      <h1 className="font-black text-white text-sm text-center">{isRadiant ? 'Radiant Team' : 'Dire Team'}</h1>
+    </div>
+  ) : isRadiant ? (
+    <img
+      src={src ?? ""}
+      onError={onError}
+      className={`w-20 h-20  p-0.5 ring rounded-full ${
+        isRadiantWin ? "ring-emerald-500" : "ring-red-500"
+      }`}
+    />
+  ) : (
+    <img
+      src={src ?? ""}
+      onError={onError}
+      className={`w-20 h-20  p-0.5 ring rounded-full ${
+        !isRadiantWin ? "ring-emerald-500" : "ring-red-500"
+      }`}
+    />
   );
 };

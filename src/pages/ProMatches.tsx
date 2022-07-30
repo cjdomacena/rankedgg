@@ -207,7 +207,7 @@ const ProMatches = (props: Props) => {
   switch (status) {
     case "loading": {
       return (
-        <PrimaryLayout>
+        <PrimaryLayout className="my-12">
           <PageHeaderBG>
             <div className="container mx-auto p-4">
               <PageHeader icon={<IoPeopleOutline className="mr-1 w-6 h-6" />} title="Pro Matches" />
@@ -230,7 +230,7 @@ const ProMatches = (props: Props) => {
     }
     case "success": {
       return (
-        <PrimaryLayout>
+        <PrimaryLayout className="my-12">
           <PageHeaderBG>
             <div className="container mx-auto py-4 px-8  flex items-center gap-4 justify-between flex-wrap">
               <div className="flex items-center gap-1">
@@ -260,12 +260,12 @@ const ProMatches = (props: Props) => {
           </PageHeaderBG>
           <div
             className="container mx-auto p-8 grid 
-            2xl:grid-cols-3 xl:grid-cols-3 lg:grid-cols-2 grid-cols-1
-            gap-x-4 gap-y-12
-             items-end
+            grid-cols-1
+            gap-x-6 gap-y-12
+            items-end
             ">
             {matches.slice(0, show).map((match: TProMatch) => (
-              <div className="w-full relative" key={match.match_id}>
+              <div className="w-full relative ring ring-neutral rounded shadow-2xl" key={match.match_id}>
                 <ProMatchDetails
                   leagueName={match.league_name}
                   seriesType={match.series_type}

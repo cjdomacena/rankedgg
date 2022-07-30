@@ -68,7 +68,7 @@ const PublicMatches = (props: Props) => {
   switch (status) {
     case "loading": {
       return (
-        <PrimaryLayout>
+        <PrimaryLayout className="my-12">
           <PageHeaderBG>
             <div className="container mx-auto p-4">
               <PageHeader icon={<BiWorld className="mr-1 w-6 h-6" />} title="Public Matches" />
@@ -88,7 +88,7 @@ const PublicMatches = (props: Props) => {
     }
     case "error": {
       return (
-        <PrimaryLayout>
+        <PrimaryLayout className="my-12">
           <div className="container mx-auto p-4 grid place-items-center h-[calc(80vh)]">
             <div>
               <h1 className="text-white text-4xl"> Something went wrong...</h1>
@@ -101,7 +101,7 @@ const PublicMatches = (props: Props) => {
     case "success": {
       return (
         <div className="w-full">
-          <PrimaryLayout>
+          <PrimaryLayout className="my-12">
             <PageHeaderBG>
               <div className="container mx-auto py-4 px-8 flex items-center gap-4 justify-between flex-wrap">
                 <div className="flex items-center gap-1">

@@ -63,7 +63,7 @@ const AllHeroes: React.FC = () => {
         </div>
       </PrimaryLayout>
     );
-  } else if (status === "success" && data) {
+  } else if (status === "success") {
     return (
       <PrimaryLayout className="h-full flex items-center">
         <div className="w-full h-full">
