@@ -51,7 +51,7 @@ const Abilities = ({ abilities, talents, allAbilities, aghsShard }: Props) => {
           {abilities.map((ability: TAllAbilities, index: number) => {
             return !ability.img.includes("generic_hidden") ? (
               <div
-                className=" bg-black/30 p-4 flex flex-col rounded relative justify-start"
+                className=" bg-black/30 p-6 flex flex-col rounded relative justify-start"
                 key={`ability-${index}-${ability.dname}`}>
                 <div className="flex gap-4">
                   <div
@@ -78,7 +78,7 @@ const Abilities = ({ abilities, talents, allAbilities, aghsShard }: Props) => {
                 </div>
                 <div className="text-2xs pt-4">
                  
-                  <p>{ability.desc}</p>
+                  <p className=" leading-relaxed">{ability.desc}</p>
                   {aghsShard?.scepter_skill_name === ability.dname ? (
                     <div className="text-2xs mt-6 bg-black/30 rounded">
                       <p className="text-xs p-2 font-semibold  flex items-center">
@@ -91,7 +91,7 @@ const Abilities = ({ abilities, talents, allAbilities, aghsShard }: Props) => {
                     <div className="text-2xs mt-6 bg-black/30 rounded">
                       <p className="text-xs p-2 font-semibold  flex items-center">
                         <AiFillInfoCircle className="mr-1" />
-                        Scepter Ugprade
+                        Shard Ugprade
                       </p>
                       <p className="px-4 py-2">{aghsShard.shard_desc}</p>
                     </div>

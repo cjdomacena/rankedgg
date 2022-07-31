@@ -42,9 +42,9 @@ const Nav = (props: Props) => {
       <nav className="py-4 px-8 flex text-neutral-50 gap-4 items-center container mx-auto justify-between">
         <NavLogo />
         <ul className="hidden gap-4 xl:flex lg:flex md:hidden sm:hidden xs:hidden ">
-          <NavPill text="Heroes" pills={heroesPills} />
+          <NavPill text="Heroes" link="heroes/all"/>
           <NavPill text="Matches" pills={matchesPills} />
-          <NavPill text="Teams" />
+          <NavPill text="Teams" link="/"/>
         </ul>
       </nav>
     </header>
