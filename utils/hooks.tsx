@@ -3,7 +3,7 @@ import { useState } from "react";
 
 // https://www.reddit.com/r/reactjs/comments/l2yz8h/how_to_check_if_image_exists/
 
-export const ImageExists = ({ src, alt }: { src: string; alt: string }) => {
+export const ImageExists = ({ src, alt, className }: { src: string; alt: string, className?:string }) => {
   const [error, setError] = useState(false);
 
   const onError = () => {
@@ -16,7 +16,7 @@ export const ImageExists = ({ src, alt }: { src: string; alt: string }) => {
       className="rounded"
     />
   ) : (
-    <img src={src} alt={alt} onError={onError} className="rounded" />
+    <img src={src} alt={alt} onError={onError} className={`rounded ${className}`} />
   );
 };
 
