@@ -8,6 +8,7 @@ import {
   CartesianGrid,
   ComposedChart,
   YAxis,
+  ReferenceArea,
 } from "recharts";
 import CustomChartTooltip from "./../Utilility/CustomChartTooltip";
 type Props = {
@@ -15,11 +16,14 @@ type Props = {
     id: string;
     value: number;
   }[];
-  setter: Dispatch<SetStateAction<boolean>>,
-  isActive: boolean
+  setter: Dispatch<SetStateAction<boolean>>;
+  isActive: boolean;
 };
 
-const GoldAdvantage = ({ data, setter, isActive}: Props) => {
+const GoldAdvantage = ({ data, setter, isActive }: Props) => {
+  const dataMin = Math.floor(Math.min(...data.map((i: any) => i.value)));
+  const dataMax = Math.ceil(Math.max(...data.map((i: any) => i.value))) + (Math.abs(dataMin / 2));
+
   const gradientOffset = () => {
     const dataMax = Math.max(...data.map((i: any) => i.value));
     const dataMin = Math.min(...data.map((i: any) => i.value));
@@ -73,8 +77,12 @@ const GoldAdvantage = ({ data, setter, isActive}: Props) => {
             tick={{ fontSize: 12, fill: "gray" }}
             axisLine={true}
             tickLine={false}
+            domain={[dataMin, dataMax]}
           />
-          <ReferenceLine y="name" stroke="white" strokeDasharray="3 3" />
+          <ReferenceLine y={0} stroke="white" strokeDasharray="3 3" />
+          <ReferenceArea y1={0} y2={dataMax} fill="green" opacity={0.2} />
+          <ReferenceArea y1={1} y2={dataMin} fill="red" opacity={0.2} />
+          <ReferenceArea />
         </ComposedChart>
       </ResponsiveContainer>
     </>

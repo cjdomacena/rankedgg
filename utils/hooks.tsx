@@ -37,20 +37,22 @@ export const TeamImageExists = ({
 
   return error ? (
     <div
-      className={`w-20 h-20 rounded-full grid place-items-center ring ${
+      className={`w-20 h-20 grid place-items-center ring ${
         isRadiantWin && isRadiant
           ? " ring-emerald-500"
           : !isRadiant && !isRadiantWin
           ? " ring-emerald-500"
           : "ring-red-500"
       }`}>
-      <h1 className="font-black text-white text-sm text-center">{isRadiant ? 'Radiant Team' : 'Dire Team'}</h1>
+      <h1 className="font-black text-white text-sm text-center">
+        {isRadiant ? "Radiant Team" : "Dire Team"}
+      </h1>
     </div>
   ) : isRadiant ? (
     <img
       src={src ?? ""}
       onError={onError}
-      className={`w-20 h-20  p-0.5 ring rounded-full ${
+      className={`w-24 h-24  p-0.5  ${
         isRadiantWin ? "ring-emerald-500" : "ring-red-500"
       }`}
     />
@@ -58,9 +60,9 @@ export const TeamImageExists = ({
     <img
       src={src ?? ""}
       onError={onError}
-      className={`w-20 h-20  p-0.5 ring rounded-full ${
+      className={`w-24 h-24  p-0.5  ${
         !isRadiantWin ? "ring-emerald-500" : "ring-red-500"
-      }`}
+      } `}
     />
   );
 };

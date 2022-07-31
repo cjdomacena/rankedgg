@@ -1,13 +1,14 @@
 import { useParams } from "react-router-dom";
 import { formatDuration, getGameModeName } from "../../utils";
-import { testData } from "../../utils/constants";
+import { testData } from "../../utils/testData";
 import { TeamImageExists } from "../../utils/hooks";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import GoldAdvantage from "../components/Charts/GoldAdvantage";
 import PlayerGPMChart from "../components/Charts/PlayerGPMChart";
 import { useState } from "react";
-import { FaCoins } from "react-icons/fa";
+import { FaAngleDoubleUp, FaCoins } from "react-icons/fa";
+import { GrUpgrade } from "react-icons/gr";
 
 type Props = {};
 
@@ -28,15 +29,15 @@ const Match = (props: Props) => {
   };
 
   // https://github.com/odota/web/blob/master/src/components/Visualizations/Graph/MatchGraph.jsx
-  const playerGold = () => {
+  const playerGold = (type:string) => {
     const data: any = [];
     const keys: any = [];
-    if (testData.players[0] && testData.players && testData.players[0].gold_t) {
-      testData.players[0].gold_t.forEach((_, index) => {
+    if (testData.players[0] && testData.players && testData.players[0][type]) {
+      testData.players[0][type].forEach((_:any, index:number) => {
         const obj = { time: `${index}:00` };
         testData.players.map((player) => {
           const hero = player.hero_id;
-          obj[hero] = player.gold_t[index];
+          obj[hero] = player[type][index];
         });
         data.push(obj);
       });
@@ -48,23 +49,8 @@ const Match = (props: Props) => {
     return { data, keys };
   };
 
-  const { data, keys } = playerGold();
-  const t = [
-    {
-      player: 1,
-      1: 5,
-      2: 5,
-      3: 15,
-      4: 140,
-    },
-    {
-      player: 2,
-      1: 1,
-      2: 15,
-      3: 125,
-      4: 350,
-    },
-  ];
+  const { data:gold, keys:goldKeys } = playerGold('gold_t');
+  const { data: xp, keys: xpKeys } = playerGold("xp_t");
 
   return (
     <PrimaryLayout className="my-8">
@@ -79,10 +65,10 @@ const Match = (props: Props) => {
           </ul>
         </div>
       </div>
-      <div className="grid grid-cols-7 container mx-auto">
+      <div className="grid grid-cols-7 container mx-auto gap-4">
         <div
           className="mx-auto p-4 space-y-12 flex flex-col w-full
-        2xl:col-span-2 xl:col-span-2 lg:col-span-3 col-span-7 
+        2xl:col-span-1 xl:col-span-2 lg:col-span-3 col-span-7 
         ">
           <div className="flex flex-col w-full space-y-4 ">
             <div className="flex items-center gap-4 text-white w-full bg-black/30 p-4 rounded shadow-2xl ring ring-white/5 flex-wrap justify-center">
@@ -93,13 +79,13 @@ const Match = (props: Props) => {
                     isRadiantWin={testData.radiant_win}
                     isRadiant={true}
                   />
-                  <div className="bg-black/60 w-20 h-20 absolute top-0 rounded-full grid place-items-center">
+                  <div className="bg-black/60 w-full h-full absolute top-0  grid place-items-center">
                     <div className="text-center">
-                      <h4 className="text">{testData.radiant_score}</h4>
+                      <h4 className="text-4xl">{testData.radiant_score}</h4>
                       {testData.radiant_win ? (
-                        <h4 className="text-sm text-green-500"> Victory</h4>
+                        <h4 className="text-sm text-green-400"> Victory</h4>
                       ) : (
-                        <h4 className="text-sm text-red-500"> Defeat</h4>
+                        <h4 className="text-sm text-red-400"> Defeat</h4>
                       )}
                     </div>
                   </div>
@@ -119,13 +105,13 @@ const Match = (props: Props) => {
                     isRadiantWin={testData.radiant_win}
                     isRadiant={false}
                   />
-                  <div className="bg-black/60 w-20 h-20 absolute top-0 rounded-full grid place-items-center">
+                  <div className="bg-black/60 w-full h-full absolute top-0  grid place-items-center">
                     <div className="text-center">
-                      <h4 className="text">{testData.dire_score}</h4>
+                      <h4 className="text-4xl">{testData.dire_score}</h4>
                       {!testData.radiant_win ? (
-                        <h4 className="text-sm text-green-500"> Victory</h4>
+                        <h4 className="text-sm text-green-400"> Victory</h4>
                       ) : (
-                        <h4 className="text-sm text-red-500"> Defeat</h4>
+                        <h4 className="text-sm text-red-400"> Defeat</h4>
                       )}
                     </div>
                   </div>
@@ -136,7 +122,8 @@ const Match = (props: Props) => {
             <div className="rounded space-y-4"></div>
           </div>
         </div>
-        <div className="w-full 2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 mx-auto h-80 rounded">
+
+        <div className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-5 col-span-7 mx-auto h-56 rounded p-4">
           <div className="bg-black/50 flex items-center justify-center px-6 py-2 rounded-t">
             <h2 className="text-white font-semibold text-sm  flex items-center">
               <FaCoins className="text-[#f4d54b] w-4 h-4 mr-1" />
@@ -158,8 +145,33 @@ const Match = (props: Props) => {
           {isTeam ? (
             <GoldAdvantage data={goldAdv()} setter={setIsTeam} isActive={isTeam} />
           ) : (
-            <PlayerGPMChart data={data} keys={keys} />
+            <PlayerGPMChart data={gold} keys={goldKeys} />
           )}
+        </div>
+
+        <div className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-5 col-span-7 mx-auto h-56 rounded p-4">
+          <div className="bg-black/50 flex items-center justify-center px-6 py-2 rounded-t">
+            <h2 className="text-white font-semibold text-sm  flex items-center gap-2">
+              <div className="border h-6 w-6 rounded-full text-2xs grid place-items-center">
+                <p className="ml-0.5">XP</p>
+              </div>
+              {isTeam ? "Team" : "Players"}
+            </h2>
+            <ul className="text-xs flex btn-group w-fit ml-auto p-4 ">
+              <button
+                className={`btn btn-xs ${isTeam ? "btn-active" : ""}`}
+                onClick={() => setIsTeam(true)}>
+                Team
+              </button>
+              <button
+                className={`btn btn-xs ${!isTeam ? "btn-active" : ""}`}
+                onClick={() => setIsTeam(false)}>
+                Players
+              </button>
+            </ul>
+          </div>
+
+          <PlayerGPMChart data={xp} keys={xpKeys} />
         </div>
       </div>
     </PrimaryLayout>
