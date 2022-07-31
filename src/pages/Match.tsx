@@ -9,6 +9,9 @@ import PlayerGPMChart from "../components/Charts/PlayerGPMChart";
 import { useState } from "react";
 import { FaAngleDoubleUp, FaCoins } from "react-icons/fa";
 import { GrUpgrade } from "react-icons/gr";
+import ChartLayout from "../components/Layouts/ChartLayout";
+import ChartHeader from "../components/Charts/ChartHeader";
+import DraftLayout from "../components/Layouts/DraftLayout";
 
 type Props = {};
 
@@ -16,24 +19,39 @@ const Match = (props: Props) => {
   const { id } = useParams();
 
   const [isTeam, setIsTeam] = useState<boolean>(true);
+  const [isXP, xpTeamToggle] = useState<boolean>(true);
 
-  const goldAdv = () => {
+  // Gets XP || Gold Team Advantage
+  const teamAdvantage = (type: string) => {
+    // const key: string = `radiant_${type}_adv`;
     const data: any = [];
-    testData.radiant_gold_adv.map((g, index) =>
-      data.push({
-        name: `${index}:00`,
-        value: Number(g),
-      }),
-    );
-    return data;
+    if (type === "gold") {
+      testData.radiant_gold_adv.map((g: any, index: number) =>
+        data.push({
+          name: `${index}:00`,
+          value: Number(g),
+        }),
+      );
+    }
+    if (type === "xp") {
+      testData.radiant_xp_adv.map((g: any, index: number) =>
+        data.push({
+          name: `${index}:00`,
+          value: Number(g),
+        }),
+      );
+    }
+
+    return { data };
   };
 
   // https://github.com/odota/web/blob/master/src/components/Visualizations/Graph/MatchGraph.jsx
-  const playerGold = (type:string) => {
+  // players XP || players gold avantage
+  const playerAdvantage = (type: string) => {
     const data: any = [];
     const keys: any = [];
     if (testData.players[0] && testData.players && testData.players[0][type]) {
-      testData.players[0][type].forEach((_:any, index:number) => {
+      testData.players[0][type].forEach((_: any, index: number) => {
         const obj = { time: `${index}:00` };
         testData.players.map((player) => {
           const hero = player.hero_id;
@@ -49,8 +67,10 @@ const Match = (props: Props) => {
     return { data, keys };
   };
 
-  const { data:gold, keys:goldKeys } = playerGold('gold_t');
-  const { data: xp, keys: xpKeys } = playerGold("xp_t");
+  const { data: gold, keys: goldKeys } = playerAdvantage("gold_t");
+  const { data: xp, keys: xpKeys } = playerAdvantage("xp_t");
+  const { data: goldTeamAdv } = teamAdvantage("gold");
+  const { data: xpTeamAdv } = teamAdvantage("xp");
 
   return (
     <PrimaryLayout className="my-8">
@@ -65,10 +85,10 @@ const Match = (props: Props) => {
           </ul>
         </div>
       </div>
-      <div className="grid grid-cols-7 container mx-auto gap-4">
+      <div className="grid grid-cols-8 container mx-auto gap-4">
         <div
           className="mx-auto p-4 space-y-12 flex flex-col w-full
-        2xl:col-span-1 xl:col-span-2 lg:col-span-3 col-span-7 
+        2xl:col-span-2 xl:col-span-2 lg:col-span-8 col-span-8 
         ">
           <div className="flex flex-col w-full space-y-4 ">
             <div className="flex items-center gap-4 text-white w-full bg-black/30 p-4 rounded shadow-2xl ring ring-white/5 flex-wrap justify-center">
@@ -92,7 +112,7 @@ const Match = (props: Props) => {
                 </div>
                 <h2 className="text-center max-w-[80] text-sm">{testData.radiant_team.name}</h2>
               </div>
-              <div className="text-center relative 2xl:w-fit xl:w-fit lg:w-fit md:w-fit w-full text-xs">
+              <div className="text-center relative  w-full text-xs">
                 <p className="font-semibold">{formatDuration(testData.duration)}</p>
                 <span className="capitalize text-gray-300">
                   {getGameModeName(testData.game_mode)}
@@ -122,57 +142,26 @@ const Match = (props: Props) => {
             <div className="rounded space-y-4"></div>
           </div>
         </div>
+        <ChartLayout breakPointMax="8" breakPointMin="3">
+          <ChartHeader title="Gold" toggle={isTeam} setToggle={xpTeamToggle} />
 
-        <div className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-5 col-span-7 mx-auto h-56 rounded p-4">
-          <div className="bg-black/50 flex items-center justify-center px-6 py-2 rounded-t">
-            <h2 className="text-white font-semibold text-sm  flex items-center">
-              <FaCoins className="text-[#f4d54b] w-4 h-4 mr-1" />
-              {isTeam ? "Team" : "Players"}
-            </h2>
-            <ul className="text-xs flex btn-group w-fit ml-auto p-4 ">
-              <button
-                className={`btn btn-xs ${isTeam ? "btn-active" : ""}`}
-                onClick={() => setIsTeam(true)}>
-                Team
-              </button>
-              <button
-                className={`btn btn-xs ${!isTeam ? "btn-active" : ""}`}
-                onClick={() => setIsTeam(false)}>
-                Players
-              </button>
-            </ul>
-          </div>
           {isTeam ? (
-            <GoldAdvantage data={goldAdv()} setter={setIsTeam} isActive={isTeam} />
+            <GoldAdvantage data={goldTeamAdv} setter={setIsTeam} isActive={isTeam} type="gold" />
           ) : (
             <PlayerGPMChart data={gold} keys={goldKeys} />
           )}
-        </div>
+        </ChartLayout>
 
-        <div className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-5 col-span-7 mx-auto h-56 rounded p-4">
-          <div className="bg-black/50 flex items-center justify-center px-6 py-2 rounded-t">
-            <h2 className="text-white font-semibold text-sm  flex items-center gap-2">
-              <div className="border h-6 w-6 rounded-full text-2xs grid place-items-center">
-                <p className="ml-0.5">XP</p>
-              </div>
-              {isTeam ? "Team" : "Players"}
-            </h2>
-            <ul className="text-xs flex btn-group w-fit ml-auto p-4 ">
-              <button
-                className={`btn btn-xs ${isTeam ? "btn-active" : ""}`}
-                onClick={() => setIsTeam(true)}>
-                Team
-              </button>
-              <button
-                className={`btn btn-xs ${!isTeam ? "btn-active" : ""}`}
-                onClick={() => setIsTeam(false)}>
-                Players
-              </button>
-            </ul>
-          </div>
+        <ChartLayout breakPointMax="8" breakPointMin="3">
+          <ChartHeader title="XP" toggle={isXP} setToggle={xpTeamToggle} />
 
-          <PlayerGPMChart data={xp} keys={xpKeys} />
-        </div>
+          {isXP ? (
+            <GoldAdvantage data={xpTeamAdv} setter={xpTeamToggle} isActive={isXP} type="xp" />
+          ) : (
+            <PlayerGPMChart data={xp} keys={xpKeys} type="xp" />
+          )}
+        </ChartLayout>
+     
       </div>
     </PrimaryLayout>
   );

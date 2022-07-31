@@ -1,4 +1,5 @@
 import { Dispatch, SetStateAction } from "react";
+import { FaCoins } from "react-icons/fa";
 import {
   ResponsiveContainer,
   XAxis,
@@ -18,10 +19,11 @@ type Props = {
   }[];
   setter: Dispatch<SetStateAction<boolean>>;
   isActive: boolean;
+  type: string
 };
 
-const GoldAdvantage = ({ data, setter, isActive }: Props) => {
-  const dataMin = Math.floor(Math.min(...data.map((i: any) => i.value)));
+const GoldAdvantage = ({ data, setter, isActive, type }: Props) => {
+  const dataMin = Math.floor(Math.min(...data.map((i: any) => i.value))) + -Math.abs(2000);
   const dataMax = Math.ceil(Math.max(...data.map((i: any) => i.value))) + (Math.abs(dataMin / 2));
 
   const gradientOffset = () => {
@@ -44,11 +46,16 @@ const GoldAdvantage = ({ data, setter, isActive }: Props) => {
         <ComposedChart data={data} margin={{ left: 20, top: 20, bottom: 0, right: 30 }}>
           <Tooltip
             content={({ label, payload, active }: any) => (
-              <CustomChartTooltip active={active} payload={payload} label={label} />
+              <CustomChartTooltip
+                active={active}
+                payload={payload}
+                label={label}
+                icon={type === "gold" ? <FaCoins className="mr-1" /> : <p className="mr-1">XP</p>}
+              />
             )}
           />
           <defs>
-            <linearGradient id="splitColor" x1="0" y1="0" x2="0" y2="1">
+            <linearGradient id={`splitColor-${type}`} x1="0" y1="0" x2="0" y2="1">
               <stop offset={gradientOffset()} stopColor="#10b981" stopOpacity={1} />
               <stop offset={gradientOffset()} stopColor="#ef4444" stopOpacity={1} />
             </linearGradient>
@@ -57,8 +64,8 @@ const GoldAdvantage = ({ data, setter, isActive }: Props) => {
             type="natural"
             dataKey="value"
             stackId="1"
-            fill="url(#splitColor)"
-            stroke="url(#splitColor)"
+            fill={`url(#splitColor-${type})`}
+            stroke={`url(#splitColor-${type})`}
             strokeWidth={2.5}
             strokeOpacity={1}
           />

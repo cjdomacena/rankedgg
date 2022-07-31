@@ -13,7 +13,7 @@ import {
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { TbSwords } from "react-icons/tb";
 import AttributeStats from "../components/Heroes/Attributes";
-import { Attributes, TAllAbilities, THero, THeroStat } from "../types";
+import { Attributes, TAghsShard, TAllAbilities, THero, THeroStat } from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
 import { Link, useParams } from "react-router-dom";
@@ -65,6 +65,7 @@ const Hero = (props: Props) => {
   const [defense, setDefenseStats] = useState<TSingleStat | null>(null);
   const [mobility, setMobilityStats] = useState<TSingleStat | null>(null);
   const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(null);
+  const [aghsShardDesc, setAghsShardDesc] = useState<TAghsShard | null>(null);
 
   useEffect(() => {
     if (heroes && id) {
@@ -235,11 +236,17 @@ const Hero = (props: Props) => {
   }, [heroes, id]);
 
   useEffect(() => {
-    if (hero && abilities && allAbilities) {
-      const temp = getAbilityInfo(abilities[hero.name].abilities, allAbilities);
-      setHeroAbilities(temp);
+    if (hero) {
+      if (allAbilities && abilities) {
+        const temp = getAbilityInfo(abilities[hero.name].abilities, allAbilities);
+        setHeroAbilities(temp);
+      }
+      if (aghs) {
+        const aghsShard = getAghsShardDesc(hero.id, aghs);
+        setAghsShardDesc(aghsShard);
+      }
     }
-  }, [abilities, allAbilities, id, hero]);
+  }, [abilities, allAbilities, id, hero, aghs]);
 
   switch (status) {
     case "error": {
@@ -268,7 +275,7 @@ const Hero = (props: Props) => {
       );
     }
     case "success": {
-      if (hero) {
+      if (hero && id) {
         return (
           <PrimaryLayout className="self-center p-4 my-4 min-h-screen">
             <div className="container mx-auto h-full grid grid-cols-7">
@@ -280,7 +287,9 @@ const Hero = (props: Props) => {
 
               <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-20 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
                 <div className="w-full mb-4">
-                  <button className="flex bg-black/60 p-4 items-center w-full gap-2 justify-between rounded" disabled>
+                  <button
+                    className="flex bg-black/60 p-4 items-center w-full gap-2 justify-between rounded"
+                    disabled>
                     Abilities
                     <AiFillCaretDown />
                   </button>
@@ -378,12 +387,12 @@ const Hero = (props: Props) => {
                     baseInt={hero.base_int}
                     intGain={hero.int_gain}
                   />
-                  {heroAbilities ? (
+                  {heroAbilities && aghsShardDesc ? (
                     <Abilities
                       abilities={heroAbilities}
                       talents={abilities[hero.name].talents}
                       allAbilities={allAbilities}
-                      aghsShard={getAghsShardDesc(hero.id, aghs)}
+                      aghsShard={aghsShardDesc}
                     />
                   ) : null}
                 </div>
@@ -394,7 +403,7 @@ const Hero = (props: Props) => {
       }
     }
     default: {
-      return <h1>Nice</h1>;
+      return <h1></h1>;
     }
   }
 };
