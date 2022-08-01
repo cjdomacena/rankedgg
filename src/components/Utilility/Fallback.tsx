@@ -1,13 +1,11 @@
-import { Navigate, useNavigate } from "react-router-dom";
+import {  useNavigate } from "react-router-dom";
 
 type Props = {
-  error: any;
-  resetErrorBoundary: any;
+  resetError: any;
 };
 
-const ErrorFallback = ({ error, resetErrorBoundary }: Props) => {
-
-	const navigate = useNavigate();
+const ErrorFallback = ({ resetError }: Props) => {
+  const navigate = useNavigate();
 
   return (
     <section className="grid place-items-center w-full h-[100vh]">
@@ -15,12 +13,14 @@ const ErrorFallback = ({ error, resetErrorBoundary }: Props) => {
         <h1 className="text-white font-semibold text-3xl text-center">
           404 | Something went wrong.
         </h1>
-		<button className="text-center mt-4 text-white"
-		onClick={() => {
-			resetErrorBoundary();
-			navigate("/")
-		}}
-		>Return to Homepage</button>
+        <button
+          className="text-center mt-4 text-white"
+          onClick={() => {
+            resetError();
+            navigate("/");
+          }}>
+          Return to Homepage
+        </button>
       </div>
     </section>
   );

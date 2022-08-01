@@ -1,5 +1,5 @@
 import Nav from "./components/navigation/Nav";
-import { Routes, Route } from "react-router-dom";
+import { Route } from "react-router-dom";
 import AllHeroes from "./pages/AllHeroes";
 import TrendingHeroes from "./pages/TrendingHeroes";
 import Footer from "./components/Footer";
@@ -12,16 +12,18 @@ import Match from "./pages/Match";
 import PageNotFound from "./pages/404";
 import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/Utilility/Fallback";
+import { SentryRoutes } from "./main";
+import * as Sentry from "@sentry/react";
 
 function App() {
   const {} = useHeroAbilities();
   return (
-    <ErrorBoundary FallbackComponent={ErrorFallback}>
+    <Sentry.ErrorBoundary fallback={({ resetError }) => <ErrorFallback resetError={resetError} />}>
       <main className="App  h-auto w-full flex flex-col flex-1 min-h-screen relative">
         <Nav />
 
         <section className="h-full flex flex-grow">
-          <Routes>
+          <SentryRoutes>
             <Route path="/" element={<Home />} />
             <Route path="/matches/public" element={<PublicMatches />} />
             <Route path="/matches/professional" element={<ProMatches />} />
@@ -30,12 +32,12 @@ function App() {
             <Route path="/heroes/:id" element={<Hero />} />
             <Route path="/matches/professional/:id" element={<Match />} />
             <Route path="*" element={<PageNotFound />} />
-          </Routes>
+          </SentryRoutes>
         </section>
 
         <Footer />
       </main>
-    </ErrorBoundary>
+    </Sentry.ErrorBoundary>
   );
 }
 
