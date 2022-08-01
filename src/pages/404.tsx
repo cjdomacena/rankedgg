@@ -1,7 +1,4 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import PageHeaderBG from "../components/Header/PageHeaderBG";
-import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 
 type Props = {};
 

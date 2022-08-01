@@ -5,12 +5,10 @@ import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { useState } from "react";
 import ErrorComponent from "../components/Error";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
-import { formatStartTime } from "../../utils";
-import { BiCheckCircle, BiTrophy, BiXCircle } from "react-icons/bi";
 import ProMatch from "../components/Matches/ProMatch";
 import { TProMatch } from "../types";
 import ProMatchDetails from "../components/Matches/ProMatchDetails";
-import { FaArrowCircleDown, FaArrowCircleUp, FaCaretDown } from "react-icons/fa";
+import { FaArrowCircleDown} from "react-icons/fa";
 
 type Props = {};
 
