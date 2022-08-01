@@ -17,7 +17,7 @@ const PlayerMatchInfo = ({ player }: Props) => {
       <div>
         <img src={t(player.hero_id, "")} className="w-8 h-8" />
         <div className="text-xs mt-2 text-center w-fit mx-auto">
-          {level(player.xp_t[player.xp_t.length - 1])}
+          {player.xp_t ? level(player.xp_t[player.xp_t.length - 1]) : null}
         </div>
       </div>
       <div className="space-y-0.5">
