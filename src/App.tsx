@@ -10,26 +10,32 @@ import Hero from "./pages/Hero";
 import { useHeroAbilities } from "./api";
 import Match from "./pages/Match";
 import PageNotFound from "./pages/404";
+import { ErrorBoundary } from "react-error-boundary";
+import ErrorFallback from "./components/Utilility/Fallback";
 
 function App() {
   const {} = useHeroAbilities();
   return (
-    <main className="App  h-auto w-full flex flex-col flex-1 min-h-screen relative">
-      <Nav />
-      <section className="h-full flex flex-grow">
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/matches/public" element={<PublicMatches />} />
-          <Route path="/matches/professional" element={<ProMatches />} />
-          <Route path="/heroes/all" element={<AllHeroes />} />
-          <Route path="/heroes/trending" element={<TrendingHeroes />} />
-          <Route path="/heroes/:id" element={<Hero />} />
-          <Route path="/matches/professional/:id" element={<Match />} />
-          <Route path="*" element={<PageNotFound />} />
-        </Routes>
-      </section>
-      <Footer />
-    </main>
+    <ErrorBoundary FallbackComponent={ErrorFallback}>
+      <main className="App  h-auto w-full flex flex-col flex-1 min-h-screen relative">
+        <Nav />
+
+        <section className="h-full flex flex-grow">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/matches/public" element={<PublicMatches />} />
+            <Route path="/matches/professional" element={<ProMatches />} />
+            <Route path="/heroes/all" element={<AllHeroes />} />
+            <Route path="/heroes/trending" element={<TrendingHeroes />} />
+            <Route path="/heroes/:id" element={<Hero />} />
+            <Route path="/matches/professional/:id" element={<Match />} />
+            <Route path="*" element={<PageNotFound />} />
+          </Routes>
+        </section>
+
+        <Footer />
+      </main>
+    </ErrorBoundary>
   );
 }
 
