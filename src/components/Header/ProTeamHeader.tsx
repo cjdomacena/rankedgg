@@ -4,7 +4,7 @@ import { FaCheckCircle } from "react-icons/fa";
 
 type Props = {
   isRadiantWin: boolean;
-  teamName: string;
+  teamName: string | JSX.Element;
   score: number;
 };
 

@@ -65,8 +65,12 @@ const Match = () => {
                 <div>
                   <ProTeamHeader
                     isRadiantWin={match.radiant_win}
-                    teamName={match.radiant_team.name}
-                    score={match.radiant_score}
+                    teamName={
+                      match.radiant_team?.name ?? (
+                        <span className="text-xs text-gray-400">Team name not available.</span>
+                      )
+                    }
+                    score={match.radiant_score ?? 0}
                   />
                   <ProMatchLayout>
                     {radiantTeam &&
@@ -79,8 +83,12 @@ const Match = () => {
               <div className="w-full  h-auto rounded p-4">
                 <ProTeamHeader
                   isRadiantWin={!match.radiant_win ? true : false}
-                  teamName={match.dire_team.name}
-                  score={match.dire_score}
+                  teamName={
+                    match.dire_team?.name ?? (
+                      <span className="text-xs text-gray-400">Team name not available.</span>
+                    )
+                  }
+                  score={match.dire_score ?? 0}
                 />
                 <ProMatchLayout>
                   {direTeam &&
@@ -110,7 +118,7 @@ const Match = () => {
             </ChartLayout>
           </div>
         </PrimaryLayout>
-      )
+      );
     }
     default: {
       return (
