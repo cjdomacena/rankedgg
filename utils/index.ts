@@ -284,11 +284,17 @@ export const getGameModeName = (gameMode: string | number) => {
 };
 
 export const getHeroLevel = (xp: number) => {
-  if (xp >= 0 && xp <= XP_LEVEL[XP_LEVEL.length - 1]) {
-    const tXP = XP_LEVEL;
-    tXP.push(xp);
-    const sortedXP = tXP.sort((a, b) => a - b);
-    return sortedXP;
+
+  if(xp === XP_LEVEL[XP_LEVEL.length - 1]) {
+    return 30;
   }
-  return 5;
+
+  if (xp >= 0 && xp <= XP_LEVEL[XP_LEVEL.length - 1]) {
+    const tXP = [...XP_LEVEL];
+    tXP.push(xp);
+
+    const sortedXP = tXP.sort((a, b) => a - b);
+    return sortedXP.findIndex((e) => e === xp)
+  }
+  return 0;
 };

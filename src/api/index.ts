@@ -117,17 +117,16 @@ export const useHeroAbilities = () => {
 };
 
 export const useAllAbilities = () => {
-   return useQuery(
-     ["all-abilities"],
-     async () => {
-       const req = await fetch(`${BASE_URL}/constants/abilities`);
-       const res = await req.json();
-       return res;
-     },
-     { ...queryConfig },
-   );
-}
-
+  return useQuery(
+    ["all-abilities"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/constants/abilities`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
+};
 
 export const useAghsShardDesc = () => {
   return useQuery(
@@ -139,4 +138,12 @@ export const useAghsShardDesc = () => {
     },
     { ...queryConfig },
   );
+};
+
+export const useGetMatch = (matchId: string | number) => {
+  return useQuery([matchId], async () => {
+    const req = await fetch(`${BASE_URL}/matches/${matchId}`);
+    const res = await req.json();
+    return res;
+  });
 };

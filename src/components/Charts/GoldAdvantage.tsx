@@ -13,18 +13,36 @@ import {
 } from "recharts";
 import CustomChartTooltip from "./../Utilility/CustomChartTooltip";
 type Props = {
-  data: {
-    id: string;
-    value: number;
-  }[];
-  setter: Dispatch<SetStateAction<boolean>>;
-  isActive: boolean;
-  type: string
+  match: any;
+  type: string;
 };
 
-const GoldAdvantage = ({ data, setter, isActive, type }: Props) => {
+const GoldAdvantage = ({ match, type }: Props) => {
+  const teamAdvantage = () => {
+    const data: any = [];
+    if (type === "gold") {
+      match.radiant_gold_adv.map((g: any, index: number) =>
+        data.push({
+          name: `${index}:00`,
+          value: Number(g),
+        }),
+      );
+    }
+    if (type === "xp") {
+      match.radiant_xp_adv.map((g: any, index: number) =>
+        data.push({
+          name: `${index}:00`,
+          value: Number(g),
+        }),
+      );
+    }
+
+    return { data };
+  };
+  const { data } = teamAdvantage();
+
   const dataMin = Math.floor(Math.min(...data.map((i: any) => i.value))) + -Math.abs(2000);
-  const dataMax = Math.ceil(Math.max(...data.map((i: any) => i.value))) + (Math.abs(dataMin / 2));
+  const dataMax = Math.ceil(Math.max(...data.map((i: any) => i.value))) + Math.abs(dataMin / 2);
 
   const gradientOffset = () => {
     const dataMax = Math.max(...data.map((i: any) => i.value));
@@ -43,7 +61,7 @@ const GoldAdvantage = ({ data, setter, isActive, type }: Props) => {
   return (
     <>
       <ResponsiveContainer width="100%" height="100%" className="rounded-b bg-black/50">
-        <ComposedChart data={data} margin={{ left: 20, top: 20, bottom: 0, right: 30 }}>
+        <ComposedChart data={data} margin={{ left: 0, top: 20, bottom: 10, right: 30 }}>
           <Tooltip
             content={({ label, payload, active }: any) => (
               <CustomChartTooltip

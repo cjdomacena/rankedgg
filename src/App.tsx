@@ -23,7 +23,7 @@ function App() {
           <Route path="/heroes/all" element={<AllHeroes />} />
           <Route path="/heroes/trending" element={<TrendingHeroes />} />
           <Route path="/heroes/:id" element={<Hero />} />
-          <Route path="/matches/:id" element={<Match />} />
+          <Route path="/matches/professional/:id" element={<Match />} />
         </Routes>
       </section>
       <Footer />

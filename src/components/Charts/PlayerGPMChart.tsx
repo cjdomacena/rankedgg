@@ -8,37 +8,50 @@ import { useInitialHeroes } from "../../api";
 import CustomChartToolip from "./../Utilility/CustomChartTooltip";
 import { testData } from "../../../utils/testData";
 type Props = {
-  data:
-    | {
-        id: string;
-        value: number;
-      }[]
-    | any;
-  keys: number[];
+  match: any;
   type?: string;
 };
 
-const PlayerGPMChart = ({ data, keys, type }: Props) => {
-  const [imgUrls, setImgUrls] = useState<any>(null);
-
+const PlayerGPMChart = ({ match, type }: Props) => {
   const { data: heroes, isFetched, isError } = useInitialHeroes();
-  useEffect(() => {
-    if (isFetched && !isError && heroes) {
-      const urls: any = [];
-      keys.map((key) => (urls[key] = getImageUrl(null, heroes[key].icon)));
-      setImgUrls(urls);
+  const t = getHeroLevel;
+
+  const playerAdvantage = (type: string) => {
+    const data: any = [];
+    const keys: any = [];
+    if (match.players[0] && match.players && match.players[0][type]) {
+      match.players[0][type].forEach((_: any, index: number) => {
+        const obj = { time: `${index}:00` };
+        match.players.map((player: any) => {
+          const hero = player.hero_id;
+          obj[hero] = player[type][index];
+        });
+        data.push(obj);
+      });
+      match.players.map((p: any) => {
+        keys.push(Number(p.hero_id));
+      });
     }
-  }, [isFetched, isError]);
+    return { data };
+  };
+  const img = getImageUrl
+  const { data } = playerAdvantage(type === "gold" ? "gold_t" : "xp_t");
+
+
+
+  // https://github.com/odota/web/blob/master/src/components/Visualizations/Graph/MatchGraph.jsx
+  // players XP || players gold avantage
+
   return (
     <>
-      <p></p>
       <ResponsiveContainer width="100%" height="100%" className="rounded-b bg-black/50">
-        <LineChart data={data} margin={{ left: 20, top: 20, bottom: 0, right: 30 }}>
-          {heroes && imgUrls ? (
+        <LineChart data={data} margin={{ left: 20, top: 20, bottom: 10, right: 20 }}>
+          {heroes ? (
             <Tooltip
               content={({ label, active, payload }) => {
                 if (payload && payload.length > 0 && active) {
                   const sortedData = payload?.sort((a, b) => Number(b.value) - Number(a.value));
+
                   return (
                     <CustomChartToolip>
                       <div className="rounded ring ring-white/10 bg-gray-900">
@@ -50,18 +63,18 @@ const PlayerGPMChart = ({ data, keys, type }: Props) => {
                           {sortedData?.map((data, i) => (
                             <li
                               key={`${data.value}-${i}`}
-                              className={`text-xs  flex item p-2`}
+                              className={`text-xs  flex items-center p-2`}
                               style={{
                                 color: data.color,
                               }}>
                               <ImageExists
-                                src={imgUrls[data.dataKey ?? ""]}
+                                src={img(data.dataKey ?? '', '')}
                                 alt={""}
                                 className=" w-6 h-6 mr-1"
                               />
                               {type === "xp"
-                                ? `${data.value} XP`
-                                : new Intl.NumberFormat("en-US").format(Number(data.value))}
+                                ? `Lvl ${t(Number(data.value))} : ${Number(data.value)} XP`
+                                : new Intl.NumberFormat("en-US").format(Number(data.value)) + ""}
                             </li>
                           ))}
                         </ul>
@@ -79,7 +92,7 @@ const PlayerGPMChart = ({ data, keys, type }: Props) => {
             orientation="bottom"
             dataKey={"time"}
           />
-          {testData.players.map((player, i: number) => {
+          {match.players.map((player:any, i: number) => {
             const playerColor = PLAYER_COLORS[player.player_slot];
             return (
               <Line

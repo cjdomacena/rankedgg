@@ -10,6 +10,7 @@ import { BiCheckCircle, BiTrophy, BiXCircle } from "react-icons/bi";
 import ProMatch from "../components/Matches/ProMatch";
 import { TProMatch } from "../types";
 import ProMatchDetails from "../components/Matches/ProMatchDetails";
+import { FaArrowCircleDown, FaArrowCircleUp, FaCaretDown } from "react-icons/fa";
 
 type Props = {};
 
@@ -199,32 +200,12 @@ const ProMatches = (props: Props) => {
   //     radiant_win: true,
   //   },
   // ];
-  const [show, setShow] = useState<number>(15);
+  const [show, setShow] = useState<number>(25);
   const handleChange = (e: any) => {
     setShow(e.currentTarget.value);
   };
 
   switch (status) {
-    case "loading": {
-      return (
-        <PrimaryLayout className="my-12">
-          <PageHeaderBG>
-            <div className="container mx-auto p-4">
-              <PageHeader icon={<IoPeopleOutline className="mr-1 w-6 h-6" />} title="Pro Matches" />
-            </div>
-          </PageHeaderBG>
-          <div
-            className="container mx-auto p-8 grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] 
-            gap-x-4 gap-y-12">
-            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((placeholder) => (
-              <div
-                className="p-4 bg-gray-600 animate-pulse h-24 w-full rounded"
-                key={`placeholder-${placeholder}`}></div>
-            ))}
-          </div>
-        </PrimaryLayout>
-      );
-    }
     case "error": {
       return <ErrorComponent />;
     }
@@ -258,14 +239,17 @@ const ProMatches = (props: Props) => {
               </div>
             </div>
           </PageHeaderBG>
+          {/*  grid-cols-[repeat(auto-fit,minmax(min(550px,100%),1fr))] */}
           <div
             className="container mx-auto p-8 grid 
-            grid-cols-1
-            gap-x-6 gap-y-12
+           grid-cols-1
+            gap-12
             items-end
             ">
             {matches.slice(0, show).map((match: TProMatch) => (
-              <div className="w-full relative ring ring-neutral rounded shadow-2xl" key={match.match_id}>
+              <div
+                className="w-full relative ring ring-neutral rounded shadow-2xl"
+                key={match.match_id}>
                 <ProMatchDetails
                   leagueName={match.league_name}
                   seriesType={match.series_type}
@@ -283,11 +267,53 @@ const ProMatches = (props: Props) => {
               </div>
             ))}
           </div>
+          {show < matches.length ? (
+            <div className="container mx-auto p-4 grid place-items-center">
+              <button
+                className="flex items-center hover:bg-neutral p-3 rounded transition-colors"
+                onClick={() =>
+                  setShow(() => (show + 10 < matches.length ? show + 10 : matches.length))
+                }>
+                View More <FaArrowCircleDown className="ml-1 animate-bounce" />
+              </button>
+              <button
+                className="text-xs p-2 text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+                Back to Top
+              </button>
+            </div>
+          ) : (
+            <div className="container mx-auto p-4 grid place-items-center">
+              <p>End of Matches</p>
+              <button
+                className="text-xs p-2 text-white"
+                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
+                Back to Top
+              </button>
+            </div>
+          )}
         </PrimaryLayout>
       );
     }
     default: {
-      return <ErrorComponent />;
+      return (
+        <PrimaryLayout className="my-12">
+          <PageHeaderBG>
+            <div className="container mx-auto p-4">
+              <PageHeader icon={<IoPeopleOutline className="mr-1 w-6 h-6" />} title="Pro Matches" />
+            </div>
+          </PageHeaderBG>
+          <div
+            className="container mx-auto p-8 grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] 
+            gap-x-4 gap-y-12">
+            {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((placeholder) => (
+              <div
+                className="p-4 bg-gray-600 animate-pulse h-24 w-full rounded"
+                key={`placeholder-${placeholder}`}></div>
+            ))}
+          </div>
+        </PrimaryLayout>
+      );
     }
   }
 };
