@@ -11,7 +11,7 @@ const queryClient = new QueryClient();
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 
 Sentry.init({
-  dsn: "https://1b3bb78449454553a088bb7571e02f18@o1342105.ingest.sentry.io/6615867",
+  dsn: "https://88722e89f6f9427895ef8e0d9c7b8a06@o1342140.ingest.sentry.io/6615927",
   integrations: [new BrowserTracing()],
 
   // Set tracesSampleRate to 1.0 to capture 100%
