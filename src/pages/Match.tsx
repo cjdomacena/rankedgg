@@ -13,6 +13,7 @@ import ProTeamHeader from "../components/Header/ProTeamHeader";
 import PlayerMatchInfo from "../components/Players";
 import TextLoading from "../components/Utilility/TextLoading";
 import ProMatchHeader from "../components/Header/ProMatchHeader";
+import MatchIdNotFound from "../components/Utilility/MatchIdNotFound";
 
 const Match = () => {
   const { id } = useParams();
@@ -24,12 +25,16 @@ const Match = () => {
   const { data: match, status, isFetched, isError } = useGetMatch(id ?? "");
   useEffect(() => {
     if (match && isFetched && status === "success") {
-      const rTeam = match.players.filter((player: any) => player.player_slot <= 10);
-      const dTeam = match.players.filter((player: any) => player.player_slot > 10);
-      setRadiantTeam(rTeam);
-      setDireTeam(dTeam);
+      if (!match.hasOwnProperty("error") || !match.radiant_score || !match.dire_score) {
+        const rTeam = match.players.filter((player: any) => player.player_slot <= 10);
+        const dTeam = match.players.filter((player: any) => player.player_slot > 10);
+        setRadiantTeam(rTeam);
+        setDireTeam(dTeam);
+      }
     }
   }, [status]);
+
+  console.log(match);
 
   if (isError) {
     return <ErrorComponent />;
@@ -37,9 +42,13 @@ const Match = () => {
 
   switch (status) {
     case "success": {
+      if(match.hasOwnProperty("error") || !match.radiant_score || !match.dire_score) {
+        return <MatchIdNotFound matchId={id ?? ""} />;
+      }
       return (
         <PrimaryLayout className="">
           <PageHeaderBG />
+
           <div className=" bg-black/30">
             <ProMatchHeader
               matchId={match.match_id}
@@ -101,7 +110,7 @@ const Match = () => {
             </ChartLayout>
           </div>
         </PrimaryLayout>
-      );
+      )
     }
     default: {
       return (

@@ -15,9 +15,9 @@ const ProMatchHeader = ({matchId, matchDuration, gameMode, leagueName, tier, sta
   return (
     <div className="container mx-auto px-8 py-4 gap-2 flex justify-between items-center">
       <div>
+        <p className="text-sm capitalize">{GAME_MODES[gameMode].name.split("_").join(" ")}</p>
         <h4 className="text-sm font-semibold">{matchId} </h4>
         <p className="text-sm">{formatDuration(matchDuration)}</p>
-        <p className="text-sm capitalize">{GAME_MODES[gameMode].name.split("_").join(" ")}</p>
       </div>
       <div className="text-right">
         <p className="text-sm">{leagueName}</p>
