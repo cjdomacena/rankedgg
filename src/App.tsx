@@ -9,6 +9,7 @@ import ProMatches from "./pages/ProMatches";
 import Hero from "./pages/Hero";
 import { useHeroAbilities } from "./api";
 import Match from "./pages/Match";
+import PageNotFound from "./pages/404";
 
 function App() {
   const {} = useHeroAbilities();
@@ -24,6 +25,7 @@ function App() {
           <Route path="/heroes/trending" element={<TrendingHeroes />} />
           <Route path="/heroes/:id" element={<Hero />} />
           <Route path="/matches/professional/:id" element={<Match />} />
+          <Route path="*" element={<PageNotFound />} />
         </Routes>
       </section>
       <Footer />
