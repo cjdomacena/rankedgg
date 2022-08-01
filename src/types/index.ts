@@ -190,3 +190,15 @@ export type TAghsShard = {
   shard_skill_name: string;
   shard_new_skill: boolean;
 };
+
+
+export enum BenchMarkType {
+  kills,
+  deaths,
+  tower_damage,
+  gold_spent,
+  obs_placed,
+  gold_per_min,
+  assists,
+  hero_damage,
+}

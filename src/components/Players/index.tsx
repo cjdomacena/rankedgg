@@ -15,7 +15,7 @@ const PlayerMatchInfo = ({ player }: Props) => {
       className="p-4 bg-black/30 w-full flex gap-4 items-center rounded min-w-[150px]"
       key={player.account_id}>
       <div>
-        <img src={t(player.hero_id, "")} className="w-8 h-8" />
+        <img src={t(player.hero_id, "")} className={`w-8 h-8 ${player.isRadiant ? 'custom-shadow-radiant' : 'custom-shadow'}`} />
         <div className="text-xs mt-2 text-center w-fit mx-auto">
           {player.xp_t ? level(player.xp_t[player.xp_t.length - 1]) : null}
         </div>

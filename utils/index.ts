@@ -1,5 +1,12 @@
-import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS, GAME_MODES, XP_LEVEL } from "./constants";
-import { Attributes, TAghsShard, TAllAbilities, THero, THeroTrend } from "./../src/types/index";
+import { ATTRIBUTE_LEVELS, GAME_MODES, XP_LEVEL } from "./constants";
+import {
+  Attributes,
+  BenchMarkType,
+  TAghsShard,
+  TAllAbilities,
+  THero,
+  THeroTrend,
+} from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
   const filteredHeroes = heroes.filter((hero) => hero.primary_attr === type);
@@ -284,8 +291,7 @@ export const getGameModeName = (gameMode: string | number) => {
 };
 
 export const getHeroLevel = (xp: number) => {
-
-  if(xp === XP_LEVEL[XP_LEVEL.length - 1]) {
+  if (xp === XP_LEVEL[XP_LEVEL.length - 1]) {
     return 30;
   }
 
@@ -294,7 +300,29 @@ export const getHeroLevel = (xp: number) => {
     tXP.push(xp);
 
     const sortedXP = tXP.sort((a, b) => a - b);
-    return sortedXP.findIndex((e) => e === xp)
+    return sortedXP.findIndex((e) => e === xp);
   }
   return 0;
+};
+
+export const getHighlightedPlayers = (
+  players: any,
+  type: keyof typeof BenchMarkType,
+  title: string,
+) => {
+  const result: { heroId: number; value: number; name: string; title: string; isRadiant: boolean }[] =
+    [];
+  players.map((player: any) => {
+    const { hero_id, name, personaname, isRadiant } = player;
+    result.push({
+      heroId: hero_id,
+      value: player[type],
+      name: name ?? personaname,
+      title: title,
+      isRadiant: isRadiant,
+    });
+  });
+
+  const sortedResult = result.sort((a: any, b: any) => Number(b.value) - Number(a.value));
+  return sortedResult[0] ?? null;
 };
