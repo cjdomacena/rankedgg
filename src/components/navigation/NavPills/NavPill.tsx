@@ -2,12 +2,14 @@ import React, { useId } from "react";
 import { FiChevronDown } from "react-icons/fi";
 import { Menu } from "@headlessui/react";
 import PillItem from "./PillItem";
+import { Link } from "react-router-dom";
 type Props = {
   text: string;
   pills?: { text: string; icon: JSX.Element, path:string }[];
+  link?:string
 };
 
-const NavPill: React.FC<Props> = ({ text, pills }) => {
+const NavPill: React.FC<Props> = ({ text, pills, link }) => {
   const id = useId();
   if (pills) {
     return (
@@ -39,7 +41,9 @@ const NavPill: React.FC<Props> = ({ text, pills }) => {
 
 return (
   <li className="text-sm font-semibold text-gray-300 flex items-center cursor-pointer hover:bg-neutral transition-colors rounded">
-    <p className="flex items-center py-2 px-3  ">{text}</p>
+    <Link to={link ?? ''}>
+      <p className="flex items-center py-2 px-3  ">{text}</p>
+    </Link>
   </li>
 );
 };

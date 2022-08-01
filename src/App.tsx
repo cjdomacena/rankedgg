@@ -8,6 +8,7 @@ import PublicMatches from "./pages/PublicMatches";
 import ProMatches from "./pages/ProMatches";
 import Hero from "./pages/Hero";
 import { useHeroAbilities } from "./api";
+import Match from "./pages/Match";
 
 function App() {
   const {} = useHeroAbilities();
@@ -22,6 +23,7 @@ function App() {
           <Route path="/heroes/all" element={<AllHeroes />} />
           <Route path="/heroes/trending" element={<TrendingHeroes />} />
           <Route path="/heroes/:id" element={<Hero />} />
+          <Route path="/matches/professional/:id" element={<Match />} />
         </Routes>
       </section>
       <Footer />

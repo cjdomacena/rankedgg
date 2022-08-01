@@ -1,4 +1,4 @@
-import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS } from "./constants";
+import { HERO_LIST, HERO_ICONS, ATTRIBUTE_LEVELS, GAME_MODES, XP_LEVEL } from "./constants";
 import { Attributes, TAghsShard, TAllAbilities, THero, THeroTrend } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
@@ -277,4 +277,24 @@ export const getAbilityInfo = (abilityList: string[], allAbilities: TAllAbilitie
 export const getAghsShardDesc = (heroId: number, aghsShardList: TAghsShard[]) => {
   const result = aghsShardList.find((desc) => desc.hero_id === heroId);
   return result ?? null;
+};
+
+export const getGameModeName = (gameMode: string | number) => {
+  return GAME_MODES[gameMode].name.split("_").join(" ");
+};
+
+export const getHeroLevel = (xp: number) => {
+
+  if(xp === XP_LEVEL[XP_LEVEL.length - 1]) {
+    return 30;
+  }
+
+  if (xp >= 0 && xp <= XP_LEVEL[XP_LEVEL.length - 1]) {
+    const tXP = [...XP_LEVEL];
+    tXP.push(xp);
+
+    const sortedXP = tXP.sort((a, b) => a - b);
+    return sortedXP.findIndex((e) => e === xp)
+  }
+  return 0;
 };
