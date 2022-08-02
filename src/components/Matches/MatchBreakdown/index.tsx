@@ -45,16 +45,16 @@ const MatchBreakdown = () => {
       }
       return (
         <>
-          <div className="container mx-auto mt-4">
-            <ProMatchHeader
-              matchId={match.match_id}
-              matchDuration={match.duration}
-              gameMode={match.game_mode}
-              leagueName={match.league?.name ?? ""}
-              tier={match.league?.tier ?? ""}
-              startTime={match.start_time}
-            />
-          </div>
+          <ProMatchHeader
+            matchId={match.match_id}
+            matchDuration={match.duration}
+            gameMode={match.game_mode}
+            leagueName={match.league?.name ?? ""}
+            tier={match.league?.tier ?? ""}
+            startTime={match.start_time}
+            replayUrl={match.replay_url}
+          />
+
           <div className="container mx-auto block 2xl:flex xl:flex ">
             <div>
               <div className="w-full  h-auto rounded p-4">

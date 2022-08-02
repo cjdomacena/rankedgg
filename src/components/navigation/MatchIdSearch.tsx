@@ -36,7 +36,9 @@ const MatchIdSearch = (props: Props) => {
       )}
       <button
         onClick={() => navigate(`/matches/${q}`)}
-        className="bg-none rounded-md hover:bg-white/5 space-x-1">
+        className="bg-none rounded-md hover:bg-white/5 space-x-1 cursor-pointer"
+        disabled={q ? false : true}
+        >
         <kbd className="kbd bg-white/5">Search</kbd>
       </button>
     </div>
