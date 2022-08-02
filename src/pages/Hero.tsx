@@ -24,6 +24,7 @@ import HeroHeader from "../components/Heroes/HeroHeader";
 import Abilities from "../components/Heroes/Abilities";
 import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
 import { AiFillCaretDown } from "react-icons/ai";
+import PageHeaderBG from "../components/Header/PageHeaderBG";
 
 type Props = {};
 
@@ -278,13 +279,9 @@ const Hero = (props: Props) => {
       if (hero && id) {
         return (
           <PrimaryLayout className="self-center p-4 my-4 min-h-screen">
+            <PageHeaderBG />
             <div className="container mx-auto h-full grid grid-cols-7">
-              <img
-                src={getImageUrl(null, hero?.img)}
-                className="w-screen h-full absolute top-0 -z-10 blur-[160px] opacity-1 left-0 select-none"
-                alt={`${hero?.localized_name}'s portrait`}
-              />
-
+           
               <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-20 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
                 <div className="w-full mb-4">
                   <button

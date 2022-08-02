@@ -37,17 +37,17 @@ const AllHeroes: React.FC = () => {
       return (
         <PrimaryLayout className="h-full flex items-center min-h-screen">
           <div className="w-full h-full">
-            <PageHeaderBG>
-              <div className="container mx-auto flex justify-between text-neutral-300 items-center pt-4 px-12 flex-wrap gap-2">
+            <PageHeaderBG />
+              <div className="container mx-auto flex justify-between text-neutral-300 items-center  px-12 flex-wrap gap-2">
                 <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
                 <input
-                  className=" input input-sm ring ring-neutral rounded xl:w-auto lg:w-auto md:w-auto w-full"
+                  className=" input input-md  ring ring-neutral rounded xl:w-56 lg:w-auto md:w-auto w-full"
                   placeholder="Search Hero"
                   value={searchInput}
                   onChange={handleSearchInput}
                 />
               </div>
-            </PageHeaderBG>
+     
             <div className="container mx-auto pt-8 pb-10 px-8">
               <AllHeroLayout type="Strength">
                 {data.strength.map((hero) => (

@@ -3,6 +3,7 @@ import NavPill from "./NavPills/NavPill";
 import { BiWorld, BiWifi } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
 import { FiGrid, FiTrendingUp } from "react-icons/fi";
+import { FaSearch } from "react-icons/fa";
 type Props = {};
 
 const Nav = (props: Props) => {
@@ -39,12 +40,19 @@ const Nav = (props: Props) => {
 
   return (
     <header className="w-full h-auto font-noto-sans shadow-xl">
-      <nav className="py-4 px-8 flex text-neutral-50 gap-4 items-center container mx-auto justify-between">
+      <nav className="py-4  flex text-neutral-50 gap-4 items-center container mx-auto justify-between">
         <NavLogo />
-        <ul className="hidden gap-4 xl:flex lg:flex md:hidden sm:hidden xs:hidden ">
-          <NavPill text="Heroes" link="heroes/all"/>
+        <ul className="hidden gap-2 xl:flex lg:flex md:hidden sm:hidden xs:hidden items-center">
+          <NavPill text="Heroes" link="heroes/all" />
           <NavPill text="Matches" pills={matchesPills} />
-          <NavPill text="Teams" link="/"/>
+          <NavPill text="Teams" link="/" />
+          <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral" >
+            <FaSearch className="" />
+            <input className="appearance-none input input-ghost focus:outline-0" placeholder="Search Match ID" 
+            type="search"
+            disabled
+            />
+          </div>
         </ul>
       </nav>
     </header>

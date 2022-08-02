@@ -1,17 +1,15 @@
-import DotaLogo from "../Logo/DotaLogo";
-import {Link} from 'react-router-dom'
-import logo from '../../assets/LOGO.png'
-type Props = {}
+import { Link } from "react-router-dom";
+import logo from "../../assets/logo.png";
+type Props = {};
 
 const NavLogo = (props: Props) => {
   return (
-    <div className="p-3 rounded hover:bg-neutral/50 transition-opacity cursor-pointer">
-      <Link to="/">
-        <img src={logo}/>
-      </Link>
-     
-    </div>
+    <Link to="/">
+      <div className="p-3 rounded hover:bg-neutral/50 transition-opacity cursor-pointer">
+        <img src={logo} />
+      </div>
+    </Link>
   );
-}
+};
 
-export default NavLogo
+export default NavLogo;
