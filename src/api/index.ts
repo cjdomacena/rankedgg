@@ -84,7 +84,7 @@ export const useGetPublicMatches = () => {
   return useQuery(
     ["public_matches"],
     async () => {
-      const req = await fetch(`${BASE_URL}/publicMatches`);
+      const req = await fetch(`${BASE_URL}/publicMatches?mmr_descending=1`);
       const res = await req.json();
       return res;
     },
@@ -141,9 +141,13 @@ export const useAghsShardDesc = () => {
 };
 
 export const useGetMatch = (matchId: string | number) => {
-  return useQuery([matchId], async () => {
-    const req = await fetch(`${BASE_URL}/matches/${matchId}`);
-    const res = await req.json();
-    return res;
-  });
+  return useQuery(
+    [matchId],
+    async () => {
+      const req = await fetch(`${BASE_URL}/matches/${matchId}`);
+      const res = await req.json();
+      return res;
+    },
+    { ...queryConfig },
+  );
 };

@@ -12,24 +12,36 @@ type Props = {
   } | null;
 };
 
-
-
 const Benchmark = ({ props }: Props) => {
-  console.log(props);
   if (props) {
     return (
       <div className="container mx-auto ">
         <div
           className={`grid p-4 place-items-center shadow-2xl   bg-white/5 rounded  w-full ring-2 ring-neutral`}>
-          <div className="text-center text-2xs">
-            <img
-              src={getImageUrl(props.heroId, "")}
-              className={`w-9 h-9 ${props.isRadiant ? "custom-shadow-radiant" : "custom-shadow"} mx-auto mb-2 -z-10`}
-            />
-            <h2 className="font-bold leading-0 text-base text-white">{props.name}</h2>
-            <p>{props.title}</p>
-            <p className="text-white font-bold text-sm">{props.value}</p>
-          </div>
+          {props.value ? (
+            <div className="text-center text-2xs min-h-[100px]">
+              <img
+                src={getImageUrl(props.heroId, "")}
+                className={`w-9 h-9 ${
+                  props.isRadiant ? "custom-shadow-radiant" : "custom-shadow"
+                } mx-auto mb-2 -z-10`}
+              />
+              <h2 className="font-bold leading-0 text-base text-white">
+                {props.name ?? (
+                  <span className="text-xs font-normal text-gray-400">Name not available</span>
+                )}
+              </h2>
+              <p>{props.title}</p>
+              <p className="text-white font-bold text-sm">{props.value ?? "NA"}</p>
+            </div>
+          ) : (
+            <div className="text-center text-2xs min-h-[100px] grid place-items-center">
+              <div className="flex flex-col justify-center">
+                <span>{props.title}</span>
+                <span className="text-xs font-normal text-gray-400">Data not available</span>
+              </div>
+            </div>
+          )}
         </div>
       </div>
     );

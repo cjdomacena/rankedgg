@@ -10,10 +10,10 @@ import Hero from "./pages/Hero";
 import { useHeroAbilities } from "./api";
 import Match from "./pages/Match";
 import PageNotFound from "./pages/404";
-import { ErrorBoundary } from "react-error-boundary";
 import ErrorFallback from "./components/Utilility/Fallback";
 import { SentryRoutes } from "./main";
 import * as Sentry from "@sentry/react";
+import MatchBreakdown from "./components/Matches/MatchBreakdown";
 
 function App() {
   const {} = useHeroAbilities();
@@ -30,7 +30,10 @@ function App() {
             <Route path="/heroes/all" element={<AllHeroes />} />
             <Route path="/heroes/trending" element={<TrendingHeroes />} />
             <Route path="/heroes/:id" element={<Hero />} />
-            <Route path="/matches/professional/:id" element={<Match />} />
+            <Route path="/matches" element={<Match />}>
+              <Route path="professional/:id" element={<MatchBreakdown />} />
+              <Route path="public/:id" element={<MatchBreakdown />} />
+            </Route>
             <Route path="*" element={<PageNotFound />} />
           </SentryRoutes>
         </section>

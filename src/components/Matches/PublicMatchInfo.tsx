@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import { formatStartTime } from '../../../utils';
 import { CLUSTERS, GAME_MODES, REGIONS } from '../../../utils/constants';
 import rank0 from "../../assets/rank_icon_0.png";
@@ -73,7 +74,9 @@ const PublicMatchInfo = ({cluster, gameMode, matchId, avgMMR, startTime, duratio
         <p className="text-xs text-left capitalize">
           {GAME_MODES[gameMode].name.split("_").join(" ")}
         </p>
-        <p className="text-xs font-semibold hover:underline cursor-pointer">{matchId}</p>
+        <Link to={`/matches/public/${matchId}`}>
+          <p className="text-xs font-semibold hover:underline cursor-pointer">{matchId}</p>
+        </Link>
       </div>
       <div>
         <p
