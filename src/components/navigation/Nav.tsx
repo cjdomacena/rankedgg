@@ -2,8 +2,8 @@ import NavLogo from "./NavLogo";
 import NavPill from "./NavPills/NavPill";
 import { BiWorld, BiWifi } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { FiGrid, FiTrendingUp } from "react-icons/fi";
-import { FaSearch } from "react-icons/fa";
+import { FiGrid } from "react-icons/fi";
+import MatchIdSearch from "./MatchIdSearch";
 type Props = {};
 
 const Nav = (props: Props) => {
@@ -46,13 +46,7 @@ const Nav = (props: Props) => {
           <NavPill text="Heroes" link="heroes/all" />
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" link="/" />
-          <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral" >
-            <FaSearch className="" />
-            <input className="appearance-none input input-ghost focus:outline-0" placeholder="Search Match ID" 
-            type="search"
-            disabled
-            />
-          </div>
+          <MatchIdSearch />
         </ul>
       </nav>
     </header>

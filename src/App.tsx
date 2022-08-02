@@ -33,6 +33,7 @@ function App() {
             <Route path="/matches" element={<Match />}>
               <Route path="professional/:id" element={<MatchBreakdown />} />
               <Route path="public/:id" element={<MatchBreakdown />} />
+              <Route path=":id" element={<MatchBreakdown />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
           </SentryRoutes>
