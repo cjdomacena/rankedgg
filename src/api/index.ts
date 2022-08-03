@@ -1,8 +1,8 @@
 import { DEFAULT_HERO_TREND } from "./../../utils/constants";
-import { filterHeroes, cleanHeroStats } from "./../../utils/index";
-import { THero, TFilteredHeroes } from "./../types/index";
+import { filterHeroes, filterTeams } from "./../../utils/index";
+import { THero, TTeam } from "./../types/index";
 import { useQuery } from "@tanstack/react-query";
-import { Dispatch, SetStateAction } from "react";
+import React from "react";
 
 const BASE_URL = "https://api.opendota.com/api";
 
@@ -149,5 +149,20 @@ export const useGetMatch = (matchId: string | number) => {
       return res;
     },
     { ...queryConfig },
+  );
+};
+
+export const useGetTeams = () => {
+  return useQuery(
+    ["teams"],
+    async () => {
+      const req = await fetch(`${BASE_URL}/teams`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+      select: React.useCallback((data:TTeam[]) => filterTeams(data), []),
+    },
   );
 };

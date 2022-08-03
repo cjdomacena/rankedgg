@@ -12,8 +12,8 @@ export const ImageExists = ({ src, alt, className }: { src: string; alt: string,
 
   return error ? (
     <img
-      src={`https://cdn.cloudflare.steamstatic.com//apps/dota2/images/abilities/invoker_empty1_md.png`}
-      className="rounded"
+      src={`https://cdn.cloudflare.steamstatic.com//apps/dota2/images/abilities/invoker_empty1_md.png `}
+      className={`rounded ${className}`}
     />
   ) : (
     <img src={src} alt={alt} onError={onError} className={`rounded ${className}`} />

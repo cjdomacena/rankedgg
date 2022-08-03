@@ -15,7 +15,7 @@ type Props = {
 
 const ProMatchHeader = ({matchId, matchDuration, gameMode, leagueName, tier, startTime, replayUrl}: Props) => {
   return (
-    <div className="w-full bg-base-200">
+    <div className="w-full bg-black/20 shadow">
       <div className="container mx-auto px-4 py-4 gap-2 flex justify-between items-center">
         <div>
           <p className="text-sm capitalize">{GAME_MODES[gameMode].name.split("_").join(" ")}</p>

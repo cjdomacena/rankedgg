@@ -1,5 +1,12 @@
 import Nav from "./components/navigation/Nav";
-import { Route } from "react-router-dom";
+import {
+  createRoutesFromChildren,
+  matchRoutes,
+  Route,
+  Routes,
+  useLocation,
+  useNavigationType,
+} from "react-router-dom";
 import AllHeroes from "./pages/AllHeroes";
 import TrendingHeroes from "./pages/TrendingHeroes";
 import Footer from "./components/Footer";
@@ -11,10 +18,34 @@ import { useHeroAbilities } from "./api";
 import Match from "./pages/Match";
 import PageNotFound from "./pages/404";
 import ErrorFallback from "./components/Utilility/Fallback";
-import { SentryRoutes } from "./main";
 import * as Sentry from "@sentry/react";
 import MatchBreakdown from "./components/Matches/MatchBreakdown";
+import { BrowserTracing } from "@sentry/tracing";
+import { useEffect } from "react";
+import Teams from "./pages/Teams";
 
+
+Sentry.init({
+  dsn: "https://88722e89f6f9427895ef8e0d9c7b8a06@o1342140.ingest.sentry.io/6615927",
+  integrations: [
+    new BrowserTracing({
+      routingInstrumentation: Sentry.reactRouterV6Instrumentation(
+        useEffect,
+        useLocation,
+        useNavigationType,
+        createRoutesFromChildren,
+        matchRoutes,
+      ),
+    }),
+  ],
+
+  // Set tracesSampleRate to 1.0 to capture 100%
+  // of transactions for performance monitoring.
+  // We recommend adjusting this value in production
+  tracesSampleRate: 0.4,
+});
+
+const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 function App() {
   const {} = useHeroAbilities();
   return (
@@ -36,6 +67,7 @@ function App() {
               <Route path=":id" element={<MatchBreakdown />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
+            <Route path="/teams" element={<Teams />} />
           </SentryRoutes>
         </section>
 

@@ -18,11 +18,11 @@ const Nav = (props: Props) => {
       icon: <IoPeopleOutline className="mr-1" />,
       path: "/matches/professional",
     },
-    {
-      text: "Live",
-      icon: <BiWifi className="mr-1" />,
-      path: "/matches/live",
-    },
+    // {
+    //   text: "Live",
+    //   icon: <BiWifi className="mr-1" />,
+    //   path: "/matches/live",
+    // },
   ];
 
   const heroesPills = [
@@ -45,7 +45,7 @@ const Nav = (props: Props) => {
         <ul className="hidden gap-2 xl:flex lg:flex md:hidden sm:hidden xs:hidden items-center">
           <NavPill text="Heroes" link="heroes/all" />
           <NavPill text="Matches" pills={matchesPills} />
-          <NavPill text="Teams" link="/" />
+          <NavPill text="Teams" link="/teams" />
           <MatchIdSearch />
         </ul>
       </nav>
