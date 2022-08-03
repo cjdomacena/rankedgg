@@ -38,14 +38,45 @@ const MatchIdNotFound = ({ matchId }: Props) => {
             </div>
           </div>
         </div>
-        <div className="2xl:col-span-3 xl:col-span-3 col-span-8">
-          <div className="w-full h-96 bg-black/40  grid place-items-center">
-            <h4 className="text-xs text-gray-500">Data not available.</h4>
+        
+        
+        <div className="2xl:col-span-6 xl:col-span-6 col-span-8 grid grid-cols-6 gap-2">
+          <div className="2xl:col-span-6 xl:col-span-6 col-span-8">
+            <div className="w-full h-56 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
           </div>
-        </div>
-        <div className="2xl:col-span-3 xl:col-span-3 col-span-8">
-          <div className="w-full h-96 bg-black/40  grid place-items-center">
-            <h4 className="text-xs text-gray-500">Data not available.</h4>
+          <div className="2xl:col-span-6 xl:col-span-6 col-span-8">
+            <div className="w-full h-56 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+          </div>
+          <div className="divider col-span-8">Benchmarks</div>
+          <div className="2xl:col-span-6 xl:col-span-6 col-span-8 grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4">
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
+            <div className="w-full h-60 bg-black/40  grid place-items-center">
+              <h4 className="text-xs text-gray-500">Data not available.</h4>
+            </div>
           </div>
         </div>
       </div>

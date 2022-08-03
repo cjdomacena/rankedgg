@@ -7,6 +7,7 @@ import MatchIdSearch from "./MatchIdSearch";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
 import { Link } from "react-router-dom";
+import { FaGithub } from "react-icons/fa";
 type Props = {};
 
 const Nav = (props: Props) => {
@@ -43,15 +44,14 @@ const Nav = (props: Props) => {
 
   return (
     <header className="w-full h-auto font-noto-sans shadow-xl">
-      <nav className="py-4  flex text-neutral-50 gap-4 items-center container mx-auto justify-between">
+      <nav className="py-4 px-8  flex text-neutral-50 gap-4 items-center mx-auto justify-between">
         <NavLogo />
-        <ul className="hidden gap-2 xl:flex lg:flex md:hidden sm:hidden xs:hidden items-center">
+        <ul className="hidden gap-2 2xl:flex xl:flex lg:flex  items-center">
           <NavPill text="Heroes" link="heroes/all" />
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" link="/teams" />
-          <MatchIdSearch />
         </ul>
-        <div className="px-4 ">
+        <div className="px-4 relative z-50 2xl:hidden xl:hidden lg:hidden block">
           <Menu as={"div"} className="relative">
             <Menu.Button className="flex p-2 hover:bg-neutral rounded">
               <BiMenuAltRight className="w-6 h-6 mr-1" />
@@ -90,6 +90,12 @@ const Nav = (props: Props) => {
               </Menu.Items>
             </Transition>
           </Menu>
+        </div>
+        <div className="hidden 2xl:flex xl:flex lg:flex items-center gap-2">
+          <MatchIdSearch />
+          <Link to={"/"}>
+            <FaGithub className="w-6 h-6" />
+          </Link>
         </div>
       </nav>
     </header>
