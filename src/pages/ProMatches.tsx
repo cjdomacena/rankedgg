@@ -2,13 +2,15 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { useGetProMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
-import { useState } from "react";
+import { SetStateAction, useState } from "react";
 import ErrorComponent from "../components/Error";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
 import ProMatch from "../components/Matches/ProMatch";
 import { TProMatch } from "../types";
 import ProMatchDetails from "../components/Matches/ProMatchDetails";
 import { FaArrowCircleDown} from "react-icons/fa";
+import ShowMore from "../components/Utilility/ShowMore";
+import ShowingCount from "../components/Header/ShowingCount";
 
 type Props = {};
 
@@ -199,9 +201,6 @@ const ProMatches = (props: Props) => {
   //   },
   // ];
   const [show, setShow] = useState<number>(25);
-  const handleChange = (e: any) => {
-    setShow(e.currentTarget.value);
-  };
 
   switch (status) {
     case "error": {
@@ -219,22 +218,7 @@ const ProMatches = (props: Props) => {
                 />
                 <span className=" badge">Top</span>
               </div>
-              <div>
-                <p>
-                  Showing
-                  <select
-                    className="text-white font-semibold bg-gray-800 rounded  ring-gray-600 ring-2 mx-2"
-                    value={show}
-                    onChange={handleChange}>
-                    <option value={15}>15</option>
-                    <option value={25}>25</option>
-                    <option value={50}>50</option>
-                    <option value={matches.length}>{matches.length}</option>
-                  </select>
-                  of <span className="text-white font-bold">{matches.length} </span>
-                  results
-                </p>
-              </div>
+             <ShowingCount show={show} setShow={setShow} total={matches.length} />
             </div>
           </PageHeaderBG>
           {/*  grid-cols-[repeat(auto-fit,minmax(min(550px,100%),1fr))] */}
@@ -265,31 +249,8 @@ const ProMatches = (props: Props) => {
               </div>
             ))}
           </div>
-          {show < matches.length ? (
-            <div className="container mx-auto p-4 grid place-items-center">
-              <button
-                className="flex items-center hover:bg-neutral p-3 rounded transition-colors"
-                onClick={() =>
-                  setShow(() => (show + 10 < matches.length ? show + 10 : matches.length))
-                }>
-                View More <FaArrowCircleDown className="ml-1 animate-bounce" />
-              </button>
-              <button
-                className="text-xs p-2 text-white"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-                Back to Top
-              </button>
-            </div>
-          ) : (
-            <div className="container mx-auto p-4 grid place-items-center">
-              <p>End of Matches</p>
-              <button
-                className="text-xs p-2 text-white"
-                onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}>
-                Back to Top
-              </button>
-            </div>
-          )}
+          <ShowMore total={matches.length} show={show} setShow={setShow} increment={10} />
+
         </PrimaryLayout>
       );
     }

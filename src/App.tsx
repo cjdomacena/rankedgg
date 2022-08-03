@@ -22,6 +22,7 @@ import * as Sentry from "@sentry/react";
 import MatchBreakdown from "./components/Matches/MatchBreakdown";
 import { BrowserTracing } from "@sentry/tracing";
 import { useEffect } from "react";
+import Teams from "./pages/Teams";
 
 
 Sentry.init({
@@ -66,6 +67,7 @@ function App() {
               <Route path=":id" element={<MatchBreakdown />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
+            <Route path="/teams" element={<Teams />} />
           </SentryRoutes>
         </section>
 
