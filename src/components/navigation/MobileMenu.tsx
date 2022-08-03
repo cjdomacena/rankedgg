@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 type Props = {};
 
 const MobileMenu = (props: Props) => {
-  return (<div className="relative z-50 2xl:invisible xl:invisible lg:invisible block">
+  return (<div className="relative z-[999] 2xl:invisible xl:invisible lg:invisible inline-block">
     <Menu>
       <div>
         <Menu.Button className="inline-flex p-2 bg-white/5  rounded">
@@ -16,7 +16,7 @@ const MobileMenu = (props: Props) => {
       </div>
       <Menu.Items
         as="ul"
-        className="absolute right-6 top-12  bg-base-100 w-auto p-2 text-lg whitespace-nowrap rounded ring-2 ring-white/5 shadow space-y-2">
+        className="absolute right-0 top-12  bg-base-100  p-2 text-lg whitespace-nowrap rounded ring-2 ring-white/5 shadow space-y-2 w-56">
         <Link to="/">
           <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
             <p className="p-1">Home</p>
