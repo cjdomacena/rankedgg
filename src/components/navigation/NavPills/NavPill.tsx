@@ -1,6 +1,6 @@
 import React, { useId } from "react";
 import { FiChevronDown } from "react-icons/fi";
-import { Menu } from "@headlessui/react";
+import { Menu, Transition } from "@headlessui/react";
 import PillItem from "./PillItem";
 import { Link } from "react-router-dom";
 type Props = {
@@ -19,21 +19,29 @@ const NavPill: React.FC<Props> = ({ text, pills, link }) => {
             {text}
             <FiChevronDown className="ml-1" />
           </Menu.Button>
-          <Menu.Items
-            className="absolute top-12 right-0 p-1 w-44 rounded-sm  text-sm space-y-1 border border-secondary/10 z-50 bg-[#0f1729]"
-            as="ul">
-            {pills
-              ? pills.map((pill, index) => (
-                  <Menu.Item
-                    as="li"
-                    tabIndex={index}
-                    className=" rounded hover:bg-neutral cursor-pointer"
-                    key={`${text}-${id}-${index}`}>
-                    <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
-                  </Menu.Item>
-                ))
-              : null}
-          </Menu.Items>
+          <Transition
+            enter="transition duration-100 ease-out"
+            enterFrom="transform scale-95 opacity-0"
+            enterTo="transform scale-100 opacity-100"
+            leave="transition duration-75 ease-out"
+            leaveFrom="transform scale-100 opacity-100"
+            leaveTo="transform scale-95 opacity-0">
+            <Menu.Items
+              className="absolute top-2 right-0 p-1 w-44 rounded-sm  text-sm space-y-1 border border-secondary/10 z-50 bg-[#0f1729]"
+              as="ul">
+              {pills
+                ? pills.map((pill, index) => (
+                    <Menu.Item
+                      as="li"
+                      tabIndex={index}
+                      className=" rounded hover:bg-neutral cursor-pointer"
+                      key={`${text}-${id}-${index}`}>
+                      <PillItem icon={pill.icon} text={pill.text} path={pill.path} />
+                    </Menu.Item>
+                  ))
+                : null}
+            </Menu.Items>
+          </Transition>
         </Menu>
       </li>
     );

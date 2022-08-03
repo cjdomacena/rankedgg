@@ -23,7 +23,7 @@ const MatchIdSearch = (props: Props) => {
         placeholder="Enter Match ID"
         type="number"
         pattern="[0-9]*"
-        value={q}
+        value={q === 0 ? "" : q}
         onChange={handleChange}
         onKeyDown={(evt) => ["e", "E", "+", "-"].includes(evt.key) && evt.preventDefault()}
       />

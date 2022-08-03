@@ -12,11 +12,7 @@ import PublicMatchInfo from "../components/Matches/PublicMatchInfo";
 type Props = {};
 
 const container = {
-  show: {
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
+
 };
 
 const child = {

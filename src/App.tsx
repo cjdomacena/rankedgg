@@ -23,6 +23,7 @@ import MatchBreakdown from "./components/Matches/MatchBreakdown";
 import { BrowserTracing } from "@sentry/tracing";
 import { useEffect } from "react";
 import Teams from "./pages/Teams";
+import MatchIdNotFound from "./components/Utilility/MatchIdNotFound";
 
 
 Sentry.init({
@@ -42,14 +43,14 @@ Sentry.init({
   // Set tracesSampleRate to 1.0 to capture 100%
   // of transactions for performance monitoring.
   // We recommend adjusting this value in production
-  tracesSampleRate: 0.4,
+  tracesSampleRate: 0.2,
 });
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 function App() {
   const {} = useHeroAbilities();
   return (
-    <Sentry.ErrorBoundary fallback={({ resetError }) => <ErrorFallback resetError={resetError} />}>
+    <Sentry.ErrorBoundary fallback={({ resetError,error }) => <ErrorFallback resetError={resetError} />}>
       <main className="App  h-auto w-full flex flex-col flex-1 min-h-screen relative">
         <Nav />
 
@@ -65,6 +66,7 @@ function App() {
               <Route path="professional/:id" element={<MatchBreakdown />} />
               <Route path="public/:id" element={<MatchBreakdown />} />
               <Route path=":id" element={<MatchBreakdown />} />
+              <Route path="*" element={<MatchIdNotFound matchId={""} />} />
             </Route>
             <Route path="*" element={<PageNotFound />} />
             <Route path="/teams" element={<Teams />} />

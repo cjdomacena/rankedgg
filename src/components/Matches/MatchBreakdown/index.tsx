@@ -24,12 +24,14 @@ const MatchBreakdown = () => {
   const [isXP, xpTeamToggle] = useState<boolean>(true);
   const [radiantTeam, setRadiantTeam] = useState<any>(null);
   const [direTeam, setDireTeam] = useState<any>(null);
-  const { data: match, status, isFetched } = useGetMatch(id ?? "");
+  const { data: match, status, isFetched, error } = useGetMatch(id ?? "");
   const t = getHighlightedPlayers;
 
   useEffect(() => {
+    
     if (match && isFetched && status === "success") {
-      if (!match.hasOwnProperty("error") || !match.radiant_score || !match.dire_score) {
+      console.log(match.hasOwnProperty("error"));
+      if (!match.hasOwnProperty("error") && match.radiant_score && match.dire_score) {
         const rTeam = match.players.filter((player: any) => player.player_slot <= 10);
         const dTeam = match.players.filter((player: any) => player.player_slot > 10);
         setRadiantTeam(rTeam);
@@ -138,6 +140,9 @@ const MatchBreakdown = () => {
           </div>
         </>
       );
+    }
+    case "error": {
+      return <MatchIdNotFound matchId={id ?? ""} />;
     }
     default: {
       return <MatchLoading />;
