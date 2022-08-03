@@ -6,6 +6,7 @@ import {
   TAllAbilities,
   THero,
   THeroTrend,
+  TTeam,
 } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
@@ -310,8 +311,13 @@ export const getHighlightedPlayers = (
   type: keyof typeof BenchMarkType,
   title: string,
 ) => {
-  const result: { heroId: number; value: number; name: string; title: string; isRadiant: boolean }[] =
-    [];
+  const result: {
+    heroId: number;
+    value: number;
+    name: string;
+    title: string;
+    isRadiant: boolean;
+  }[] = [];
   players.map((player: any) => {
     const { hero_id, name, personaname, isRadiant } = player;
     result.push({
@@ -325,4 +331,17 @@ export const getHighlightedPlayers = (
 
   const sortedResult = result.sort((a: any, b: any) => Number(b.value) - Number(a.value));
   return sortedResult[0] ?? null;
+};
+
+export const filterTeams = (teams: TTeam[]) => {
+  let now = new Date();
+  now.setMonth(now.getMonth() - 2);
+  const unixTwoMonthsAgo = Math.floor(now.getTime() / 1000);
+  const filteredTeams = teams.filter((team: TTeam) =>( team.last_match_time) > unixTwoMonthsAgo);
+  const sortedTeams = filteredTeams.sort((a,b) => b.rating - a.rating);
+  if(sortedTeams.length > 100) {
+    return sortedTeams.slice(0, 100);
+  } else {
+    return sortedTeams;
+  }
 };
