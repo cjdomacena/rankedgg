@@ -14,7 +14,7 @@ const Teams = (props: Props) => {
   const { data: teams, status } = useGetTeams();
   const uid = useId();
 
-  const [show, setShow] = useState<number>(16);
+  const [show, setShow] = useState<number>(15);
 
   switch (status) {
     case "success": {
@@ -35,7 +35,7 @@ const Teams = (props: Props) => {
               ))}
             </div>
             <div className="mt-8">
-              <ShowMore total={teams.length} increment={8} show={show} setShow={setShow} />
+              <ShowMore total={teams.length} increment={10} show={show} setShow={setShow} />
             </div>
           </div>
         </PrimaryLayout>
