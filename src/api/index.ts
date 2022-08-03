@@ -166,3 +166,17 @@ export const useGetTeams = () => {
     },
   );
 };
+
+export const useGetMatchUp = (id:number | string) => {
+  return useQuery(
+    ["matchup",id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/heroes/${id}/matchups`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    },
+  );
+}

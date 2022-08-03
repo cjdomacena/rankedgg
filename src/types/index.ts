@@ -213,3 +213,9 @@ export type TTeam = {
   tag: string;
   logo_url: string;
 };
+
+export type TMatchup = {
+  hero_id: number;
+  games_played: number;
+  wins: number;
+};

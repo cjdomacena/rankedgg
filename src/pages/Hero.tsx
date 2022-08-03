@@ -25,6 +25,7 @@ import Abilities from "../components/Heroes/Abilities";
 import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
 import { AiFillCaretDown } from "react-icons/ai";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
+import MatchUps from "../components/Heroes/Matchups";
 
 type Props = {};
 
@@ -281,16 +282,9 @@ const Hero = (props: Props) => {
           <PrimaryLayout className="self-center p-4 my-4 min-h-screen">
             <PageHeaderBG />
             <div className="container mx-auto h-full grid grid-cols-7">
-           
-              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 mt-20 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
-                <div className="w-full mb-4">
-                  <button
-                    className="flex bg-black/60 p-4 items-center w-full gap-2 justify-between rounded"
-                    disabled>
-                    Abilities
-                    <AiFillCaretDown />
-                  </button>
-                </div>
+              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7  mt-12 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
+  
+
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
@@ -392,6 +386,7 @@ const Hero = (props: Props) => {
                       aghsShard={aghsShardDesc}
                     />
                   ) : null}
+                  <MatchUps id={hero.id} />
                 </div>
               </section>
             </div>
