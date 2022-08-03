@@ -18,11 +18,11 @@ const Nav = (props: Props) => {
       icon: <IoPeopleOutline className="mr-1" />,
       path: "/matches/professional",
     },
-    {
-      text: "Live",
-      icon: <BiWifi className="mr-1" />,
-      path: "/matches/live",
-    },
+    // {
+    //   text: "Live",
+    //   icon: <BiWifi className="mr-1" />,
+    //   path: "/matches/live",
+    // },
   ];
 
   const heroesPills = [
