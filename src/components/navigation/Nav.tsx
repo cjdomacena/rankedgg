@@ -51,46 +51,40 @@ const Nav = (props: Props) => {
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" link="/teams" />
         </ul>
-        <div className="px-4 relative z-50 2xl:hidden xl:hidden lg:hidden block">
-          <Menu as={"div"} className="relative">
-            <Menu.Button className="flex p-2 hover:bg-neutral rounded">
-              <BiMenuAltRight className="w-6 h-6 mr-1" />
-              Menu
-            </Menu.Button>
-            <Transition
-              enter="transition duration-100 ease-out"
-              enterFrom="transform scale-95 opacity-0"
-              enterTo="transform scale-100 opacity-100"
-              leave="transition duration-75 ease-out"
-              leaveFrom="transform scale-100 opacity-100"
-              leaveTo="transform scale-95 opacity-0">
-              <Menu.Items
-                as="ul"
-                className="absolute right-2 top-2  bg-base-100 w-auto p-2 text-base whitespace-nowrap rounded">
-                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
-                  <Link to="/">
-                    <p className="p-1">Home</p>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
-                  <Link to="/heroes/all">
-                    <p className="p-1">Heroes</p>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
-                  <Link to="/matches/public">
-                    <p className="p-1">Public Matches</p>
-                  </Link>
-                </Menu.Item>
-                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
-                  <Link to="/matches/professional">
-                    <p className="p-1">Pro Matches</p>
-                  </Link>
-                </Menu.Item>
-              </Menu.Items>
-            </Transition>
-          </Menu>
-        </div>
+        <Menu
+          as={"div"}
+          className="relative px-4 z-50 2xl:hidden xl:hidden lg:hidden block">
+          <Menu.Button className="flex p-2 hover:bg-neutral rounded">
+            <BiMenuAltRight className="w-6 h-6 mr-1" />
+            Menu
+          </Menu.Button>
+
+          <Menu.Items
+            as="ul"
+            className="absolute right-6 top-12  bg-base-100 w-auto p-2 text-lg whitespace-nowrap rounded ring-2 ring-white/5 shadow space-y-2">
+            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+              <Link to="/">
+                <p className="p-1">Home</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+              <Link to="/heroes/all">
+                <p className="p-1">Heroes</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+              <Link to="/matches/public">
+                <p className="p-1">Public Matches</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+              <Link to="/matches/professional">
+                <p className="p-1">Pro Matches</p>
+              </Link>
+            </Menu.Item>
+          </Menu.Items>
+        </Menu>
+
         <div className="hidden 2xl:flex xl:flex lg:flex items-center gap-2">
           <MatchIdSearch />
           <Link to={"/"}>
