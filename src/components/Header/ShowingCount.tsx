@@ -10,10 +10,10 @@ const ShowingCount = ({ show, total, setShow }: Props) => {
   return (
     <div className="2xl:w-40 xl:w-40  lg:w-40  md:w-40  w-full">
       <select className="select select-bordered w-full select-md"
-      onChange={(e) => setShow(Number(e.currentTarget.value))}
-      value={show}
+      onChange={(e) => setShow(Number(e.target.value))}
+      defaultValue={show}
       >
-        <option selected disabled>{show}</option>
+        <option value={show}  disabled>{show}</option>
         <option value={15}>15</option>
         <option value={25}>25</option>
         <option value={50}>50</option>
