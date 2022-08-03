@@ -103,7 +103,7 @@ const MatchUps = ({ id }: Props) => {
     }
     default: {
       return (
-        <div className="p-2 space-y-2">
+        <div className="space-y-2">
           <div className="bg-black/30  p-4 rounded flex justify-between items-center">
             <h1>Hero Matchups</h1>
             <button

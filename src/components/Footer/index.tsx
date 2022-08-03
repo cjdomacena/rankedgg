@@ -17,14 +17,6 @@ const Footer = (props: Props) => {
               Valve Corporation.
             </a>
           </p>
-          <div className=" w-fit mx-auto flex items-center gap-2">
-            <span>
-              Developed with ❤️ by{" "}
-              <a href="https://christian-domacena.netlify.app/" className="underline">
-                cjdomacena
-              </a>
-            </span>
-          </div>
           
         </div>
       </div>

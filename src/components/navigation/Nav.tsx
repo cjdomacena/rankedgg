@@ -53,12 +53,12 @@ const Nav = (props: Props) => {
           <NavPill text="Teams" link="/teams" />
         </ul>
         <MobileMenu />
-        
+
         <div className="hidden 2xl:flex xl:flex lg:flex items-center gap-2">
           <MatchIdSearch />
-          <Link to={"/"}>
+          <a href={"https://github.com/cjdomacena/rankedgg"}>
             <FaGithub className="w-6 h-6" />
-          </Link>
+          </a>
         </div>
       </nav>
     </header>
