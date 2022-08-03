@@ -1,9 +1,17 @@
-import React from "react";
-import { useState } from "react";
+import React, { Dispatch, Ref, SetStateAction } from "react";
+import { useState, useEffect } from "react";
 
 // https://www.reddit.com/r/reactjs/comments/l2yz8h/how_to_check_if_image_exists/
 
-export const ImageExists = ({ src, alt, className }: { src: string; alt: string, className?:string }) => {
+export const ImageExists = ({
+  src,
+  alt,
+  className,
+}: {
+  src: string;
+  alt: string;
+  className?: string;
+}) => {
   const [error, setError] = useState(false);
 
   const onError = () => {
@@ -52,17 +60,40 @@ export const TeamImageExists = ({
     <img
       src={src ?? ""}
       onError={onError}
-      className={`w-24 h-24  p-0.5  ${
-        isRadiantWin ? "ring-emerald-500" : "ring-red-500"
-      }`}
+      className={`w-24 h-24  p-0.5  ${isRadiantWin ? "ring-emerald-500" : "ring-red-500"}`}
     />
   ) : (
     <img
       src={src ?? ""}
       onError={onError}
-      className={`w-24 h-24  p-0.5  ${
-        !isRadiantWin ? "ring-emerald-500" : "ring-red-500"
-      } `}
+      className={`w-24 h-24  p-0.5  ${!isRadiantWin ? "ring-emerald-500" : "ring-red-500"} `}
     />
+  );
+};
+
+export const useOnClickOutside = (ref: any, handler: any) => {
+  useEffect(
+    () => {
+      const listener = (event: any) => {
+        // Do nothing if clicking ref's element or descendent elements
+        if (!ref.current || ref.current.contains(event.target)) {
+          return;
+        }
+        handler(event);
+      };
+      document.addEventListener("mousedown", listener);
+      document.addEventListener("touchstart", listener);
+      return () => {
+        document.removeEventListener("mousedown", listener);
+        document.removeEventListener("touchstart", listener);
+      };
+    },
+    // Add ref and handler to effect dependencies
+    // It's worth noting that because passed in handler is a new ...
+    // ... function on every render that will cause this effect ...
+    // ... callback/cleanup to run every render. It's not a big deal ...
+    // ... but to optimize you can wrap handler in useCallback before ...
+    // ... passing it into this hook.
+    [ref, handler],
   );
 };

@@ -5,14 +5,14 @@ module.exports = {
     extend: {
       fontFamily: {
         "noto-sans": ['"Work Sans"', "sans-serif"],
-
+      },
+      animation: {
+        "spin-slow": "spin 3s linear infinite",
       },
     },
   },
   daisyui: {
-    themes: [
-     "night"
-    ],
+    themes: ["night"],
   },
   plugins: [require("daisyui")],
 };

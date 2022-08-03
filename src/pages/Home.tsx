@@ -1,5 +1,4 @@
 
-import { useGetTeams } from "../api";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 type Props = {};
