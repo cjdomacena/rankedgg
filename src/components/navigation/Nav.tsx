@@ -51,40 +51,40 @@ const Nav = (props: Props) => {
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" link="/teams" />
         </ul>
-        <Menu
-          as={"div"}
-          className="relative px-4 z-50 2xl:hidden xl:hidden lg:hidden block">
-          <Menu.Button className="flex p-2 hover:bg-neutral rounded">
-            <BiMenuAltRight className="w-6 h-6 mr-1" />
-            Menu
-          </Menu.Button>
-
-          <Menu.Items
-            as="ul"
-            className="absolute right-6 top-12  bg-base-100 w-auto p-2 text-lg whitespace-nowrap rounded ring-2 ring-white/5 shadow space-y-2">
-            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+        <div className="relative z-50 2xl:hidden xl:hidden lg:hidden block">
+          <Menu>
+            <div>
+              <Menu.Button className="inline-flex p-2 bg-white/5  rounded">
+                <BiMenuAltRight className="w-6 h-6 mr-1" aria-hidden="true" />
+                Menu
+              </Menu.Button>
+            </div>
+            <Menu.Items
+              as="ul"
+              className="absolute right-6 top-12  bg-base-100 w-auto p-2 text-lg whitespace-nowrap rounded ring-2 ring-white/5 shadow space-y-2">
               <Link to="/">
-                <p className="p-1">Home</p>
+                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+                  <p className="p-1">Home</p>
+                </Menu.Item>
               </Link>
-            </Menu.Item>
-            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
               <Link to="/heroes/all">
-                <p className="p-1">Heroes</p>
+                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+                  <p className="p-1">Heroes</p>
+                </Menu.Item>
               </Link>
-            </Menu.Item>
-            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
               <Link to="/matches/public">
-                <p className="p-1">Public Matches</p>
+                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+                  <p className="p-1">Public Matches</p>
+                </Menu.Item>
               </Link>
-            </Menu.Item>
-            <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
               <Link to="/matches/professional">
-                <p className="p-1">Pro Matches</p>
+                <Menu.Item as="li" className="hover:bg-white/5 rounded px-1">
+                  <p className="p-1">Pro Matches</p>
+                </Menu.Item>
               </Link>
-            </Menu.Item>
-          </Menu.Items>
-        </Menu>
-
+            </Menu.Items>
+          </Menu>
+        </div>
         <div className="hidden 2xl:flex xl:flex lg:flex items-center gap-2">
           <MatchIdSearch />
           <Link to={"/"}>
