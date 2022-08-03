@@ -6,7 +6,6 @@ type Props = {};
 const PageNotFound = (props: Props) => {
   return (
     <section className="grid place-items-center w-full">
-
       <div>
         <h1 className="text-white font-semibold text-3xl text-center">404 | Page not Found.</h1>
         <ul className="flex text  gap-4 justify-between mt-4 flex-wrap text-sm">
