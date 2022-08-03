@@ -25,12 +25,7 @@ const Footer = (props: Props) => {
               </a>
             </span>
           </div>
-          <div className="w-fit mx-auto">
-            <button className="flex gap-2">
-              View on Github
-              <FaGithub className="w-4 h-4" />
-            </button>
-          </div>
+          
         </div>
       </div>
     </footer>
