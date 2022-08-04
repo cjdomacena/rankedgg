@@ -1,5 +1,5 @@
 import React, { useEffect, useId, useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { ImageExists } from "../../utils/hooks";
 import { useGetPlayers, useGetTeam } from "../api";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
@@ -19,15 +19,23 @@ const Team = (props: Props) => {
   const [players, setPlayers] = useState<TPlayers[] | null>(null);
 
   const [team, setTeam] = useState<TTeam | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (t) {
+      if (t.hasOwnProperty("error") || t.length === 0) {
+      }
       setTeam(t);
     }
     if (p) {
+      if (p.hasOwnProperty("error") || p.length === 0) {
+        navigate("/error");
+      }
       setPlayers(p);
     }
-  }, [t, p]);
+    console.log(p)
+  }, [t, p, id]);
+  
 
   return (
     <PrimaryLayout>
