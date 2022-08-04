@@ -181,3 +181,31 @@ export const useGetMatchUp = (id: number | string) => {
     },
   );
 };
+
+export const useGetTeam = (id: number | string) => {
+  return useQuery(
+    ["team", id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/teams/${id}`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    },
+  );
+};
+
+export const useGetPlayers = (id: number | string) => {
+  return useQuery(
+    ["players", id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/teams/${id}/players`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    },
+  );
+};

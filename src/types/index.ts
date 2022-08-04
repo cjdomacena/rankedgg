@@ -219,3 +219,11 @@ export type TMatchup = {
   games_played: number;
   wins: number;
 };
+
+export type TPlayers = {
+  account_id: number | null;
+  name: string | null;
+  games_played: number | null;
+  wins: number | null;
+  is_current_team_member: boolean | null;
+};
