@@ -24,27 +24,32 @@ const MobileMenu = (props: Props) => {
           leaveFrom="transform opacity-100 scale-100"
           leaveTo="transform opacity-0 scale-95">
           <Menu.Items className="absolute right-0 top-12  bg-base-100 p-2 text-lg  rounded ring-2 ring-white/5 flex flex-col items-end gap-2 w-56">
-            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1">
+            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1 w-full text-right">
               <Link to="/">
-                <p className="p-1">Home</p>
+                <p className="p-1 w-full">Home</p>
               </Link>
             </Menu.Item>
 
-            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1">
+            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1 w-full text-right">
               <Link to="/heroes/all">
                 <p className="p-1">Heroes</p>
               </Link>
             </Menu.Item>
 
-            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1">
+            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1 w-full text-right">
               <Link to="/matches/public">
                 <p className="p-1">Public Matches</p>
               </Link>
             </Menu.Item>
 
-            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1">
+            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1 w-full text-right">
               <Link to="/matches/professional">
                 <p className="p-1">Pro Matches</p>
+              </Link>
+            </Menu.Item>
+            <Menu.Item as="button" className="hover:bg-white/5 rounded px-1 w-full text-right">
+              <Link to="/teams">
+                <p className="p-1">Teams</p>
               </Link>
             </Menu.Item>
           </Menu.Items>
