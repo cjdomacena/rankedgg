@@ -85,6 +85,7 @@ function App() {
               <Route path="*" element={<PageNotFound />} />
               <Route path="/teams" element={<Teams />} />
               <Route path="/teams/:id" element={<Team />} />
+              <Route path="error/:message" element={<PageNotFound />} />
             </SentryRoutes>
           </section>
 

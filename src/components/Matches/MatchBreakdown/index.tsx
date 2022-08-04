@@ -30,7 +30,6 @@ const MatchBreakdown = () => {
   useEffect(() => {
     
     if (match && isFetched && status === "success") {
-      console.log(match.hasOwnProperty("error"));
       if (!match.hasOwnProperty("error") && match.radiant_score && match.dire_score) {
         const rTeam = match.players.filter((player: any) => player.player_slot <= 10);
         const dTeam = match.players.filter((player: any) => player.player_slot > 10);

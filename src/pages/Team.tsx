@@ -24,16 +24,16 @@ const Team = (props: Props) => {
   useEffect(() => {
     if (t) {
       if (t.hasOwnProperty("error") || t.length === 0) {
+        navigate(`/error/team-not-found`);
       }
       setTeam(t);
     }
     if (p) {
       if (p.hasOwnProperty("error") || p.length === 0) {
-        navigate("/error");
+        navigate(`/error/team-not-found`);
       }
       setPlayers(p);
     }
-    console.log(p)
   }, [t, p, id]);
   
 

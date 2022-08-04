@@ -73,9 +73,8 @@ const Hero = (props: Props) => {
   useEffect(() => {
     if (heroes && id) {
       const tempHero: THero = heroes[id];
-      console.log(tempHero);
       if (!tempHero) {
-        navigate("/error");
+        navigate("/error/hero-not-found");
       } else {
         setHero(tempHero);
         setAttributes([
