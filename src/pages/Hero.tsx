@@ -16,7 +16,7 @@ import AttributeStats from "../components/Heroes/Attributes";
 import { Attributes, TAghsShard, TAllAbilities, THero, THeroStat } from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import { useAghsShardDesc, useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
 import ErrorComponent from "../components/Error";
 import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
@@ -68,172 +68,178 @@ const Hero = (props: Props) => {
   const [mobility, setMobilityStats] = useState<TSingleStat | null>(null);
   const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(null);
   const [aghsShardDesc, setAghsShardDesc] = useState<TAghsShard | null>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (heroes && id) {
       const tempHero: THero = heroes[id];
-      setHero(tempHero);
-      setAttributes([
-        {
-          type: Attributes.str,
-          values: [
-            {
-              id: "attribute",
-              header: Attributes.str,
-              value: tempHero.base_str,
-            },
-            {
-              id: "value",
-              header: "Gain / level",
-              value: `+${tempHero.str_gain}`,
-            },
-          ],
-          gain: tempHero.str_gain,
-          level: 1,
-        },
-        {
-          type: Attributes.agi,
-          values: [
-            {
-              id: "attribute",
-              header: Attributes.agi,
-              value: `${tempHero.base_agi}`,
-            },
-            {
-              id: "value",
-              header: "Gain / level",
-              value: `+${tempHero.agi_gain}`,
-            },
-          ],
-          gain: tempHero.agi_gain,
-          level: 1,
-        },
-        {
-          type: Attributes.int,
-          values: [
-            {
-              id: "attribute",
-              header: Attributes.int,
-              value: tempHero.base_int,
-            },
-            {
-              id: "value",
-              header: "Gain / level",
-              value: `+${tempHero.int_gain}`,
-            },
-          ],
-          gain: tempHero.int_gain,
-          level: 1,
-        },
-      ]);
-      const { min, max } = calculateMinMaxDamage(
-        tempHero.base_agi,
-        tempHero.base_int,
-        tempHero.base_str,
-        tempHero.base_attack_min,
-        tempHero.base_attack_max,
-        tempHero.primary_attr,
-        rangeSlider,
-        getPrimaryGain(
+      console.log(tempHero);
+      if (!tempHero) {
+        navigate("/error");
+      } else {
+        setHero(tempHero);
+        setAttributes([
+          {
+            type: Attributes.str,
+            values: [
+              {
+                id: "attribute",
+                header: Attributes.str,
+                value: tempHero.base_str,
+              },
+              {
+                id: "value",
+                header: "Gain / level",
+                value: `+${tempHero.str_gain}`,
+              },
+            ],
+            gain: tempHero.str_gain,
+            level: 1,
+          },
+          {
+            type: Attributes.agi,
+            values: [
+              {
+                id: "attribute",
+                header: Attributes.agi,
+                value: `${tempHero.base_agi}`,
+              },
+              {
+                id: "value",
+                header: "Gain / level",
+                value: `+${tempHero.agi_gain}`,
+              },
+            ],
+            gain: tempHero.agi_gain,
+            level: 1,
+          },
+          {
+            type: Attributes.int,
+            values: [
+              {
+                id: "attribute",
+                header: Attributes.int,
+                value: tempHero.base_int,
+              },
+              {
+                id: "value",
+                header: "Gain / level",
+                value: `+${tempHero.int_gain}`,
+              },
+            ],
+            gain: tempHero.int_gain,
+            level: 1,
+          },
+        ]);
+        const { min, max } = calculateMinMaxDamage(
+          tempHero.base_agi,
+          tempHero.base_int,
+          tempHero.base_str,
+          tempHero.base_attack_min,
+          tempHero.base_attack_max,
           tempHero.primary_attr,
-          tempHero.agi_gain,
-          tempHero.str_gain,
-          tempHero.int_gain,
-        ),
-      );
-      const attackStat: TSingleStat = {
-        icon: <TbSwords className="w-6 h-6" />,
-        title: "Attack",
-        stats: [
-          {
-            id: "attackSpeed",
-            hasTooltip: false,
-            tooltipInfo: "Value might not be accurate",
-            title: "Attack Speed",
-            value: (
-              <>
-                {calculateAttackSpeed(tempHero.attack_rate, tempHero.base_agi)}
-                <span className="text-xs">{` (${calculateAttackSpeedInSec(
-                  tempHero.attack_rate,
-                  tempHero.base_agi,
-                )}s)`}</span>
-              </>
-            ),
-          },
-          {
-            id: "attackRange",
-            hasTooltip: false,
-            tooltipInfo: "Value might not be accurate",
-            title: "Attack Range",
-            value: tempHero.attack_range,
-          },
-          {
-            id: "damage",
-            hasTooltip: false,
-            tooltipInfo: "",
-            title: "Damage",
-            value: (
-              <>
-                {min} - {max}
-              </>
-            ),
-          },
-        ],
-      };
+          rangeSlider,
+          getPrimaryGain(
+            tempHero.primary_attr,
+            tempHero.agi_gain,
+            tempHero.str_gain,
+            tempHero.int_gain,
+          ),
+        );
+        const attackStat: TSingleStat = {
+          icon: <TbSwords className="w-6 h-6" />,
+          title: "Attack",
+          stats: [
+            {
+              id: "attackSpeed",
+              hasTooltip: false,
+              tooltipInfo: "Value might not be accurate",
+              title: "Attack Speed",
+              value: (
+                <>
+                  {calculateAttackSpeed(tempHero.attack_rate, tempHero.base_agi)}
+                  <span className="text-xs">{` (${calculateAttackSpeedInSec(
+                    tempHero.attack_rate,
+                    tempHero.base_agi,
+                  )}s)`}</span>
+                </>
+              ),
+            },
+            {
+              id: "attackRange",
+              hasTooltip: false,
+              tooltipInfo: "Value might not be accurate",
+              title: "Attack Range",
+              value: tempHero.attack_range,
+            },
+            {
+              id: "damage",
+              hasTooltip: false,
+              tooltipInfo: "",
+              title: "Damage",
+              value: (
+                <>
+                  {min} - {max}
+                </>
+              ),
+            },
+          ],
+        };
 
-      const defenseStat: TSingleStat = {
-        icon: <FaShieldAlt className="w-6 h-6" />,
-        title: "Defense",
-        stats: [
-          {
-            id: "armor",
-            hasTooltip: false,
-            tooltipInfo: "Nice",
-            title: "Armor",
-            value: (
-              <>
-                {calculateArmor(
-                  tempHero.base_armor,
-                  tempHero.base_agi,
-                  tempHero.agi_gain,
-                  rangeSlider,
-                )}
-              </>
-            ),
-          },
-          {
-            id: "magicResist",
-            hasTooltip: false,
-            tooltipInfo: "Nice",
-            title: "Magic Resistance",
-            value: tempHero.base_mr + "%",
-          },
-        ],
-      };
+        const defenseStat: TSingleStat = {
+          icon: <FaShieldAlt className="w-6 h-6" />,
+          title: "Defense",
+          stats: [
+            {
+              id: "armor",
+              hasTooltip: false,
+              tooltipInfo: "Nice",
+              title: "Armor",
+              value: (
+                <>
+                  {calculateArmor(
+                    tempHero.base_armor,
+                    tempHero.base_agi,
+                    tempHero.agi_gain,
+                    rangeSlider,
+                  )}
+                </>
+              ),
+            },
+            {
+              id: "magicResist",
+              hasTooltip: false,
+              tooltipInfo: "Nice",
+              title: "Magic Resistance",
+              value: tempHero.base_mr + "%",
+            },
+          ],
+        };
 
-      const mobilityStat: TSingleStat = {
-        icon: <FaRunning className="w-6 h-6" />,
-        title: "Mobility",
-        stats: [
-          {
-            id: "movementSpeed",
-            hasTooltip: false,
-            tooltipInfo: "Movement Speed",
-            title: "Movement Speed",
-            value: tempHero.move_speed,
-          },
-          {
-            id: "turnRate",
-            hasTooltip: false,
-            tooltipInfo: "",
-            title: "Turn Rate",
-            value: tempHero.turn_rate ?? 0,
-          },
-        ],
-      };
-      setAttackStats(attackStat);
-      setDefenseStats(defenseStat);
-      setMobilityStats(mobilityStat);
+        const mobilityStat: TSingleStat = {
+          icon: <FaRunning className="w-6 h-6" />,
+          title: "Mobility",
+          stats: [
+            {
+              id: "movementSpeed",
+              hasTooltip: false,
+              tooltipInfo: "Movement Speed",
+              title: "Movement Speed",
+              value: tempHero.move_speed,
+            },
+            {
+              id: "turnRate",
+              hasTooltip: false,
+              tooltipInfo: "",
+              title: "Turn Rate",
+              value: tempHero.turn_rate ?? 0,
+            },
+          ],
+        };
+        setAttackStats(attackStat);
+        setDefenseStats(defenseStat);
+        setMobilityStats(mobilityStat);
+      }
     }
   }, [heroes, id]);
 

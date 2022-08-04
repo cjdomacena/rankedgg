@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { formatStartTime } from "../../../utils";
 import { ImageExists } from "../../../utils/hooks";
 
@@ -12,8 +13,11 @@ const TeamCard = ({ team, index }: Props) => {
     <div className="p-2 bg-black/30 w-full rounded flex justify-center shadow-xl relative ">
       <div className="px-4 pt-8 pb-6 text-center">
         <ImageExists src={team.logo_url ?? ""} alt={team.name} className="w-auto h-24 mx-auto" />
-        <div>
-          <h1 className="text-center text-white font-bold text-lg">{team.name}</h1>
+
+        <div className="mt-4">
+          <Link to={`/teams/${team.team_id}`} className="cursor-pointer hover:underline">
+            <h1 className="text-center text-white font-bold text-lg">{team.name}</h1>
+          </Link>
           <p className="text-sm">{team.tag}</p>
         </div>
         <div className="mt-4">

@@ -25,10 +25,10 @@ import Footer from "./components/Footer";
 import PublicMatches from "./pages/PublicMatches";
 import ProMatches from "./pages/ProMatches";
 import MatchIdNotFound from "./components/Utilility/MatchIdNotFound";
+import Team from "./pages/Team";
 
-
-const AllHeroes = lazy(() => import('./pages/AllHeroes'));
-const Home = lazy(() => import('./pages/Home'));
+const AllHeroes = lazy(() => import("./pages/AllHeroes"));
+const Home = lazy(() => import("./pages/Home"));
 const Hero = lazy(() => import("./pages/Hero"));
 
 Sentry.init({
@@ -53,7 +53,6 @@ Sentry.init({
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 function App() {
-  
   return (
     <Sentry.ErrorBoundary
       fallback={({ resetError, error }) => <ErrorFallback resetError={resetError} />}>
@@ -85,6 +84,7 @@ function App() {
               </Route>
               <Route path="*" element={<PageNotFound />} />
               <Route path="/teams" element={<Teams />} />
+              <Route path="/teams/:id" element={<Team />} />
             </SentryRoutes>
           </section>
 
