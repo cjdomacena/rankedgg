@@ -1,4 +1,3 @@
-import React, { Dispatch, Ref, SetStateAction } from "react";
 import { useState, useEffect } from "react";
 
 // https://www.reddit.com/r/reactjs/comments/l2yz8h/how_to_check_if_image_exists/
@@ -86,6 +85,7 @@ export const useOnClickOutside = (ref: any, handler: any) => {
       return () => {
         document.removeEventListener("mousedown", listener);
         document.removeEventListener("touchstart", listener);
+      
       };
     },
     // Add ref and handler to effect dependencies
