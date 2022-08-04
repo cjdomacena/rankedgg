@@ -7,7 +7,7 @@ This is an open source project that uses [Open Dota API]("https://docs.opendota.
 ## Getting Started
 - Clone the repo using `gh repo clone cjdomacena/dotabuffer`
 
-### Installing
+### Installing Dependencies
 
 * Locate the folder where you cloned the project
 * run `npm install`
@@ -20,14 +20,9 @@ This is an open source project that uses [Open Dota API]("https://docs.opendota.
 ### Feature Request or Issues
 * If you have encoutered any issues or want to request additional features, please create a ticket [here]("https://github.com/cjdomacena/dotabuffer/issues"). Thanks!!
 
-
-## Author
-
-* [CJ Domacena](https://twitter.com/cjdomacena2)
-
 ## License
 
-This project is licensed under the MIT License - see the LICENSE.md file for details
+This project is licensed under the MIT License - see the [LICENSE.md](https://github.com/cjdomacena/rankedgg/blob/master/LICENSE.MD) file for details
 
 
 ## Acknowledgments
