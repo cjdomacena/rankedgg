@@ -1,11 +1,9 @@
 import { Link, useParams } from "react-router-dom";
-import PageHeaderBG from "../components/Header/PageHeaderBG";
 
 type Props = {};
 
 const PageNotFound = (props: Props) => {
-
-  const {message} = useParams();
+  const { message } = useParams();
 
   return (
     <section className="grid place-items-center w-full">

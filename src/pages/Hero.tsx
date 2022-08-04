@@ -4,7 +4,6 @@ import {
   calculateAttackSpeed,
   calculateAttackSpeedInSec,
   calculateMinMaxDamage,
-  calculateRegen,
   getAbilityInfo,
   getAghsShardDesc,
   getImageUrl,
@@ -13,19 +12,29 @@ import {
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import { TbSwords } from "react-icons/tb";
 import AttributeStats from "../components/Heroes/Attributes";
-import { Attributes, TAghsShard, TAllAbilities, THero, THeroStat } from "../types";
+import {
+  Attributes,
+  TAghsShard,
+  TAllAbilities,
+  THero,
+  THeroStat,
+} from "../types";
 import { FaShieldAlt, FaRunning, FaDna } from "react-icons/fa";
 import HeroStat from "../components/Heroes/Attributes/HeroStat";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { useAghsShardDesc, useAllAbilities, useHeroAbilities, useInitialHeroes } from "../api";
+import {
+  useAghsShardDesc,
+  useAllAbilities,
+  useHeroAbilities,
+  useInitialHeroes,
+} from "../api";
 import ErrorComponent from "../components/Error";
 import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
 import HeroHeader from "../components/Heroes/HeroHeader";
 import Abilities from "../components/Heroes/Abilities";
 import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
-import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
-import PageHeaderBG from "../components/Header/PageHeaderBG";
-import MatchUps from "../components/Heroes/Matchups";
+import { AiFillCaretUp } from "react-icons/ai";
+import { HeroLoading } from "../components/Utilility/HeroLoading";
 
 type Props = {};
 
@@ -66,15 +75,16 @@ const Hero = (props: Props) => {
   const [attack, setAttackStats] = useState<TSingleStat | null>(null);
   const [defense, setDefenseStats] = useState<TSingleStat | null>(null);
   const [mobility, setMobilityStats] = useState<TSingleStat | null>(null);
-  const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(null);
+  const [heroAbilities, setHeroAbilities] = useState<TAllAbilities[] | null>(
+    null
+  );
   const [aghsShardDesc, setAghsShardDesc] = useState<TAghsShard | null>(null);
   const navigate = useNavigate();
-
   useEffect(() => {
     if (heroes && id) {
       const tempHero: THero = heroes[id];
       if (!tempHero) {
-        navigate("/error/hero-not-found");
+        navigate("/error");
       } else {
         setHero(tempHero);
         setAttributes([
@@ -142,8 +152,8 @@ const Hero = (props: Props) => {
             tempHero.primary_attr,
             tempHero.agi_gain,
             tempHero.str_gain,
-            tempHero.int_gain,
-          ),
+            tempHero.int_gain
+          )
         );
         const attackStat: TSingleStat = {
           icon: <TbSwords className="w-6 h-6" />,
@@ -156,10 +166,13 @@ const Hero = (props: Props) => {
               title: "Attack Speed",
               value: (
                 <>
-                  {calculateAttackSpeed(tempHero.attack_rate, tempHero.base_agi)}
+                  {calculateAttackSpeed(
+                    tempHero.attack_rate,
+                    tempHero.base_agi
+                  )}
                   <span className="text-xs">{` (${calculateAttackSpeedInSec(
                     tempHero.attack_rate,
-                    tempHero.base_agi,
+                    tempHero.base_agi
                   )}s)`}</span>
                 </>
               ),
@@ -200,7 +213,7 @@ const Hero = (props: Props) => {
                     tempHero.base_armor,
                     tempHero.base_agi,
                     tempHero.agi_gain,
-                    rangeSlider,
+                    rangeSlider
                   )}
                 </>
               ),
@@ -245,7 +258,10 @@ const Hero = (props: Props) => {
   useEffect(() => {
     if (hero) {
       if (allAbilities && abilities) {
-        const temp = getAbilityInfo(abilities[hero.name].abilities, allAbilities);
+        const temp = getAbilityInfo(
+          abilities[hero.name].abilities,
+          allAbilities
+        );
         setHeroAbilities(temp);
       }
       if (aghs) {
@@ -259,35 +275,24 @@ const Hero = (props: Props) => {
     case "error": {
       return <ErrorComponent />;
     }
-    case "loading": {
-      return (
-        <PrimaryLayout className="self-center p-4 my-4 ">
-          <div className="container mx-auto h-full grid grid-cols-7 gap-4">
-            <div className="w-full   2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 flex flex-col gap-4">
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-8 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-            </div>
-            <div className=" w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 flex flex-col gap-4">
-              <div className="w-full p-24 bg-neutral animate-pulse"></div>
-              <div className="w-full p-24 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-            </div>
-          </div>
-        </PrimaryLayout>
-      );
-    }
     case "success": {
       if (hero && id) {
         return (
-          <PrimaryLayout className="self-center p-4 my-4 min-h-screen">
-            <PageHeaderBG />
+          <PrimaryLayout className="self-center  min-h-screen mb-12">
+            <div className="w-full bg-black/30 mb-12">
+              <div className="container mx-auto ">
+                <div className="text-sm breadcrumbs p-4 mx-auto">
+                  <ul>
+                    <li>
+                      <Link to="/heroes/all">Heroes</Link>
+                    </li>
+                    <li className="font-bold">{hero.localized_name}</li>
+                  </ul>
+                </div>
+              </div>
+            </div>
             <div className="container mx-auto h-full grid grid-cols-7">
-              <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7  mt-12 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
+              <section className="w-full 2xl:col-span-2 xl:col-span-2  col-span-7  mt-12 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
@@ -330,40 +335,37 @@ const Hero = (props: Props) => {
                       <div
                         className={`text-xs px-3 py-1 rounded-full  mt-1  ${
                           attrColors[hero?.primary_attr]
-                        } border border-white/10`}>
-                        Primary: <span className="font-bold">{Attributes[hero?.primary_attr]}</span>
+                        } border border-white/10`}
+                      >
+                        Primary:{" "}
+                        <span className="font-bold">
+                          {Attributes[hero?.primary_attr]}
+                        </span>
                       </div>
                     </div>
                     <div className="space-y-4">
-                      {attributes?.map((attribute: TAttribute, index: number) => (
-                        <AttributeStats
-                          values={attribute.values}
-                          type={attribute.type}
-                          key={`${attribute.type}-${index}`}
-                          level={rangeSlider}
-                          gain={attribute.gain}
-                        />
-                      ))}
+                      {attributes?.map(
+                        (attribute: TAttribute, index: number) => (
+                          <AttributeStats
+                            values={attribute.values}
+                            type={attribute.type}
+                            key={`${attribute.type}-${index}`}
+                            level={rangeSlider}
+                            gain={attribute.gain}
+                          />
+                        )
+                      )}
                     </div>
                   </div>
                 </div>
               </section>
-              <section className="w-full 2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 h-fit order-first">
+              <section className="w-full 2xl:col-span-5 xl:col-span-5  col-span-7 h-fit order-first">
                 <div className="2xl:w-5/6 xl:w-3/4 lg:w-3/4 w-full mx-auto space-y-12">
-                  <div className="text-sm breadcrumbs">
-                    <ul>
-                      <li className="text-gray-400">
-                        <Link to="/heroes/all">Heroes</Link>
-                      </li>
-                      <li>
-                        <p className="font-medium">{hero.localized_name}</p>
-                      </li>
-                    </ul>
-                  </div>
                   <HeroHeader
                     imgSrc={getImageUrl(null, hero.img)}
                     name={hero.localized_name}
                     roles={hero.roles}
+                    heroId={hero.id}
                   />
 
                   <HeroLevelSlider
@@ -394,7 +396,8 @@ const Hero = (props: Props) => {
                         <h1>Abilities</h1>
                         <button
                           className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
-                          disabled>
+                          disabled
+                        >
                           <AiFillCaretUp className="w-4 h-4" />
                         </button>
                       </div>
@@ -402,13 +405,13 @@ const Hero = (props: Props) => {
                         <h1>Talents</h1>
                         <button
                           className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
-                          disabled>
+                          disabled
+                        >
                           <AiFillCaretUp className="w-4 h-4" />
                         </button>
                       </div>
                     </div>
                   )}
-                  <MatchUps id={hero.id} />
                 </div>
               </section>
             </div>
@@ -417,26 +420,7 @@ const Hero = (props: Props) => {
       }
     }
     default: {
-      return (
-        <PrimaryLayout className="self-center p-4 my-4 ">
-          <div className="container mx-auto h-full grid grid-cols-7 gap-4">
-            <div className="w-full   2xl:col-span-5 xl:col-span-5 lg:col-span-5 col-span-7 flex flex-col gap-4">
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-8 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-            </div>
-            <div className=" w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7 flex flex-col gap-4">
-              <div className="w-full p-24 bg-neutral animate-pulse"></div>
-              <div className="w-full p-24 bg-neutral animate-pulse"></div>
-              <div className="w-full p-12 bg-neutral animate-pulse"></div>
-            </div>
-          </div>
-        </PrimaryLayout>
-      );
+      return <HeroLoading />;
     }
   }
 };
