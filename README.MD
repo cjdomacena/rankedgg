@@ -5,7 +5,7 @@
 This is an open source project that uses [Open Dota API]("https://docs.opendota.com/").
 
 ## Getting Started
-- Clone the repo using `gh repo clone cjdomacena/dotabuffer` or `git clone https://github.com/cjdomacena/rankedgg.git`
+- Clone the repo using `gh repo clone cjdomacena/dotabuffer` or `git clone git@github.com:cjdomacena/rankedgg.git`
 
 ### Installing Dependencies
 
