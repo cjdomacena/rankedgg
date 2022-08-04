@@ -45,7 +45,7 @@ const Nav = (props: Props) => {
 
   return (
     <header className="w-full h-auto font-noto-sans shadow-xl">
-      <nav className="py-4 px-8  flex text-neutral-50 gap-4 items-center mx-auto justify-between">
+      <nav className="py-4 2xl:px-8 xl:px-8 lg:px-8 px-2  flex text-neutral-50 gap-4 items-center mx-auto justify-between">
         <NavLogo />
         <ul className="hidden gap-2 2xl:flex xl:flex lg:flex  items-center">
           <NavPill text="Heroes" link="heroes/all" />

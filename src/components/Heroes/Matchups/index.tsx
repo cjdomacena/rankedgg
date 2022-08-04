@@ -38,7 +38,7 @@ const MatchUps = ({ id }: Props) => {
                 <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral w-full ring-2 ring-white/5">
                   <input
                     type="number"
-                    placeholder={`Select wins greater than (Default: ${25})`}
+                    placeholder={`Wins > (Default: ${25})`}
                     className="appearance-none input input-ghost focus:outline-0 px-1 w-full"
                     min={1}
                     max={Number(matchups[0].wins)}
@@ -55,7 +55,7 @@ const MatchUps = ({ id }: Props) => {
                 <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral w-full ring-2 ring-white/5">
                   <input
                     type="number"
-                    placeholder={`Select games greater than (Default: ${50})`}
+                    placeholder={`Games > (Default: ${50})`}
                     className="appearance-none input input-ghost focus:outline-0 px-1 w-full"
                     min={1}
                     max={Number(matchups[0].games_played)}
@@ -70,7 +70,7 @@ const MatchUps = ({ id }: Props) => {
                   </button>
                 </div>
               </div>
-              <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,300px),1fr))] gap-4">
+              <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,500px),1fr))] gap-4">
                 {matchups.map((hero: TMatchup) =>
                   hero.wins >= (wins === 0 || isInitialWins ? 25 : wins) &&
                   hero.games_played >= (games === 0 || isInitialGames ? 50 : games) ? (

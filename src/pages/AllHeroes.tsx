@@ -36,7 +36,7 @@ const AllHeroes: React.FC = () => {
     case "success": {
       return (
         <PrimaryLayout className="h-full flex items-center min-h-screen">
-          <div className="w-full h-full mt-20">
+          <div className="w-full h-full mt-8">
             <PageHeaderBG />
               <div className="container mx-auto flex justify-between text-neutral-300 items-center  px-12 flex-wrap gap-2">
                 <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />

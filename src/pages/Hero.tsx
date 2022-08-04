@@ -23,7 +23,7 @@ import HeroLevelSlider from "../components/Heroes/HeroLevelSlider";
 import HeroHeader from "../components/Heroes/HeroHeader";
 import Abilities from "../components/Heroes/Abilities";
 import HealthAndMana from "../components/Heroes/Attributes/HealthAndMana";
-import { AiFillCaretDown } from "react-icons/ai";
+import { AiFillCaretDown, AiFillCaretUp } from "react-icons/ai";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
 import MatchUps from "../components/Heroes/Matchups";
 
@@ -283,8 +283,6 @@ const Hero = (props: Props) => {
             <PageHeaderBG />
             <div className="container mx-auto h-full grid grid-cols-7">
               <section className="w-full 2xl:col-span-2 xl:col-span-2 lg:col-span-2 col-span-7  mt-12 bg-black/10 h-fit 2xl:p-4 xl:p-4 lg:p-4 p-4">
-  
-
                 <div className="w-full space-y-8">
                   <div className="w-full space-y-4">
                     {attack ? (
@@ -385,7 +383,26 @@ const Hero = (props: Props) => {
                       allAbilities={allAbilities}
                       aghsShard={aghsShardDesc}
                     />
-                  ) : null}
+                  ) : (
+                    <div className="space-y-4">
+                      <div className="bg-black/30  p-4 rounded flex justify-between items-center">
+                        <h1>Abilities</h1>
+                        <button
+                          className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
+                          disabled>
+                          <AiFillCaretUp className="w-4 h-4" />
+                        </button>
+                      </div>
+                      <div className="bg-black/30  p-4 rounded flex justify-between items-center">
+                        <h1>Talents</h1>
+                        <button
+                          className="rounded-full p-1 bg-black/30 text-white hover:bg-white/20 transition-all"
+                          disabled>
+                          <AiFillCaretUp className="w-4 h-4" />
+                        </button>
+                      </div>
+                    </div>
+                  )}
                   <MatchUps id={hero.id} />
                 </div>
               </section>

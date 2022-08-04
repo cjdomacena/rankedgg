@@ -16,7 +16,7 @@ const MatchIdSearch = (props: Props) => {
   };
 
   return (
-    <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral">
+    <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-info ring-2 ring-neutral">
       <FaSearch className="" />
       <input
         className="appearance-none input input-ghost focus:outline-0 px-1"

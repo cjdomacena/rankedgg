@@ -53,7 +53,7 @@ Sentry.init({
 
 const SentryRoutes = Sentry.withSentryReactRouterV6Routing(Routes);
 function App() {
-  const {} = useHeroAbilities();
+  
   return (
     <Sentry.ErrorBoundary
       fallback={({ resetError, error }) => <ErrorFallback resetError={resetError} />}>

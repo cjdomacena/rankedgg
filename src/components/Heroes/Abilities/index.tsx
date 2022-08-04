@@ -4,7 +4,6 @@ import { ImageExists } from "../../../../utils/hooks";
 import { useState } from "react";
 import { AiFillCaretUp, AiFillCaretDown, AiOutlineInfoCircle, AiFillInfoCircle } from "react-icons/ai";
 import Talents from "./Talents";
-import { GrUpgrade } from "react-icons/gr";
 type Props = {
   abilities: TAllAbilities[];
   talents: {
@@ -37,7 +36,6 @@ const Abilities = ({ abilities, talents, allAbilities, aghsShard }: Props) => {
 
   return (
     <div className=" space-y-4">
-     
       <div className="bg-black/30  p-4 rounded flex justify-between items-center">
         <h1>Abilities</h1>
         <button

@@ -7,5 +7,7 @@
   ],
   "theme_color": "#101729",
   "background_color": "#101729",
-  "display": "standalone"
+  "display": "browser",
+  "scope": "/",
+  "start_url": "/"
 }

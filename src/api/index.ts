@@ -1,6 +1,6 @@
 import { DEFAULT_HERO_TREND } from "./../../utils/constants";
 import { filterHeroes, filterTeams } from "./../../utils/index";
-import { THero, TTeam } from "./../types/index";
+import { TAghsShard, THero, TTeam } from "./../types/index";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -21,6 +21,7 @@ export const useInitialHeroes = () => {
     },
     {
       ...queryConfig,
+      select: React.useCallback((data: THero[]) => data, []),
     },
   );
 };
@@ -136,7 +137,7 @@ export const useAghsShardDesc = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig, select: React.useCallback((data: TAghsShard[]) => data, []) },
   );
 };
 
@@ -162,14 +163,14 @@ export const useGetTeams = () => {
     },
     {
       ...queryConfig,
-      select: React.useCallback((data:TTeam[]) => filterTeams(data), []),
+      select: React.useCallback((data: TTeam[]) => filterTeams(data), []),
     },
   );
 };
 
-export const useGetMatchUp = (id:number | string) => {
+export const useGetMatchUp = (id: number | string) => {
   return useQuery(
-    ["matchup",id],
+    ["matchup", id],
     async () => {
       const req = await fetch(`${BASE_URL}/heroes/${id}/matchups`);
       const res = await req.json();
@@ -179,4 +180,4 @@ export const useGetMatchUp = (id:number | string) => {
       ...queryConfig,
     },
   );
-}
+};

@@ -2,11 +2,6 @@
 @tailwind components;
 @tailwind utilities;
 
-html {
-  height: 100vh;
-  background-color: #141318;
-}
-
 #root {
   height: auto;
   min-height: 100vh;
