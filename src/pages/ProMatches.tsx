@@ -2,13 +2,12 @@ import { IoPeopleOutline } from "react-icons/io5";
 import { useGetProMatches } from "../api";
 import PageHeader from "../components/Header/PageHeader";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
-import { SetStateAction, useState } from "react";
+import { useState } from "react";
 import ErrorComponent from "../components/Error";
 import PageHeaderBG from "../components/Header/PageHeaderBG";
 import ProMatch from "../components/Matches/ProMatch";
 import { TProMatch } from "../types";
 import ProMatchDetails from "../components/Matches/ProMatchDetails";
-import { FaArrowCircleDown} from "react-icons/fa";
 import ShowMore from "../components/Utilility/ShowMore";
 import ShowingCount from "../components/Header/ShowingCount";
 
@@ -218,7 +217,11 @@ const ProMatches = (props: Props) => {
                 />
                 <span className=" badge">Top</span>
               </div>
-             <ShowingCount show={show} setShow={setShow} total={matches.length} />
+              <ShowingCount
+                show={show}
+                setShow={setShow}
+                total={matches.length}
+              />
             </div>
           </PageHeaderBG>
           {/*  grid-cols-[repeat(auto-fit,minmax(min(550px,100%),1fr))] */}
@@ -227,11 +230,13 @@ const ProMatches = (props: Props) => {
            grid-cols-1
             gap-12
             items-end
-            ">
+            "
+          >
             {matches.slice(0, show).map((match: TProMatch) => (
               <div
                 className="w-full relative ring ring-neutral rounded shadow-2xl"
-                key={match.match_id}>
+                key={match.match_id}
+              >
                 <ProMatchDetails
                   leagueName={match.league_name}
                   seriesType={match.series_type}
@@ -249,8 +254,12 @@ const ProMatches = (props: Props) => {
               </div>
             ))}
           </div>
-          <ShowMore total={matches.length} show={show} setShow={setShow} increment={10} />
-
+          <ShowMore
+            total={matches.length}
+            show={show}
+            setShow={setShow}
+            increment={10}
+          />
         </PrimaryLayout>
       );
     }
@@ -259,16 +268,21 @@ const ProMatches = (props: Props) => {
         <PrimaryLayout className="my-12">
           <PageHeaderBG>
             <div className="container mx-auto p-4">
-              <PageHeader icon={<IoPeopleOutline className="mr-1 w-6 h-6" />} title="Pro Matches" />
+              <PageHeader
+                icon={<IoPeopleOutline className="mr-1 w-6 h-6" />}
+                title="Pro Matches"
+              />
             </div>
           </PageHeaderBG>
           <div
             className="container mx-auto p-8 grid grid-cols-[repeat(auto-fit,minmax(350px,1fr))] 
-            gap-x-4 gap-y-12">
+            gap-x-4 gap-y-12"
+          >
             {[0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((placeholder) => (
               <div
                 className="p-4 bg-gray-600 animate-pulse h-24 w-full rounded"
-                key={`placeholder-${placeholder}`}></div>
+                key={`placeholder-${placeholder}`}
+              ></div>
             ))}
           </div>
         </PrimaryLayout>

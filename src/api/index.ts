@@ -7,8 +7,9 @@ import React from "react";
 const BASE_URL = "https://api.opendota.com/api";
 
 const queryConfig = {
-  refetchOnWindowFocus: true,
+  refetchOnWindowFocus: false,
   staleTime: 15 * 60 * 1000, // 15 minutes
+  cacheTime: 15 * 60 * 1000,
 };
 
 export const useInitialHeroes = () => {
@@ -22,7 +23,7 @@ export const useInitialHeroes = () => {
     {
       ...queryConfig,
       select: React.useCallback((data: THero[]) => data, []),
-    },
+    }
   );
 };
 
@@ -36,11 +37,15 @@ export const useHeroes = () => {
       const agility = filterHeroes("agi", toArrayData);
       const intelligence = filterHeroes("int", toArrayData);
       const strength = filterHeroes("str", toArrayData);
-      return { agility: agility, intelligence: intelligence, strength: strength };
+      return {
+        agility: agility,
+        intelligence: intelligence,
+        strength: strength,
+      };
     },
     {
       ...queryConfig,
-    },
+    }
   );
 };
 
@@ -52,7 +57,7 @@ export const useHeroStats = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig, placeholderData: DEFAULT_HERO_TREND },
+    { ...queryConfig, placeholderData: DEFAULT_HERO_TREND }
   );
 };
 
@@ -77,7 +82,7 @@ export const useGetSingleMatch = (teamA: string, teamB: string) => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig, placeholderData },
+    { ...queryConfig, placeholderData }
   );
 };
 
@@ -89,7 +94,7 @@ export const useGetPublicMatches = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig }
   );
 };
 
@@ -101,7 +106,7 @@ export const useGetProMatches = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig }
   );
 };
 
@@ -113,7 +118,7 @@ export const useHeroAbilities = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig }
   );
 };
 
@@ -125,7 +130,7 @@ export const useAllAbilities = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig }
   );
 };
 
@@ -137,7 +142,10 @@ export const useAghsShardDesc = () => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig, select: React.useCallback((data: TAghsShard[]) => data, []) },
+    {
+      ...queryConfig,
+      select: React.useCallback((data: TAghsShard[]) => data, []),
+    }
   );
 };
 
@@ -149,7 +157,7 @@ export const useGetMatch = (matchId: string | number) => {
       const res = await req.json();
       return res;
     },
-    { ...queryConfig },
+    { ...queryConfig }
   );
 };
 
@@ -164,7 +172,7 @@ export const useGetTeams = () => {
     {
       ...queryConfig,
       select: React.useCallback((data: TTeam[]) => filterTeams(data), []),
-    },
+    }
   );
 };
 
@@ -178,7 +186,7 @@ export const useGetMatchUp = (id: number | string) => {
     },
     {
       ...queryConfig,
-    },
+    }
   );
 };
 
@@ -192,7 +200,7 @@ export const useGetTeam = (id: number | string) => {
     },
     {
       ...queryConfig,
-    },
+    }
   );
 };
 
@@ -206,6 +214,20 @@ export const useGetPlayers = (id: number | string) => {
     },
     {
       ...queryConfig,
+    }
+  );
+};
+
+export const useGetHeroBenchmark = (id: number | string) => {
+  return useQuery(
+    ["benchmark", id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/benchmarks?hero_id=${id}`);
+      const res = await req.json();
+      return res;
     },
+    {
+      ...queryConfig,
+    }
   );
 };

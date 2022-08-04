@@ -1,4 +1,4 @@
-import { ATTRIBUTE_LEVELS, GAME_MODES, XP_LEVEL } from "./constants";
+import { ATTRIBUTE_LEVELS, GAME_MODES, HERO_ICONS, XP_LEVEL } from "./constants";
 import {
   Attributes,
   BenchMarkType,
