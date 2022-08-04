@@ -18,7 +18,7 @@ This is an open source project that uses [Open Dota API]("https://docs.opendota.
 * `npm run dev` or `npm run dev -- --host`
 
 ### Feature Request or Issues
-* If you have encoutered any issues or want to request additional features, please create a ticket [here]("https://github.com/cjdomacena/dotabuffer/issues"). Thanks!!
+* If you have encoutered any issues or want to request additional features, please create a ticket [here](https://github.com/cjdomacena/dotabuffer/issues). Thanks!!
 
 ## License
 
