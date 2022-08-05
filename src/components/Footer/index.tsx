@@ -19,13 +19,13 @@ const Footer = (props: Props) => {
             </a>
           </p>
           <p>
-            Powered by{" "}
+            This site uses
             <a
               href="https://www.opendota.com/"
               className="underline"
               referrerPolicy="no-referrer"
             >
-              OpenDota API
+              OpenDota's API
             </a>
           </p>
         </div>
