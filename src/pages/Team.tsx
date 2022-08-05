@@ -1,6 +1,5 @@
 import React, { useEffect, useId, useState } from "react";
 import { Link, useNavigate, useParams } from "react-router-dom";
-import { ImageExists } from "../../utils/hooks";
 import { useGetPlayers, useGetTeam } from "../api";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import PlayerCard from "../components/Players/PlayerCard";
@@ -35,7 +34,6 @@ const Team = (props: Props) => {
       setPlayers(p);
     }
   }, [t, p, id]);
-  
 
   return (
     <PrimaryLayout>
@@ -58,7 +56,7 @@ const Team = (props: Props) => {
       </div>
 
       <div className="container mx-auto my-12 p-4">
-        {team ? <TeamCard team={team} index={1} /> : <TeamLoading />}
+        {team ? <TeamCard team={team} /> : <TeamLoading />}
         <div className="divider w-full my-12">Active Players</div>
         <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4">
           {players
@@ -69,10 +67,13 @@ const Team = (props: Props) => {
                     key={`${uid}-${index}-${player.account_id ?? index}`}
                     max={players[0].wins ?? 100}
                   />
-                ) : null,
+                ) : null
               )
             : [0, 1, 2, 3, 4].map((n) => (
-                <div className="bg-black/30 h-32 animate-pulse rounded" key={n}></div>
+                <div
+                  className="bg-black/30 h-32 animate-pulse rounded"
+                  key={n}
+                ></div>
               ))}
         </div>
         <div className="divider my-12">Former Players</div>
@@ -86,10 +87,13 @@ const Team = (props: Props) => {
                     key={`${uid}-${index}-${player.account_id ?? index}`}
                     max={players[0].wins ?? 100}
                   />
-                ) : null,
+                ) : null
               )
             : [0, 1, 2, 3, 4].map((n) => (
-                <div className="bg-black/30 h-32 animate-pulse rounded" key={n}></div>
+                <div
+                  className="bg-black/30 h-32 animate-pulse rounded"
+                  key={n}
+                ></div>
               ))}
         </div>
       </div>

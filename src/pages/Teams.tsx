@@ -27,15 +27,28 @@ const Teams = (props: Props) => {
                 <PageHeader icon={<></>} title={"Top Teams"} />
                 <p className="badge">Top 100</p>
               </div>
-              <ShowingCount show={show ?? 15} setShow={setShow} total={teams.length} />
+              <ShowingCount
+                show={show ?? 15}
+                setShow={setShow}
+                total={teams.length}
+              />
             </div>
             <div className="mt-4 grid grid-cols-[repeat(auto-fill,minmax(min(100%,258px),1fr))] gap-12">
               {teams.slice(0, show).map((team, index) => (
-                <TeamCard team={team} key={`${uid}-${team.team_id}-${index}`} index={index} />
+                <TeamCard
+                  team={team}
+                  key={`${uid}-${team.team_id}-${index}`}
+                  index={index + 1}
+                />
               ))}
             </div>
             <div className="mt-8">
-              <ShowMore total={teams.length} increment={10} show={show} setShow={setShow} />
+              <ShowMore
+                total={teams.length}
+                increment={10}
+                show={show}
+                setShow={setShow}
+              />
             </div>
           </div>
         </PrimaryLayout>
