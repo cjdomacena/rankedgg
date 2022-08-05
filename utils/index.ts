@@ -1,4 +1,9 @@
-import { ATTRIBUTE_LEVELS, GAME_MODES, HERO_ICONS, XP_LEVEL } from "./constants";
+import {
+  ATTRIBUTE_LEVELS,
+  GAME_MODES,
+  HERO_ICONS,
+  XP_LEVEL,
+} from "./constants";
 import {
   Attributes,
   BenchMarkType,
@@ -74,13 +79,13 @@ export const cleanHeroStats = (heroStats: any) => {
         if (tempKey.length > 1 && isNaN(Number(tempKey[0])) === false) {
           tempObj[`${tempKey[0]}_wr`] = getPercentWinRate(
             stat[`${tempKey[0]}_win`],
-            stat[`${tempKey[0]}_pick`],
+            stat[`${tempKey[0]}_pick`]
           );
         }
         if (tempKey[0] === "pro") {
           tempObj[`${tempKey[0]}_wr`] = getPercentWinRate(
             stat[`${tempKey[0]}_win`],
-            stat[`${tempKey[0]}_pick`],
+            stat[`${tempKey[0]}_pick`]
           );
         }
       }
@@ -90,7 +95,10 @@ export const cleanHeroStats = (heroStats: any) => {
   return cleanedHeroStats;
 };
 
-export const getImageUrl = (heroIndex: number | null | string, src: string = "") => {
+export const getImageUrl = (
+  heroIndex: number | null | string,
+  src: string = ""
+) => {
   return heroIndex
     ? import.meta.env.VITE_IMAGE_CDN + HEROES[heroIndex].icon
     : import.meta.env.VITE_IMAGE_CDN + src;
@@ -101,6 +109,10 @@ export const getAbilityImage = (type: string) => {
     import.meta.env.VITE_IMAGE_CDN +
     `apps/dota2/images/dota_react/icons/hero_${type.toLowerCase()}.png`
   );
+};
+
+export const getPlayerImage = (id: number | string) => {
+  return import.meta.env.VITE_IMAGE_CDN + `apps/dota2/images/players/${id}.png`;
 };
 
 export const getHeroAbilityImage = (src: string) => {
@@ -142,19 +154,28 @@ export const formatStartTime = (startTime: number, duration: number) => {
   delta -= minutes * 60;
 
   if (result["days"] > 0 && result["days"] < 27) {
-    return result["days"] > 1 ? `${result["days"]} days ago` : `${result["days"]} day ago`;
+    return result["days"] > 1
+      ? `${result["days"]} days ago`
+      : `${result["days"]} day ago`;
   } else if (result["hours"] > 0) {
-    return result["hours"] > 1 ? `${result["hours"]} hours ago` : `${result["hours"]} hour ago`;
+    return result["hours"] > 1
+      ? `${result["hours"]} hours ago`
+      : `${result["hours"]} hour ago`;
   } else if (result["minutes"] > 0) {
     return result["minutes"] > 1
       ? `${result["minutes"]} minutes ago`
       : `${result["minutes"]} minute ago`;
   } else {
-    return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(startDate);
+    return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(
+      startDate
+    );
   }
 };
 
-export const calculateAttackSpeedInSec = (attack_rate: number, base_agi: number) => {
+export const calculateAttackSpeedInSec = (
+  attack_rate: number,
+  base_agi: number
+) => {
   const attackSpeed = attack_rate / (1 + base_agi / 100);
   return Math.round((attackSpeed + Number.EPSILON) * 100) / 100;
 };
@@ -165,7 +186,9 @@ export const calculateRegen = (base_str: number) => {
 };
 
 export const calculateAttackSpeed = (attack_rate: number, base_agi: number) => {
-  return Math.round((1.62 / (attack_rate / (1 + (1.25 * base_agi) / 100))) * 100);
+  return Math.round(
+    (1.62 / (attack_rate / (1 + (1.25 * base_agi) / 100))) * 100
+  );
 };
 
 export const calculateMinMaxDamage = (
@@ -176,7 +199,7 @@ export const calculateMinMaxDamage = (
   base_attack_max: number,
   primary_attr: string,
   rangeSlider: number,
-  gain: number = 1,
+  gain: number = 1
 ) => {
   let attribute = 0;
   switch (primary_attr) {
@@ -196,8 +219,12 @@ export const calculateMinMaxDamage = (
 
   const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
   return {
-    min: Math.floor(attribute + (base_attack_min + rangeSlider * gain) + addedLevels),
-    max: Math.floor(attribute + base_attack_max + rangeSlider * gain + addedLevels),
+    min: Math.floor(
+      attribute + (base_attack_min + rangeSlider * gain) + addedLevels
+    ),
+    max: Math.floor(
+      attribute + base_attack_max + rangeSlider * gain + addedLevels
+    ),
   };
 };
 
@@ -205,7 +232,7 @@ export const calculateArmor = (
   base_armor: number,
   base_agi: number,
   agi_gain: number,
-  rangeSlider: number,
+  rangeSlider: number
 ) => {
   const armorModifer = 0.16;
   const addedLevels = ATTRIBUTE_LEVELS[rangeSlider] ?? 0;
@@ -221,7 +248,11 @@ export const calculateArmor = (
   return armor.toFixed(1);
 };
 
-export const calculateAttributeLevel = (base: number, level: number, gain: number) => {
+export const calculateAttributeLevel = (
+  base: number,
+  level: number,
+  gain: number
+) => {
   const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
   return Math.round(base + (level - 1) * gain + addedLevels);
 };
@@ -231,13 +262,15 @@ export const calculateHealth = (
   base_str: number,
   str_gain: number,
   level: number,
-  type: string,
+  type: string
 ) => {
   let multiplier = 18;
   if (type === "str") {
     multiplier = 22.5;
   }
-  const hpFromStrength = Math.round((str_gain * (level - 1) + base_str) * multiplier);
+  const hpFromStrength = Math.round(
+    (str_gain * (level - 1) + base_str) * multiplier
+  );
   const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
   return hpFromStrength + addedLevels + 200;
 };
@@ -247,13 +280,15 @@ export const calculateMana = (
   base_int: number,
   int_gain: number,
   level: number,
-  type: string,
+  type: string
 ) => {
   let multiplier = 12;
   if (type === "int") {
     multiplier = 75;
   }
-  const hpFromInt = Math.round((int_gain * (level - 1) + base_int) * multiplier);
+  const hpFromInt = Math.round(
+    (int_gain * (level - 1) + base_int) * multiplier
+  );
   const addedLevels = ATTRIBUTE_LEVELS[level] ?? 0;
   return hpFromInt + addedLevels + 75;
 };
@@ -262,7 +297,7 @@ export const getPrimaryGain = (
   primary_attr: keyof typeof Attributes | string,
   agi_gain: number,
   str_gain: number,
-  int_gain: number,
+  int_gain: number
 ) => {
   switch (primary_attr) {
     case "agi":
@@ -276,13 +311,19 @@ export const getPrimaryGain = (
   }
 };
 
-export const getAbilityInfo = (abilityList: string[], allAbilities: TAllAbilities[]) => {
+export const getAbilityInfo = (
+  abilityList: string[],
+  allAbilities: TAllAbilities[]
+) => {
   const abilities: TAllAbilities[] = [];
   abilityList.map((ability: string) => abilities.push(allAbilities[ability]));
   return abilities;
 };
 
-export const getAghsShardDesc = (heroId: number, aghsShardList: TAghsShard[]) => {
+export const getAghsShardDesc = (
+  heroId: number,
+  aghsShardList: TAghsShard[]
+) => {
   const result = aghsShardList.find((desc) => desc.hero_id === heroId);
   return result ?? null;
 };
@@ -309,7 +350,7 @@ export const getHeroLevel = (xp: number) => {
 export const getHighlightedPlayers = (
   players: any,
   type: keyof typeof BenchMarkType,
-  title: string,
+  title: string
 ) => {
   const result: {
     heroId: number;
@@ -329,7 +370,9 @@ export const getHighlightedPlayers = (
     });
   });
 
-  const sortedResult = result.sort((a: any, b: any) => Number(b.value) - Number(a.value));
+  const sortedResult = result.sort(
+    (a: any, b: any) => Number(b.value) - Number(a.value)
+  );
   return sortedResult[0] ?? null;
 };
 
@@ -337,9 +380,11 @@ export const filterTeams = (teams: TTeam[]) => {
   let now = new Date();
   now.setMonth(now.getMonth() - 2);
   const unixTwoMonthsAgo = Math.floor(now.getTime() / 1000);
-  const filteredTeams = teams.filter((team: TTeam) =>( team.last_match_time) > unixTwoMonthsAgo);
-  const sortedTeams = filteredTeams.sort((a,b) => b.rating - a.rating);
-  if(sortedTeams.length > 100) {
+  const filteredTeams = teams.filter(
+    (team: TTeam) => team.last_match_time > unixTwoMonthsAgo
+  );
+  const sortedTeams = filteredTeams.sort((a, b) => b.rating - a.rating);
+  if (sortedTeams.length > 100) {
     return sortedTeams.slice(0, 100);
   } else {
     return sortedTeams;
