@@ -29,3 +29,4 @@ This project is licensed under the MIT License - see the [LICENSE.md](https://gi
 Inspiration, code snippets, etc.
 * [Stratz](https://stratz.com/)
 * [OpenDota](https://www.opendota.com/)
+* [Dota2](https://www.dota2.com/home)
