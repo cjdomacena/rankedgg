@@ -1,7 +1,7 @@
-import React from 'react'
-import { FaGithub } from 'react-icons/fa';
+import React from "react";
+import { FaGithub } from "react-icons/fa";
 
-type Props = {}
+type Props = {};
 
 const Footer = (props: Props) => {
   return (
@@ -13,15 +13,25 @@ const Footer = (props: Props) => {
             <a
               href="https://www.valvesoftware.com/en/"
               className="underline"
-              referrerPolicy="no-referrer">
+              referrerPolicy="no-referrer"
+            >
               Valve Corporation.
             </a>
           </p>
-          
+          <p>
+            Powered by{" "}
+            <a
+              href="https://www.opendota.com/"
+              className="underline"
+              referrerPolicy="no-referrer"
+            >
+              OpenDota API
+            </a>
+          </p>
         </div>
       </div>
     </footer>
   );
-}
+};
 
 export default Footer;
