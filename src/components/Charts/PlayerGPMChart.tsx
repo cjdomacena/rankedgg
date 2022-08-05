@@ -1,12 +1,17 @@
-import { useEffect, useState } from "react";
 import { FaClock } from "react-icons/fa";
-import { ResponsiveContainer, XAxis, Tooltip, CartesianGrid, Line, LineChart } from "recharts";
+import {
+  ResponsiveContainer,
+  XAxis,
+  Tooltip,
+  CartesianGrid,
+  Line,
+  LineChart,
+} from "recharts";
 import { getHeroLevel, getImageUrl } from "../../../utils";
 import { PLAYER_COLORS } from "../../../utils/constants";
 import { ImageExists } from "../../../utils/hooks";
 import { useInitialHeroes } from "../../api";
 import CustomChartToolip from "./../Utilility/CustomChartTooltip";
-import { testData } from "../../../utils/testData";
 type Props = {
   match: any;
   type?: string;
@@ -39,13 +44,22 @@ const PlayerGPMChart = ({ match, type }: Props) => {
 
   return (
     <>
-      <ResponsiveContainer width="100%" height="100%" className="rounded-b bg-black/50">
-        <LineChart data={data} margin={{ left: 40, top: 20, bottom: 10, right: 20 }}>
+      <ResponsiveContainer
+        width="100%"
+        height="100%"
+        className="rounded-b bg-black/50"
+      >
+        <LineChart
+          data={data}
+          margin={{ left: 40, top: 20, bottom: 10, right: 20 }}
+        >
           {heroes ? (
             <Tooltip
               content={({ label, active, payload }) => {
                 if (payload && payload.length > 0 && active) {
-                  const sortedData = payload?.sort((a, b) => Number(b.value) - Number(a.value));
+                  const sortedData = payload?.sort(
+                    (a, b) => Number(b.value) - Number(a.value)
+                  );
 
                   return (
                     <CustomChartToolip>
@@ -61,15 +75,20 @@ const PlayerGPMChart = ({ match, type }: Props) => {
                               className={`text-xs  flex items-center p-2`}
                               style={{
                                 color: data.color,
-                              }}>
+                              }}
+                            >
                               <ImageExists
                                 src={img(data.dataKey ?? "", "")}
                                 alt={""}
                                 className=" w-6 h-6 mr-1"
                               />
                               {type === "xp"
-                                ? `Lvl ${t(Number(data.value))} : ${Number(data.value)} XP`
-                                : new Intl.NumberFormat("en-US").format(Number(data.value)) + ""}
+                                ? `Lvl ${t(Number(data.value))} : ${Number(
+                                    data.value
+                                  )} XP`
+                                : new Intl.NumberFormat("en-US").format(
+                                    Number(data.value)
+                                  ) + ""}
                             </li>
                           ))}
                         </ul>
