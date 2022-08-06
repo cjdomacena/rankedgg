@@ -191,7 +191,6 @@ export type TAghsShard = {
   shard_new_skill: boolean;
 };
 
-
 export enum BenchMarkType {
   kills,
   deaths,
@@ -226,4 +225,18 @@ export type TPlayers = {
   games_played: number | null;
   wins: number | null;
   is_current_team_member: boolean | null;
+};
+
+export type TTeamMatches = {
+  match_id: number;
+  radiant_win: boolean;
+  radiant: boolean;
+  duration: number;
+  start_time: number;
+  leagueid: number;
+  league_name: string;
+  cluster: number;
+  opposing_team_id: number;
+  opposing_team_name: string;
+  opposing_team_logo: string;
 };

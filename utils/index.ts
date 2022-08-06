@@ -12,6 +12,7 @@ import {
   THero,
   THeroTrend,
   TTeam,
+  TTeamMatches,
 } from "./../src/types/index";
 import { HEROES } from "./heroes";
 export const filterHeroes = (type: string, heroes: THero[]) => {
@@ -134,7 +135,7 @@ export const formatDuration = (duration: number) => {
 export const formatStartTime = (startTime: number, duration: number) => {
   // THANK YOU!! https://stackoverflow.com/questions/13903897/javascript-return-number-of-days-hours-minutes-seconds-between-two-dates
 
-  const startDate = new Date((startTime + duration) * 1000);
+  const startDate = new Date(startTime * 1000 + duration);
   const today = new Date();
   let delta = Math.abs(today.valueOf() - startDate.valueOf()) / 1000;
   const result = {};
@@ -153,7 +154,12 @@ export const formatStartTime = (startTime: number, duration: number) => {
   result["minutes"] = minutes;
   delta -= minutes * 60;
 
-  if (result["days"] > 0 && result["days"] < 27) {
+  if (result["days"] > 0) {
+    if (result["days"] > 27) {
+      return new Intl.DateTimeFormat("en-US", { dateStyle: "long" }).format(
+        startDate
+      );
+    }
     return result["days"] > 1
       ? `${result["days"]} days ago`
       : `${result["days"]} day ago`;
@@ -389,4 +395,17 @@ export const filterTeams = (teams: TTeam[]) => {
   } else {
     return sortedTeams;
   }
+};
+
+export const filterTeamMatches = (
+  matches: TTeamMatches[],
+  interval: number = 2
+) => {
+  let now = new Date();
+  now.setMonth(now.getMonth() - interval);
+  const unixThreeMonthsAgo = Math.floor(now.getTime() / 1000);
+  const filteredMatches = matches.filter(
+    (match: any) => match.start_time > unixThreeMonthsAgo
+  );
+  return filteredMatches;
 };

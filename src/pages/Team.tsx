@@ -8,6 +8,7 @@ import TeamCard from "../components/Teams/TeamCard";
 import FilterWinsAndGames from "../components/Utilility/FilterWinsAndGames";
 import TeamLoading from "../components/Utilility/TeamLoading";
 import { TPlayers, TTeam } from "./../types";
+import TeamMatches from "./TeamMatches";
 
 type Props = {};
 
@@ -26,6 +27,7 @@ const Team = (props: Props) => {
   const [games, setGames] = useState<number>(50);
   const [isInitialWins, setIsInitialWins] = useState<boolean>(true);
   const [isInitialGames, setIsInitialGames] = useState<boolean>(true);
+  const [matchInterval, setMatchInterval] = useState<number>(1);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -47,6 +49,12 @@ const Team = (props: Props) => {
       }
       setHeroes(h);
     }
+
+    return () => {
+      setTeam(null);
+      setPlayers(null);
+      setHeroes(null);
+    };
   }, [t, p, id, h]);
 
   return (
@@ -70,7 +78,39 @@ const Team = (props: Props) => {
       </div>
 
       <div className="container mx-auto my-12 p-4">
-        {team ? <TeamCard team={team} /> : <TeamLoading />}
+        {team ? (
+          <div className="w-full grid place-items-center">
+            <TeamCard team={team} />
+          </div>
+        ) : (
+          <TeamLoading />
+        )}
+        <div className="divider w-full my-12">Recent Matches</div>
+        <div className="w-full flex justify-end">
+          <select
+            className="select select-bordered w-fit max-w-xs mb-4"
+            defaultValue={matchInterval}
+            onChange={(e) => setMatchInterval(Number(e.target.value))}
+          >
+            <option value={matchInterval} disabled>
+              Past {matchInterval} month
+            </option>
+            <option value={1}>1 month</option>
+            <option value={2}>2 months</option>
+            <option value={3}>3 months</option>
+            <option value={4}>4 months</option>
+            <option value={5}>5 months</option>
+            <option value={6}>6 months</option>
+          </select>
+        </div>
+        <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,550px),1fr))] gap-12">
+          <TeamMatches
+            teamLogo={team?.logo_url ?? ""}
+            teamName={team?.name ?? ""}
+            id={team?.team_id ?? 0}
+            interval={matchInterval}
+          />
+        </div>
         <div className="divider w-full my-12">Active Players</div>
 
         <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,250px),1fr))] gap-4">
