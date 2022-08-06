@@ -3,7 +3,7 @@ import { GiFist } from "react-icons/gi";
 import { useGetMatchUp } from "../../../api";
 import { TMatchup } from "../../../types";
 import ErrorComponent from "../../Error";
-import HeroIcon from "../HeroIcon";
+import FilterWinsAndGames from "../../Utilility/FilterWinsAndGames";
 import HeroMatchupCard from "./HeroMatchupCard";
 
 type Props = {
@@ -30,50 +30,18 @@ const MatchUps = ({ id }: Props) => {
           <div className="p-4 space-y-2">
             {matchups.length > 0 ? (
               <>
-                <div className="flex gap-4 2xl:flex-nowrap xl:flex-nowrap lg:flex-nowrap flex-wrap mb-4 rounded px-4">
-                  <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral w-full ring-2 ring-white/5">
-                    <input
-                      type="number"
-                      placeholder={`Wins > (Default: ${25})`}
-                      className="appearance-none input input-ghost focus:outline-0 px-1 w-full"
-                      min={1}
-                      max={Number(matchups[0].wins)}
-                      onChange={(e) => {
-                        setIsInitialWins(false);
-                        setWins(Number(e.currentTarget.value));
-                      }}
-                      value={wins === 0 || isInitialWins ? "" : wins}
-                    />
-                    <button
-                      className="absolute top-2 right-2 z-20"
-                      onClick={() => setWins(0)}
-                    >
-                      <kbd className="kbd kbd-md">Clear</kbd>
-                    </button>
-                  </div>
-
-                  <div className="input input-group-md flex items-center relative focus-within:ring-2 focus-within:ring-neutral w-full ring-2 ring-white/5">
-                    <input
-                      type="number"
-                      placeholder={`Games > (Default: ${50})`}
-                      className="appearance-none input input-ghost focus:outline-0 px-1 w-full"
-                      min={1}
-                      max={Number(matchups[0].games_played)}
-                      onChange={(e) => {
-                        setIsInitialGames(false);
-                        setGames(Number(e.currentTarget.value));
-                      }}
-                      value={games === 0 || isInitialGames ? "" : games}
-                    />
-
-                    <button
-                      className="absolute top-2 right-2 z-20"
-                      onClick={() => setGames(0)}
-                    >
-                      <kbd className="kbd kbd-md">Clear</kbd>
-                    </button>
-                  </div>
-                </div>
+                <FilterWinsAndGames
+                  maxGames={matchups[0].games_played}
+                  maxWins={matchups[0].wins}
+                  wins={wins}
+                  setWins={setWins}
+                  games={games}
+                  setGames={setGames}
+                  isInitialWins={isInitialWins}
+                  isInitialGames={isInitialGames}
+                  setIsInitialGames={setIsInitialGames}
+                  setIsInitialWins={setIsInitialWins}
+                />
                 <div className="grid grid-cols-[repeat(auto-fill,minmax(min(100%,400px),1fr))] gap-4 p-4">
                   {matchups.map((hero: TMatchup) =>
                     hero.wins >= (wins === 0 || isInitialWins ? 25 : wins) &&
