@@ -121,7 +121,7 @@ const Team = (props: Props) => {
                 player.is_current_team_member ? (
                   <PlayerCard
                     player={player}
-                    key={`${uid}-${index}-${player.account_id ?? index}`}
+                    key={`recent-${uid}-${index}-${player.account_id ?? index}`}
                     max={players[0].wins ?? 100}
                   />
                 ) : null
@@ -140,12 +140,14 @@ const Team = (props: Props) => {
                 !player.is_current_team_member ? (
                   <PlayerCard
                     player={player}
-                    key={`${uid}-${index}-${player.account_id ?? index}`}
+                    key={`former-${uid}-${index}-${player.account_id ?? index}`}
                     max={players[0].wins ?? 100}
                   />
                 ) : null
               )
-            : [0, 1, 2, 3, 4].map((n) => <PlayerCardLoading />)}
+            : [0, 1, 2, 3, 4].map((n) => (
+                <PlayerCardLoading key={`former-player-loading-${n}`} />
+              ))}
         </div>
         <div className="divider my-12">Heroes</div>
         {heroes && heroes.length > 0 ? (
