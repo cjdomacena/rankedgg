@@ -30,3 +30,6 @@ Inspiration, code snippets, etc.
 * [Stratz](https://stratz.com/)
 * [OpenDota](https://www.opendota.com/)
 * [Dota2](https://www.dota2.com/home)
+
+## Upcoming Feature 
+* Matchup explorer
