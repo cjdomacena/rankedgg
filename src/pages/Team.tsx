@@ -4,6 +4,7 @@ import { useGetPlayers, useGetTeam, useGetTeamHeroes } from "../api";
 import HeroMatchupCard from "../components/Heroes/Matchups/HeroMatchupCard";
 import PrimaryLayout from "../components/Layouts/PrimaryLayout";
 import PlayerCard from "../components/Players/PlayerCard";
+import PlayerCardLoading from "../components/Players/PlayerCardLoading";
 import TeamCard from "../components/Teams/TeamCard";
 import FilterWinsAndGames from "../components/Utilility/FilterWinsAndGames";
 import TeamLoading from "../components/Utilility/TeamLoading";
@@ -23,8 +24,8 @@ const Team = (props: Props) => {
   const [players, setPlayers] = useState<TPlayers[] | null>(null);
   const [team, setTeam] = useState<TTeam | null>(null);
   const [heroes, setHeroes] = useState<any>(null);
-  const [wins, setWins] = useState<number>(25);
-  const [games, setGames] = useState<number>(50);
+  const [wins, setWins] = useState<number>(15);
+  const [games, setGames] = useState<number>(25);
   const [isInitialWins, setIsInitialWins] = useState<boolean>(true);
   const [isInitialGames, setIsInitialGames] = useState<boolean>(true);
   const [matchInterval, setMatchInterval] = useState<number>(1);
@@ -51,9 +52,9 @@ const Team = (props: Props) => {
     }
 
     return () => {
+      setHeroes(null);
       setTeam(null);
       setPlayers(null);
-      setHeroes(null);
     };
   }, [t, p, id, h]);
 
@@ -85,15 +86,16 @@ const Team = (props: Props) => {
         ) : (
           <TeamLoading />
         )}
-        <div className="divider w-full my-12">Recent Matches</div>
-        <div className="w-full flex justify-end">
+        <div className="divider my-12" />
+        <div className="w-full flex justify-between items-center mb-8">
+          <h2 className="text-gray-100 font-bold">Recent Matches</h2>
           <select
             className="select select-bordered w-fit max-w-xs mb-4"
             defaultValue={matchInterval}
             onChange={(e) => setMatchInterval(Number(e.target.value))}
           >
             <option value={matchInterval} disabled>
-              Past {matchInterval} month
+              {matchInterval} month
             </option>
             <option value={1}>1 month</option>
             <option value={2}>2 months</option>
@@ -127,7 +129,7 @@ const Team = (props: Props) => {
             : [0, 1, 2, 3, 4].map((n) => (
                 <div
                   className="bg-black/30 h-32 animate-pulse rounded"
-                  key={n}
+                  key={`players-loading-${n}`}
                 ></div>
               ))}
         </div>
@@ -143,12 +145,7 @@ const Team = (props: Props) => {
                   />
                 ) : null
               )
-            : [0, 1, 2, 3, 4].map((n) => (
-                <div
-                  className="bg-black/30 h-32 animate-pulse rounded"
-                  key={n}
-                ></div>
-              ))}
+            : [0, 1, 2, 3, 4].map((n) => <PlayerCardLoading />)}
         </div>
         <div className="divider my-12">Heroes</div>
         {heroes && heroes.length > 0 ? (
@@ -188,9 +185,18 @@ const Team = (props: Props) => {
               )
             : [0, 1, 2, 3, 4, 5, 6, 7].map((n) => (
                 <div
-                  className="bg-black/30 h-32 animate-pulse rounded"
-                  key={`Team-heroes-${n}`}
-                ></div>
+                  className="w-full p-4 inline-flex gap-4 items-center bg-base-300 rounded "
+                  key={`hero-loading-${n}`}
+                >
+                  <div className="w-6 h-6 bg-black/30"></div>
+                  <div className="w-full">
+                    <label className="label p-0">
+                      <span className="label-text-alt">0 Wins</span>
+                      <span className="label-text-alt">0 games played</span>
+                    </label>
+                    <progress className="progress w-full bg-white/20" />
+                  </div>
+                </div>
               ))}
         </div>
       </div>

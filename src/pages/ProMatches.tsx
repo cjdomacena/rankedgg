@@ -250,6 +250,8 @@ const ProMatches = (props: Props) => {
                   radiantScore={match.radiant_score}
                   direScore={match.dire_score}
                   direName={match.dire_name}
+                  radiantId={match.radiant_team_id}
+                  direId={match.dire_team_id}
                 />
               </div>
             ))}

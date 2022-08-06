@@ -44,10 +44,12 @@ const TeamMatches = ({ id, interval }: Props) => {
                 className="p-4 rounded w-full flex bg-black/30  items-center
                2xl:flex-nowrap
               xl:flex-nowrap lg:flex-nowrap flex-wrap
-             justify-between ring-2 ring-white/5
+             ring-2 ring-white/5
+             gap-4
+             2xl:justify-between xl:justify-between lg:justify-between md:justify-between justify-center 
               "
               >
-                <div className={`flex items-center`}>
+                <div className={`flex items-center w-fit`}>
                   <div className="flex items-center gap-2 justify-start w-24">
                     {(match.radiant && match.radiant_win) ||
                     (!match.radiant && !match.radiant_win) ? (
@@ -82,7 +84,9 @@ const TeamMatches = ({ id, interval }: Props) => {
                 </div>
                 <Link
                   to={`/matches/professional/${match.match_id}`}
-                  className="flex whitespace-nowrap justify-self-end btn btn-sm rounded"
+                  className="flex whitespace-nowrap justify-self-end btn btn-sm rounded 2xl:w-fit xl:w-fit lg:w-fit
+                  md:w-fit
+                  w-full"
                 >
                   <button className="text-xs">Match Details</button>
                   <FaArrowCircleRight className="ml-1" />
