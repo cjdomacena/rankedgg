@@ -1,5 +1,7 @@
 # RankedGG
 
+## Upcoming Feature 
+* Matchup explorer
 
 ## Description
 This is an open source project that uses [Open Dota API]("https://docs.opendota.com/").
@@ -31,5 +33,4 @@ Inspiration, code snippets, etc.
 * [OpenDota](https://www.opendota.com/)
 * [Dota2](https://www.dota2.com/home)
 
-## Upcoming Feature 
-* Matchup explorer
+
