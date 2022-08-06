@@ -1,5 +1,6 @@
 import React from "react";
 import { BiCheckCircle, BiXCircle } from "react-icons/bi";
+import { Link } from "react-router-dom";
 
 type Props = {
   radiantName: string;
@@ -7,30 +8,59 @@ type Props = {
   radiantScore: number;
   direScore: number;
   direName: string;
+  radiantId?: number;
+  direId?: number;
 };
 
-const ProMatch = ({ radiantName, radiantWin, radiantScore, direScore, direName }: Props) => {
+const ProMatch = ({
+  radiantName,
+  radiantWin,
+  radiantScore,
+  direScore,
+  direName,
+  direId,
+  radiantId,
+}: Props) => {
   return (
     <div className="bg-black/40 w-full rounded p-4 shadow-2xl border-black/20 border">
       <div className="flex gap-4 items-center 2xl:justify-between xl:justify-between lg:justify-between md:justify-between justify-center flex-wrap">
         <div
           className="flex items-center gap-1 w-36  tooltip xl:justify-start lg:justify-start md:justify-start justify-center"
-          data-tip={radiantName}>
+          data-tip={radiantName}
+        >
           {radiantWin ? (
             <BiCheckCircle className="text-green-500" />
           ) : (
             <BiXCircle className="text-red-500" />
           )}
-          <h1
-            className={`${
-              radiantWin ? "text-white font-semibold" : "font-normal text-gray-400"
-            } text-sm truncate w-auto 2xl:text-left xl:text-left lg:text-left md:text-left text-center`}>
-            {radiantName}
-          </h1>
+          {radiantId ? (
+            <Link to={`/teams/${radiantId}`}>
+              <h1
+                className={`${
+                  radiantWin
+                    ? "text-white font-semibold"
+                    : "font-normal text-gray-400"
+                } text-sm truncate w-auto 2xl:text-left xl:text-left lg:text-left md:text-left text-center`}
+              >
+                {radiantName}
+              </h1>
+            </Link>
+          ) : (
+            <h1
+              className={`${
+                radiantWin
+                  ? "text-white font-semibold"
+                  : "font-normal text-gray-400"
+              } text-sm truncate w-auto 2xl:text-left xl:text-left lg:text-left md:text-left text-center`}
+            >
+              {radiantName}
+            </h1>
+          )}
         </div>
         <div
           className="text-lg  tooltip 2xl:w-fit xl:w-fit lg:w-fit md:w-fit w-full"
-          data-tip="Score">
+          data-tip="Score"
+        >
           <p className="text-gray-300 font-semibold">
             {radiantScore} - {direScore}
           </p>
@@ -39,13 +69,32 @@ const ProMatch = ({ radiantName, radiantWin, radiantScore, direScore, direName }
           className="flex items-center gap-1 w-36 2xl:justify-end xl:justify-end lg:justify-end md:justify-end justify-center tooltip
           2xl:flex-row xl:flex-row lg:flex-row md:flex-row flex-row-reverse
           "
-          data-tip={direName}>
-          <h1
-            className={`${
-              !radiantWin ? "text-white font-semibold" : "font-normal text-gray-400"
-            } text-sm w-auto 2xl:text-right xl:text-right lg:text-right md:text-right text-center whitespace-nowrap`}>
-            {direName ?? "N/A"}
-          </h1>
+          data-tip={direName}
+        >
+          {direId ? (
+            <Link to={`/teams/${direId}`}>
+              <h1
+                className={`${
+                  !radiantWin
+                    ? "text-white font-semibold"
+                    : "font-normal text-gray-400"
+                } text-sm w-auto 2xl:text-right xl:text-right lg:text-right md:text-right text-center whitespace-nowrap`}
+              >
+                {direName ?? "N/A"}
+              </h1>
+            </Link>
+          ) : (
+            <h1
+              className={`${
+                !radiantWin
+                  ? "text-white font-semibold"
+                  : "font-normal text-gray-400"
+              } text-sm w-auto 2xl:text-right xl:text-right lg:text-right md:text-right text-center whitespace-nowrap`}
+            >
+              {direName ?? "N/A"}
+            </h1>
+          )}
+
           {!radiantWin ? (
             <BiCheckCircle className="text-green-500 w-4 h-4" />
           ) : (

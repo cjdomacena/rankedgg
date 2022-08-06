@@ -28,11 +28,18 @@ const MatchBreakdown = () => {
   const t = getHighlightedPlayers;
 
   useEffect(() => {
-    
     if (match && isFetched && status === "success") {
-      if (!match.hasOwnProperty("error") && match.radiant_score && match.dire_score) {
-        const rTeam = match.players.filter((player: any) => player.player_slot <= 10);
-        const dTeam = match.players.filter((player: any) => player.player_slot > 10);
+      if (
+        !match.hasOwnProperty("error") &&
+        match.radiant_score &&
+        match.dire_score
+      ) {
+        const rTeam = match.players.filter(
+          (player: any) => player.player_slot <= 10
+        );
+        const dTeam = match.players.filter(
+          (player: any) => player.player_slot > 10
+        );
         setRadiantTeam(rTeam);
         setDireTeam(dTeam);
       }
@@ -41,7 +48,11 @@ const MatchBreakdown = () => {
 
   switch (status) {
     case "success": {
-      if (match.hasOwnProperty("error") || !match.radiant_score || !match.dire_score) {
+      if (
+        match.hasOwnProperty("error") ||
+        !match.radiant_score ||
+        !match.dire_score
+      ) {
         return <MatchIdNotFound matchId={id ?? ""} />;
       }
       return (
@@ -68,11 +79,15 @@ const MatchBreakdown = () => {
                       )
                     }
                     score={match.radiant_score ?? 0}
+                    teamId={match.radiant_team_id}
                   />
                   <ProMatchLayout>
                     {radiantTeam &&
                       radiantTeam.map((player: any, index: number) => (
-                        <PlayerMatchInfo player={player} key={`${uid}-${index}`} />
+                        <PlayerMatchInfo
+                          player={player}
+                          key={`${uid}-${index}`}
+                        />
                       ))}
                   </ProMatchLayout>
                 </div>
@@ -81,14 +96,22 @@ const MatchBreakdown = () => {
                 <ProTeamHeader
                   isRadiantWin={!match.radiant_win ? true : false}
                   teamName={
-                    match.dire_team?.name ?? <span className="text-xs text-gray-400">Dire</span>
+                    match.dire_team?.name ?? (
+                      <span className="text-xs text-gray-400">Dire</span>
+                    )
                   }
                   score={match.dire_score ?? 0}
+                  teamId={match.dire_team_id}
                 />
                 <ProMatchLayout>
                   {direTeam &&
                     direTeam.map((player: any, index: number) => {
-                      return <PlayerMatchInfo player={player} key={`${uid}-${index}`} />;
+                      return (
+                        <PlayerMatchInfo
+                          player={player}
+                          key={`${uid}-${index}`}
+                        />
+                      );
                     })}
                 </ProMatchLayout>
               </div>
@@ -100,8 +123,16 @@ const MatchBreakdown = () => {
               match.gold_adv ||
               match.xp_adv ? (
                 <>
-                  <ChartLayout breakPointMax="8" breakPointMin="3" isLoading={!match}>
-                    <ChartHeader title="Gold" toggle={isTeam} setToggle={setIsTeam} />
+                  <ChartLayout
+                    breakPointMax="8"
+                    breakPointMin="3"
+                    isLoading={!match}
+                  >
+                    <ChartHeader
+                      title="Gold"
+                      toggle={isTeam}
+                      setToggle={setIsTeam}
+                    />
                     <div className=" h-56">
                       {isTeam ? (
                         <GoldAdvantage match={match} type="gold" />
@@ -110,8 +141,16 @@ const MatchBreakdown = () => {
                       )}
                     </div>
                   </ChartLayout>
-                  <ChartLayout breakPointMax="8" breakPointMin="3" isLoading={!match}>
-                    <ChartHeader title="XP" toggle={isXP} setToggle={xpTeamToggle} />
+                  <ChartLayout
+                    breakPointMax="8"
+                    breakPointMin="3"
+                    isLoading={!match}
+                  >
+                    <ChartHeader
+                      title="XP"
+                      toggle={isXP}
+                      setToggle={xpTeamToggle}
+                    />
                     <div className=" h-56">
                       {isXP ? (
                         <GoldAdvantage match={match} type="xp" />
@@ -128,12 +167,24 @@ const MatchBreakdown = () => {
               <BenchmarkLayout>
                 <Benchmark props={t(match.players, "kills", "Most Kills")} />
                 <Benchmark props={t(match.players, "deaths", "Most Deaths")} />
-                <Benchmark props={t(match.players, "assists", "Most Assists")} />
-                <Benchmark props={t(match.players, "tower_damage", "Most Tower Damage")} />
-                <Benchmark props={t(match.players, "gold_spent", "Most Gold Spent")} />
-                <Benchmark props={t(match.players, "obs_placed", "Most Obs Placed")} />
-                <Benchmark props={t(match.players, "gold_per_min", "Highest GPM")} />
-                <Benchmark props={t(match.players, "hero_damage", "Most Hero DMG")} />
+                <Benchmark
+                  props={t(match.players, "assists", "Most Assists")}
+                />
+                <Benchmark
+                  props={t(match.players, "tower_damage", "Most Tower Damage")}
+                />
+                <Benchmark
+                  props={t(match.players, "gold_spent", "Most Gold Spent")}
+                />
+                <Benchmark
+                  props={t(match.players, "obs_placed", "Most Obs Placed")}
+                />
+                <Benchmark
+                  props={t(match.players, "gold_per_min", "Highest GPM")}
+                />
+                <Benchmark
+                  props={t(match.players, "hero_damage", "Most Hero DMG")}
+                />
               </BenchmarkLayout>
             </div>
           </div>

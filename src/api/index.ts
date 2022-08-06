@@ -1,6 +1,10 @@
 import { DEFAULT_HERO_TREND } from "./../../utils/constants";
-import { filterHeroes, filterTeams } from "./../../utils/index";
-import { TAghsShard, THero, TTeam } from "./../types/index";
+import {
+  filterHeroes,
+  filterTeamMatches,
+  filterTeams,
+} from "./../../utils/index";
+import { TAghsShard, THero, TTeam, TTeamMatches } from "./../types/index";
 import { useQuery } from "@tanstack/react-query";
 import React from "react";
 
@@ -204,6 +208,20 @@ export const useGetTeam = (id: number | string) => {
   );
 };
 
+export const useGetTeamHeroes = (id: number | string) => {
+  return useQuery(
+    ["teamHeroes", id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/teams/${id}/heroes`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    }
+  );
+};
+
 export const useGetPlayers = (id: number | string) => {
   return useQuery(
     ["players", id],
@@ -223,6 +241,20 @@ export const useGetHeroBenchmark = (id: number | string) => {
     ["benchmark", id],
     async () => {
       const req = await fetch(`${BASE_URL}/benchmarks?hero_id=${id}`);
+      const res = await req.json();
+      return res;
+    },
+    {
+      ...queryConfig,
+    }
+  );
+};
+
+export const useGetTeamMatches = (id: number | string) => {
+  return useQuery(
+    ["team-matches", id],
+    async () => {
+      const req = await fetch(`${BASE_URL}/teams/${id}/matches`);
       const res = await req.json();
       return res;
     },
