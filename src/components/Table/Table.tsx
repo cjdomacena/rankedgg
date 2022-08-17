@@ -221,9 +221,16 @@ const Table: React.FC<Props> = ({ heroStats }) => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: { columnVisibility: hiddenColumns, sorting },
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    state: { columnVisibility: hiddenColumns, sorting},
+    initialState: {
+      pagination: {
+        // Custom initial state to modify the defaults
+        //pageIndex: 0,
+        pageSize: 150
+      },
+    },
   });
 
   return (
