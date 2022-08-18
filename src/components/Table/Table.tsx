@@ -69,21 +69,13 @@ const defaultVal: THeroTrend[] = [
 
 const hiddenColumns = {
   icon: false,
-  "1_pick": false,
   "1_win": false,
-  "2_pick": false,
   "2_win": false,
-  "3_pick": false,
   "3_win": false,
-  "4_pick": false,
   "4_win": false,
-  "5_pick": false,
   "5_win": false,
-  "6_pick": false,
   "6_win": false,
-  "7_pick": false,
   "7_win": false,
-  "8_pick": false,
   "8_win": false,
   id: false,
   name: false,
@@ -97,51 +89,51 @@ const getRankIcon = (rank: string) => {
   switch (tempRank[0]) {
     case "1" || 1: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Herald Win Rate"} imgSrc={rank_1} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Herald Win Rate"} imgSrc={rank_1} />;
       }
-      return <PlayerRankIcon rank={"pr"} title={"Herald Pick Rate"} imgSrc={rank_1} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Herald Pick Rate"} imgSrc={rank_1} />;
     }
     case "2" || 2: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Guardian Win Rate"} imgSrc={rank_2} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Guardian Win Rate"} imgSrc={rank_2} />;
       }
-      return <PlayerRankIcon rank={"pr"} title={"Guardian Pick Rate"} imgSrc={rank_2} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Guardian Pick Rate"} imgSrc={rank_2} />;
     }
     case "3" || 3: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Crusader Win Rate"} imgSrc={rank_3} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Crusader Win Rate"} imgSrc={rank_3} />;
       }
-      return <PlayerRankIcon rank={"pr"} title={"Crusader Pick Rate"} imgSrc={rank_3} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Crusader Pick Rate"} imgSrc={rank_3} />;
     }
     case "4" || 4: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Archon Win Rate"} imgSrc={rank_4} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Archon Win Rate"} imgSrc={rank_4} />;
       }
-      return <PlayerRankIcon rank={"PR"} title={"Archon Pick Rate"} imgSrc={rank_4} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Archon Pick Rate"} imgSrc={rank_4} />;
     }
     case "5" || 5: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Legend Win Rate"} imgSrc={rank_5} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Legend Win Rate"} imgSrc={rank_5} />;
       }
-      return <PlayerRankIcon rank={"PR"} title={"Legend Pick Rate"} imgSrc={rank_5} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Legend Pick Rate"} imgSrc={rank_5} />;
     }
     case "6" || 6: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Ancient Win Rate"} imgSrc={rank_6} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Ancient Win Rate"} imgSrc={rank_6} />;
       }
-      return <PlayerRankIcon rank={"PR"} title={"Ancient Pick Rate"} imgSrc={rank_6} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Ancient Pick Rate"} imgSrc={rank_6} />;
     }
     case "7" || 7: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Divine Win Rate"} imgSrc={rank_7} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Divine Win Rate"} imgSrc={rank_7} />;
       }
-      return <PlayerRankIcon rank={"PR"} title={"Divine Pick Rate"} imgSrc={rank_7} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Divine Pick Rate"} imgSrc={rank_7} />;
     }
     case "8" || 8: {
       if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Immortal Win Rate"} imgSrc={rank_8} />;
+        return <PlayerRankIcon rank={"HERALD WR %"} title={"Immortal Win Rate"} imgSrc={rank_8} />;
       }
-      return <PlayerRankIcon rank={"PR"} title={"Immortal Pick Rate"} imgSrc={rank_8} />;
+      return <PlayerRankIcon rank={"HERALD PR"} title={"Immortal Pick Rate"} imgSrc={rank_8} />;
     }
     default:
       return <p className="tooltip tooltip-bottom" data-tip="Pro Win Rate">{rank.split("_").join(" ")}</p>;
@@ -159,6 +151,14 @@ const Table: React.FC<Props> = ({ heroStats }) => {
     "6_wr",
     "7_wr",
     "8_wr",
+    "1_pick",
+    "2_pick",
+    "3_pick",
+    "4_pick",
+    "5_pick",
+    "6_pick",
+    "7_pick",
+    "8_pick",
   ];
   const [data, setData] = useState<THeroTrend[]>(DEFAULT_HERO_TREND);
   const [sorting, setSorting] = useState<SortingState>([]);
