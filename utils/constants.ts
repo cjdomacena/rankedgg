@@ -183,7 +183,7 @@ export const COLUMN_HEADERS = [
   "icon",
   "hero_id",
   "pro ban",
-  "pro_pick",
+  "pro pick",
   "pro win",
   "pro_wr (%)",
   "1_pick",
