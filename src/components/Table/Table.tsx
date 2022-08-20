@@ -1,6 +1,5 @@
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
@@ -109,158 +108,106 @@ const Table: React.FC<Props> = ({ heroStats }) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const columnHelper = createColumnHelper<THeroTrend>()
 
-  const columnData:any = [
-    columnHelper.accessor('localized_name', { header: () => <span>Hero</span>, cell: (info) => info.renderValue()}),
-    //columnHelper.accessor('pro_ban', { header: () => <span>Pro Ban</span>, cell: (info) => info.renderValue()}),
-    //columnHelper.accessor('pro_pick', { header: () => <span>Pro Pick</span>, cell: (info) => info.renderValue()}),
-    //columnHelper.accessor('pro_win', { header: () => <span>Pro Win</span>, cell: (info) => info.renderValue()}),
-    //columnHelper.accessor('pro_wr', { header: () => <span>Pro WR</span>, cell: (info) => info.renderValue()}),
+  const getProgressBar = (value: number) => {
+    return !isNaN(value) ? (
+      <div
+        data-tip={`${value}%`}
+        className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
+        <p className="text-xs text-gray-400">{value} %</p>
+        <progress
+          className={`progress  border border-gray-800 ${
+            value < 50 ? "progress-error" : "progress-success"
+          }`}
+          value={value}
+          max={100}
+        />
+      </div>
+    ) : (
+      <div
+        data-tip={`0%`}
+        className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
+        <p className="text-xs text-gray-400">{0} %</p>
+        <progress
+          className="progress progress-info border border-gray-800"
+          value={0}
+          max={100}
+        />
+      </div>
+    )
+  };
 
-/*
-return {
-        accessorKey: key,
-        cell: (item: any) =>
-          !isNaN(item.getValue()) ? (
-            <div
-              data-tip={`${item.getValue()}%`}
-              className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{item.getValue()} %</p>
-              <progress
-                className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-error" : "progress-success"
-                }`}
-                value={item.getValue()}
-                max={100}
-              />
-            </div>
-          ) : (
-            <div
-              data-tip={`0%`}
-              className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{0} %</p>
-              <progress
-                className="progress progress-info border border-gray-800"
-                value={0}
-                max={100}
-              />
-            </div>
-          ),
-        header: getRankIcon(key),
-      };
-*/
+  const columnData:any = [
+    columnHelper.accessor('localized_name', { header: () => <span>Hero</span>, cell: (info) => info.renderValue() }),
+    //columnHelper.accessor('pro_ban', { header: () => <span>Pro Ban</span>, cell: (info) => info.renderValue() }),
+    //columnHelper.accessor('pro_pick', { header: () => <span>Pro Pick</span>, cell: (info) => info.renderValue() }),
+    //columnHelper.accessor('pro_win', { header: () => <span>Pro Win</span>, cell: (info) => info.renderValue() }),
+    //columnHelper.accessor('pro_wr', { header: () => <span>Pro WR</span>, cell: (info) => info.renderValue() }),
 
     columnHelper.group({
       id: 'herald-group',
       header: () => <PlayerRankIcon rank={"HERALD"} title={"Herald"} imgSrc={rank_1}/>,
       columns: [
-        columnHelper.accessor('1_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('1_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('1_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('1_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'guardian-group',
       header: () => <PlayerRankIcon rank={"GUARDIAN"} title={"Guardian"} imgSrc={rank_2}/>,
       columns: [
-        columnHelper.accessor('2_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('2_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('2_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('2_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'crusader-group',
       header: () => <PlayerRankIcon rank={"CRUSADER"} title={"Crusader"} imgSrc={rank_3}/>,
       columns: [
-        columnHelper.accessor('3_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('3_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('3_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('3_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'archon-group',
       header: () => <PlayerRankIcon rank={"ARCHON"} title={"Archon"} imgSrc={rank_4}/>,
       columns: [
-        columnHelper.accessor('4_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('4_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('4_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('4_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'legend-group',
       header: () => <PlayerRankIcon rank={"LEGEND"} title={"Legend"} imgSrc={rank_5}/>,
       columns: [
-        columnHelper.accessor('5_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('5_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('5_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('5_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'ancient-group',
       header: () => <PlayerRankIcon rank={"ANCIENT"} title={"Ancient"} imgSrc={rank_6}/>,
       columns: [
-        columnHelper.accessor('6_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('6_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('6_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('6_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'divine-group',
       header: () => <PlayerRankIcon rank={"DIVINE"} title={"Divine"} imgSrc={rank_7}/>,
       columns: [
-        columnHelper.accessor('7_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('7_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('7_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('7_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
     columnHelper.group({
       id: 'immortal-group',
       header: () => <PlayerRankIcon rank={"IMMORTAL"} title={"Immortal"} imgSrc={rank_8}/>,
       columns: [
-        columnHelper.accessor('8_pick', { header: () => <span>Pick %</span>, cell: (info) => info.renderValue()}),
-        columnHelper.accessor('8_wr', { header: () => <span>Win %</span>, cell: (info) => info.renderValue()}),
+        columnHelper.accessor('8_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('8_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
   ]
-
-  /*
-  const columnData: any = Object.keys(defaultVal[0]).map((key, index) => {
-    if (progressBarKeys.indexOf(key) === -1) {
-      return {
-        accessorKey: key,
-        cell: (item: any) => item.getValue(),
-        header: (
-          <p className="tooltip tooltip-bottom " data-tip={COLUMN_HEADERS[index]}>
-            {COLUMN_HEADERS[index].split('_').join(" ")}
-          </p>
-        ),
-      };
-    } else {
-      return {
-        accessorKey: key,
-        cell: (item: any) =>
-          !isNaN(item.getValue()) ? (
-            <div
-              data-tip={`${item.getValue()}%`}
-              className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{item.getValue()} %</p>
-              <progress
-                className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-error" : "progress-success"
-                }`}
-                value={item.getValue()}
-                max={100}
-              />
-            </div>
-          ) : (
-            <div
-              data-tip={`0%`}
-              className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{0} %</p>
-              <progress
-                className="progress progress-info border border-gray-800"
-                value={0}
-                max={100}
-              />
-            </div>
-          ),
-        header: getRankIcon(key),
-      };
-    }
-  });
-  */
 
   const columns: ColumnDef<THeroTrend>[] = columnData;
 
