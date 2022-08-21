@@ -85,30 +85,12 @@ const hiddenColumns = {
 };
 
 const Table: React.FC<Props> = ({ heroStats }) => {
-  const progressBarKeys = [
-    "pro_wr",
-    "1_wr",
-    "2_wr",
-    "3_wr",
-    "4_wr",
-    "5_wr",
-    "6_wr",
-    "7_wr",
-    "8_wr",
-    "1_pick",
-    "2_pick",
-    "3_pick",
-    "4_pick",
-    "5_pick",
-    "6_pick",
-    "7_pick",
-    "8_pick",
-  ];
   const [data, setData] = useState<THeroTrend[]>(DEFAULT_HERO_TREND);
   const [sorting, setSorting] = useState<SortingState>([]);
   const columnHelper = createColumnHelper<THeroTrend>()
 
   const getProgressBar = (value: number) => {
+    value = (Math.round(Number(value) * 100) / 100)
     return !isNaN(value) ? (
       <div
         data-tip={`${value}%`}
@@ -147,7 +129,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'herald-group',
       header: () => <PlayerRankIcon rank={"HERALD"} title={"Herald"} imgSrc={rank_1}/>,
       columns: [
-        columnHelper.accessor('1_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('1_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('1_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -155,7 +137,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'guardian-group',
       header: () => <PlayerRankIcon rank={"GUARDIAN"} title={"Guardian"} imgSrc={rank_2}/>,
       columns: [
-        columnHelper.accessor('2_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('2_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('2_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -163,7 +145,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'crusader-group',
       header: () => <PlayerRankIcon rank={"CRUSADER"} title={"Crusader"} imgSrc={rank_3}/>,
       columns: [
-        columnHelper.accessor('3_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('3_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('3_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -171,7 +153,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'archon-group',
       header: () => <PlayerRankIcon rank={"ARCHON"} title={"Archon"} imgSrc={rank_4}/>,
       columns: [
-        columnHelper.accessor('4_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('4_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('4_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -179,7 +161,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'legend-group',
       header: () => <PlayerRankIcon rank={"LEGEND"} title={"Legend"} imgSrc={rank_5}/>,
       columns: [
-        columnHelper.accessor('5_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('5_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('5_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -187,7 +169,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'ancient-group',
       header: () => <PlayerRankIcon rank={"ANCIENT"} title={"Ancient"} imgSrc={rank_6}/>,
       columns: [
-        columnHelper.accessor('6_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('6_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('6_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -195,7 +177,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'divine-group',
       header: () => <PlayerRankIcon rank={"DIVINE"} title={"Divine"} imgSrc={rank_7}/>,
       columns: [
-        columnHelper.accessor('7_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('7_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
         columnHelper.accessor('7_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
@@ -203,7 +185,7 @@ const Table: React.FC<Props> = ({ heroStats }) => {
       id: 'immortal-group',
       header: () => <PlayerRankIcon rank={"IMMORTAL"} title={"Immortal"} imgSrc={rank_8}/>,
       columns: [
-        columnHelper.accessor('8_pick', { header: () => <span>Pick %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('8_pick', { header: () => <span>Picks</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
         columnHelper.accessor('8_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
       ],
     }),
