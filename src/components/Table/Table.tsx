@@ -120,11 +120,15 @@ const Table: React.FC<Props> = ({ heroStats }) => {
 
   const columnData:any = [
     columnHelper.accessor('localized_name', { header: () => <span>Hero</span>, cell: (info) => info.renderValue() }),
-    //columnHelper.accessor('pro_ban', { header: () => <span>Pro Ban</span>, cell: (info) => info.renderValue() }),
-    //columnHelper.accessor('pro_pick', { header: () => <span>Pro Pick</span>, cell: (info) => info.renderValue() }),
-    //columnHelper.accessor('pro_win', { header: () => <span>Pro Win</span>, cell: (info) => info.renderValue() }),
-    //columnHelper.accessor('pro_wr', { header: () => <span>Pro WR</span>, cell: (info) => info.renderValue() }),
-
+    columnHelper.group({
+      id: 'pro-group',
+      header: () => <span>Professional</span>,
+      columns: [
+        columnHelper.accessor('pro_pick', { header: () => <span>Picks</span>, cell: (info) => info.renderValue() }),
+        columnHelper.accessor('pro_ban', { header: () => <span>Bans</span>, cell: (info) => info.renderValue() }),
+        columnHelper.accessor('pro_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
     columnHelper.group({
       id: 'herald-group',
       header: () => <PlayerRankIcon rank={"HERALD"} title={"Herald"} imgSrc={rank_1}/>,
