@@ -1,12 +1,12 @@
 import {
   ColumnDef,
-  flexRender,
   getCoreRowModel,
   getFilteredRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
   useReactTable,
+  createColumnHelper,
 } from "@tanstack/react-table";
 import React, { useEffect, useState } from "react";
 import { THeroTrend } from "../../types";
@@ -69,21 +69,13 @@ const defaultVal: THeroTrend[] = [
 
 const hiddenColumns = {
   icon: false,
-  "1_pick": false,
   "1_win": false,
-  "2_pick": false,
   "2_win": false,
-  "3_pick": false,
   "3_win": false,
-  "4_pick": false,
   "4_win": false,
-  "5_pick": false,
   "5_win": false,
-  "6_pick": false,
   "6_win": false,
-  "7_pick": false,
   "7_win": false,
-  "8_pick": false,
   "8_win": false,
   id: false,
   name: false,
@@ -92,121 +84,117 @@ const hiddenColumns = {
   turbo_wins: false,
 };
 
-const getRankIcon = (rank: string) => {
-  const tempRank = rank.split("_");
-  switch (tempRank[0]) {
-    case "1" || 1: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Herald Win Rate"} imgSrc={rank_1} />;
-      }
-      return <PlayerRankIcon rank={"pr"} title={"Herald Pick Rate"} imgSrc={rank_1} />;
-    }
-    case "2" || 2: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Guardian Win Rate"} imgSrc={rank_2} />;
-      }
-      return <PlayerRankIcon rank={"pr"} title={"Guardian Pick Rate"} imgSrc={rank_2} />;
-    }
-    case "3" || 3: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Crusader Win Rate"} imgSrc={rank_3} />;
-      }
-      return <PlayerRankIcon rank={"pr"} title={"Crusader Pick Rate"} imgSrc={rank_3} />;
-    }
-    case "4" || 4: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Archon Win Rate"} imgSrc={rank_4} />;
-      }
-      return <PlayerRankIcon rank={"PR"} title={"Archon Pick Rate"} imgSrc={rank_4} />;
-    }
-    case "5" || 5: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Legend Win Rate"} imgSrc={rank_5} />;
-      }
-      return <PlayerRankIcon rank={"PR"} title={"Legend Pick Rate"} imgSrc={rank_5} />;
-    }
-    case "6" || 6: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Ancient Win Rate"} imgSrc={rank_6} />;
-      }
-      return <PlayerRankIcon rank={"PR"} title={"Ancient Pick Rate"} imgSrc={rank_6} />;
-    }
-    case "7" || 7: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Divine Win Rate"} imgSrc={rank_7} />;
-      }
-      return <PlayerRankIcon rank={"PR"} title={"Divine Pick Rate"} imgSrc={rank_7} />;
-    }
-    case "8" || 8: {
-      if (tempRank[1] === "wr") {
-        return <PlayerRankIcon rank={"WR %"} title={"Immortal Win Rate"} imgSrc={rank_8} />;
-      }
-      return <PlayerRankIcon rank={"PR"} title={"Immortal Pick Rate"} imgSrc={rank_8} />;
-    }
-    default:
-      return <p className="tooltip tooltip-bottom" data-tip="Pro Win Rate">{rank.split("_").join(" ")}</p>;
-  }
-};
-
 const Table: React.FC<Props> = ({ heroStats }) => {
-  const progressBarKeys = [
-    "pro_wr",
-    "1_wr",
-    "2_wr",
-    "3_wr",
-    "4_wr",
-    "5_wr",
-    "6_wr",
-    "7_wr",
-    "8_wr",
-  ];
   const [data, setData] = useState<THeroTrend[]>(DEFAULT_HERO_TREND);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const columnHelper = createColumnHelper<THeroTrend>()
 
-  const columnData: any = Object.keys(defaultVal[0]).map((key, index) => {
-    if (progressBarKeys.indexOf(key) === -1) {
-      return {
-        accessorKey: key,
-        cell: (item: any) => item.getValue(),
-        header: (
-          <p className="tooltip tooltip-bottom " data-tip={COLUMN_HEADERS[index]}>
-            {COLUMN_HEADERS[index].split('_').join(" ")}
-          </p>
-        ),
-      };
-    } else {
-      return {
-        accessorKey: key,
-        cell: (item: any) =>
-          !isNaN(item.getValue()) ? (
-            <div
-              data-tip={`${item.getValue()}%`}
-              className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{item.getValue()} %</p>
-              <progress
-                className={`progress  border border-gray-800 ${
-                  item.getValue() < 50 ? "progress-error" : "progress-success"
-                }`}
-                value={item.getValue()}
-                max={100}
-              />
-            </div>
-          ) : (
-            <div
-              data-tip={`0%`}
-              className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
-              <p className="text-xs text-gray-400">{0} %</p>
-              <progress
-                className="progress progress-info border border-gray-800"
-                value={0}
-                max={100}
-              />
-            </div>
-          ),
-        header: getRankIcon(key),
-      };
-    }
-  });
+  const getProgressBar = (value: number) => {
+    value = (Math.round(Number(value) * 100) / 100)
+    return !isNaN(value) ? (
+      <div
+        data-tip={`${value}%`}
+        className="tooltip tooltip-bottom w-16 h-auto z-0 flex flex-col items-start gap-1">
+        <p className="text-xs text-gray-400">{value} %</p>
+        <progress
+          className={`progress  border border-gray-800 ${
+            value < 50 ? "progress-error" : "progress-success"
+          }`}
+          value={value}
+          max={100}
+        />
+      </div>
+    ) : (
+      <div
+        data-tip={`0%`}
+        className="tooltip tooltip-bottom w-16 h-auto  z-0 flex flex-col items-start gap-1">
+        <p className="text-xs text-gray-400">{0} %</p>
+        <progress
+          className="progress progress-info border border-gray-800"
+          value={0}
+          max={100}
+        />
+      </div>
+    )
+  };
+
+  const columnData:any = [
+    columnHelper.accessor('localized_name', { header: () => <span>Hero</span>, cell: (info) => info.renderValue() }),
+    columnHelper.group({
+      id: 'pro-group',
+      header: () => <span>Professional</span>,
+      columns: [
+        columnHelper.accessor('pro_pick', { header: () => <span>Picks</span>, cell: (info) => info.renderValue() }),
+        columnHelper.accessor('pro_ban', { header: () => <span>Bans</span>, cell: (info) => info.renderValue() }),
+        columnHelper.accessor('pro_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'herald-group',
+      header: () => <PlayerRankIcon rank={"HERALD"} title={"Herald"} imgSrc={rank_1}/>,
+      columns: [
+        columnHelper.accessor('1_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('1_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'guardian-group',
+      header: () => <PlayerRankIcon rank={"GUARDIAN"} title={"Guardian"} imgSrc={rank_2}/>,
+      columns: [
+        columnHelper.accessor('2_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('2_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'crusader-group',
+      header: () => <PlayerRankIcon rank={"CRUSADER"} title={"Crusader"} imgSrc={rank_3}/>,
+      columns: [
+        columnHelper.accessor('3_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('3_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'archon-group',
+      header: () => <PlayerRankIcon rank={"ARCHON"} title={"Archon"} imgSrc={rank_4}/>,
+      columns: [
+        columnHelper.accessor('4_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('4_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'legend-group',
+      header: () => <PlayerRankIcon rank={"LEGEND"} title={"Legend"} imgSrc={rank_5}/>,
+      columns: [
+        columnHelper.accessor('5_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('5_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'ancient-group',
+      header: () => <PlayerRankIcon rank={"ANCIENT"} title={"Ancient"} imgSrc={rank_6}/>,
+      columns: [
+        columnHelper.accessor('6_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('6_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'divine-group',
+      header: () => <PlayerRankIcon rank={"DIVINE"} title={"Divine"} imgSrc={rank_7}/>,
+      columns: [
+        columnHelper.accessor('7_pick', { header: () => <span>Picks</span>, cell: (item: any) => item.getValue() }),
+        columnHelper.accessor('7_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+    columnHelper.group({
+      id: 'immortal-group',
+      header: () => <PlayerRankIcon rank={"IMMORTAL"} title={"Immortal"} imgSrc={rank_8}/>,
+      columns: [
+        columnHelper.accessor('8_pick', { header: () => <span>Picks</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+        columnHelper.accessor('8_wr', { header: () => <span>Win %</span>, cell: (item: any) => getProgressBar(item.getValue()) }),
+      ],
+    }),
+  ]
+
   const columns: ColumnDef<THeroTrend>[] = columnData;
 
   useEffect(() => {
@@ -221,9 +209,16 @@ const Table: React.FC<Props> = ({ heroStats }) => {
     getCoreRowModel: getCoreRowModel(),
     getFilteredRowModel: getFilteredRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
-    state: { columnVisibility: hiddenColumns, sorting },
     onSortingChange: setSorting,
     getSortedRowModel: getSortedRowModel(),
+    state: { columnVisibility: hiddenColumns, sorting},
+    initialState: {
+      pagination: {
+        // Custom initial state to modify the defaults
+        //pageIndex: 0,
+        pageSize: 150
+      },
+    },
   });
 
   return (

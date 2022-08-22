@@ -23,7 +23,7 @@ const TableHeaderItem = ({ headerItem }: Props) => {
   return (
     <tr>
       {headerItem.headers.map((header, index) =>
-        index !== 0 ? (
+        header.id != 'localized_name' ? (
           <td key={header.id} colSpan={header.colSpan}>
             <div onClick={header.column.getToggleSortingHandler()}>
               {header.isPlaceholder ? null : (

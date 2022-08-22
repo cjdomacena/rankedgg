@@ -2,7 +2,7 @@ import NavLogo from "./NavLogo";
 import NavPill from "./NavPills/NavPill";
 import { BiWorld, BiWifi, BiMenuAltRight } from "react-icons/bi";
 import { IoPeopleOutline } from "react-icons/io5";
-import { FiGrid, FiMenu } from "react-icons/fi";
+import { FiGrid, FiMenu, FiTrendingUp } from "react-icons/fi";
 import MatchIdSearch from "./MatchIdSearch";
 import { AiFillCloseCircle } from "react-icons/ai";
 import { Menu, Transition } from "@headlessui/react";
@@ -36,11 +36,11 @@ const Nav = (props: Props) => {
       icon: <FiGrid className="mr-1" />,
       path: "/heroes/all",
     },
-    // {
-    //   text: "Trending Heroes",
-    //   icon: <FiTrendingUp className="mr-1" />,
-    //   path: "/heroes/trending",
-    // },
+    {
+      text: "Trending Heroes",
+      icon: <FiTrendingUp className="mr-1" />,
+      path: "/heroes/trending",
+    },
   ];
 
   return (
@@ -48,7 +48,7 @@ const Nav = (props: Props) => {
       <nav className="py-4 2xl:px-8 xl:px-8 lg:px-8 px-2  flex text-neutral-50 gap-4 items-center mx-auto justify-between">
         <NavLogo />
         <ul className="hidden gap-2 2xl:flex xl:flex lg:flex  items-center">
-          <NavPill text="Heroes" link="heroes/all" />
+          <NavPill text="Heroes"  pills={heroesPills} />
           <NavPill text="Matches" pills={matchesPills} />
           <NavPill text="Teams" link="/teams" />
         </ul>
