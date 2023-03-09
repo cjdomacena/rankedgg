@@ -409,3 +409,10 @@ export const filterTeamMatches = (
   );
   return filteredMatches;
 };
+
+export const hasProperty = (obj: Object, property: string) => {
+  if (Object.prototype.hasOwnProperty.call(obj, property)) {
+    return true;
+  }
+  return false;
+};
