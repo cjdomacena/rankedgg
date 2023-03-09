@@ -411,8 +411,9 @@ export const filterTeamMatches = (
 };
 
 export const hasProperty = (obj: Object, property: string) => {
-  if (Object.prototype.hasOwnProperty.call(obj, property)) {
+  if (obj && obj.hasOwnProperty.call(obj, property)) {
     return true;
   }
   return false;
 };
+
