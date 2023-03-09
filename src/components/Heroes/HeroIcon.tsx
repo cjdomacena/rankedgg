@@ -26,6 +26,8 @@ const HeroIcon = ({ heroIndex, isLoading, className, isRadiant }: Props) => {
         />
       </div>
     );
+  } else {
+    return <></>;
   }
 };
 

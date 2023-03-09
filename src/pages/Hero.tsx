@@ -363,7 +363,7 @@ const Hero = (props: Props) => {
                 <div className="2xl:w-5/6 xl:w-3/4 lg:w-3/4 w-full mx-auto space-y-12">
                   <HeroHeader
                     imgSrc={getImageUrl(null, hero.img)}
-                    name={hero.localized_name}
+                    name={hero.localized_name ?? ""}
                     roles={hero.roles}
                     heroId={hero.id}
                   />
@@ -426,3 +426,4 @@ const Hero = (props: Props) => {
 };
 
 export default Hero;
+

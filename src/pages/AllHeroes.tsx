@@ -38,16 +38,19 @@ const AllHeroes: React.FC = () => {
         <PrimaryLayout className="h-full flex items-center min-h-screen">
           <div className="w-full h-full mt-8">
             <PageHeaderBG />
-              <div className="container mx-auto flex justify-between text-neutral-300 items-center  px-12 flex-wrap gap-2">
-                <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
-                <input
-                  className=" input input-md  ring ring-neutral rounded xl:w-56 lg:w-auto md:w-auto w-full"
-                  placeholder="Search Hero"
-                  value={searchInput}
-                  onChange={handleSearchInput}
-                />
-              </div>
-     
+            <div className="container mx-auto flex justify-between text-neutral-300 items-center  px-12 flex-wrap gap-2">
+              <PageHeader
+                icon={<FiGrid className="w-6 h-6 mr-2" />}
+                title="All Heroes"
+              />
+              <input
+                className=" input input-md  ring ring-neutral rounded xl:w-56 lg:w-auto md:w-auto w-full"
+                placeholder="Search Hero"
+                value={searchInput}
+                onChange={handleSearchInput}
+              />
+            </div>
+
             <div className="container mx-auto pt-8 pb-10 px-8">
               <AllHeroLayout type="Strength">
                 {data.strength.map((hero) => (
@@ -55,11 +58,13 @@ const AllHeroes: React.FC = () => {
                     src={hero.img}
                     key={`${id}-${hero.id}`}
                     className={
-                      matches.includes(formatHeroName(hero.localized_name))
-                        ? formatHeroName(hero.localized_name)
+                      matches.includes(
+                        formatHeroName(hero.localized_name ?? "")
+                      )
+                        ? formatHeroName(hero.localized_name ?? "")
                         : "opacity-30"
                     }
-                    heroName={formatHeroName(hero.localized_name)}
+                    heroName={formatHeroName(hero.localized_name ?? "")}
                     id={hero.id}
                   />
                 ))}
@@ -70,11 +75,13 @@ const AllHeroes: React.FC = () => {
                     src={hero.img}
                     key={`${id}-${hero.id}`}
                     className={
-                      matches.includes(formatHeroName(hero.localized_name))
+                      matches.includes(
+                        formatHeroName(hero.localized_name ?? "")
+                      )
                         ? "opacity-100" //formatHeroName(hero.localized_name)
                         : "opacity-30"
                     }
-                    heroName={formatHeroName(hero.localized_name)}
+                    heroName={formatHeroName(hero.localized_name ?? "")}
                     id={hero.id}
                   />
                 ))}
@@ -85,11 +92,13 @@ const AllHeroes: React.FC = () => {
                     src={hero.img}
                     key={`${id}-${hero.id}`}
                     className={
-                      matches.includes(formatHeroName(hero.localized_name))
+                      matches.includes(
+                        formatHeroName(hero.localized_name ?? "")
+                      )
                         ? "opacity-100" //formatHeroName(hero.localized_name)
                         : "opacity-30"
                     }
-                    heroName={formatHeroName(hero.localized_name)}
+                    heroName={formatHeroName(hero.localized_name ?? "")}
                     id={hero.id}
                   />
                 ))}
@@ -104,7 +113,10 @@ const AllHeroes: React.FC = () => {
         <PrimaryLayout>
           <div className="container mx-auto font-bold flex justify-between text-neutral-300 items-center p-4 flex-wrap gap-2 h-full mt-12">
             <PageHeaderBG />
-            <PageHeader icon={<FiGrid className="w-6 h-6 mr-2" />} title="All Heroes" />
+            <PageHeader
+              icon={<FiGrid className="w-6 h-6 mr-2" />}
+              title="All Heroes"
+            />
             <input
               className=" input input-md input-secondary rounded-sm xl:w-auto lg:w-auto md:w-auto w-full"
               placeholder="Search Hero"
@@ -123,3 +135,4 @@ const AllHeroes: React.FC = () => {
 };
 
 export default AllHeroes;
+

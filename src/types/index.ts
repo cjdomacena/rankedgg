@@ -1,7 +1,7 @@
 export type THero = {
   id: number;
   name: string;
-  localized_name: string;
+  localized_name?: string;
   primary_attr: string;
   attack_type: string;
   roles: string[];
@@ -240,3 +240,4 @@ export type TTeamMatches = {
   opposing_team_name: string;
   opposing_team_logo: string;
 };
+
