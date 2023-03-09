@@ -15,7 +15,11 @@ const HeroIcon = ({ heroIndex, isLoading, className, isRadiant }: Props) => {
     return (
       <div
         className={`w-8 h-8  tooltip tooltip-top tooltip-info ${className}  rounded-full p-1 `}
-        data-tip={HEROES[heroIndex].localized_name}
+        data-tip={
+          hasProperty(HEROES[heroIndex], "localized_name")
+            ? HEROES[heroIndex].localized_name
+            : ""
+        }
       >
         <img
           src={getImageUrl(heroIndex, "")}
