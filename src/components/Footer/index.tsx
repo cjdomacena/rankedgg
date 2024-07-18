@@ -19,7 +19,7 @@ const Footer = (props: Props) => {
             </a>
           </p>
           <p>
-            This site uses
+            This site uses{" "}
             <a
               href="https://www.opendota.com/"
               className="underline"

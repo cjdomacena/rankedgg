@@ -56,6 +56,7 @@ const PublicMatches = (props: Props) => {
   //   }]
   // ;
   const { data: matches, status } = useGetPublicMatches();
+  
   const [show, setShow] = useState<number>(50);
   const handleChange = (e: any) => {
     setShow(e.currentTarget.value);

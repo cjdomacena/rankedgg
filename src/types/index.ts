@@ -118,8 +118,8 @@ export type TPublicMatches = {
   avg_rank_tier: number;
   num_rank_tier: number;
   cluster: number;
-  radiant_team: string;
-  dire_team: string;
+  radiant_team: number[];
+  dire_team: number[];
 };
 export enum Attributes {
   agi = "Agility",
@@ -150,12 +150,12 @@ export type TAllAbilities = {
   bkbpierce: string;
   desc: string;
   attrib:
-    | {
-        key: string;
-        header: string;
-        value: string[] | string | null;
-      }[]
-    | [];
+  | {
+    key: string;
+    header: string;
+    value: string[] | string | null;
+  }[]
+  | [];
   mc: string[] | string | null;
   cd: string | number;
   img: string;

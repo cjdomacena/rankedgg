@@ -37,14 +37,15 @@ const Benchmark = ({ id }: Props) => {
       tooltipTitle: "Hero damage",
     },
     {
-      key: "lhten",
+      key: "last_hits_per_min",
       title: "Last hits at 10 mins.",
       color: "#007d79",
       tooltipTitle: "Last hits",
     },
   ];
 
-  switch (status) {
+  switch (status)
+  {
     case "success": {
       return (
         <div className="my-8">
