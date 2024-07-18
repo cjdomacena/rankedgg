@@ -8,7 +8,6 @@ type Props = {
 }
 
 const PublicHeroes = ({ radiantTeam, direTeam, isRadiantWin }: Props) => {
-  console.log(radiantTeam)
   return (
     <div className="flex gap-4 p-3 mt-1 items-center rounded flex-col w-full shadow-2xl border border-black/20 bg-black/30">
       <div className="flex items-center gap-2">

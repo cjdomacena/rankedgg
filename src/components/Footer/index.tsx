@@ -1,9 +1,4 @@
-import React from "react";
-import { FaGithub } from "react-icons/fa";
-
-type Props = {};
-
-const Footer = (props: Props) => {
+const Footer = () => {
   return (
     <footer className="w-full h-auto p-4 bg-[#0a0f1c] text-gray-300 ">
       <div className="text-neutral-400 text-center text-xs ">
